@@ -18,7 +18,7 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "liblv.h"
+#include "llv.h"
 
 char	*lv_tstr_dup_cstr(t_string *str)
 {

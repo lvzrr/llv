@@ -18,7 +18,7 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "liblv.h"
+#include "llv.h"
 
 t_string	lv_tstr_from_cstr(const char *str)
 {

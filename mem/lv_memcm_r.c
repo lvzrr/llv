@@ -1,5 +1,5 @@
 /**
- * lv_memlk_r.c
+ * lv_memcm_r.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *

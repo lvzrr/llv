@@ -18,7 +18,7 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "liblv.h"
+#include "llv.h"
 
 void	lv_tstr_free(t_string *str)
 {

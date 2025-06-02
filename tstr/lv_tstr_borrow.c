@@ -18,7 +18,7 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "liblv.h"
+#include "llv.h"
 
 const char	*lv_tstr_borrow(const t_string *str)
 {

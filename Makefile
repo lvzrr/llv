@@ -20,15 +20,10 @@
 
 NAME		:=	liblv.a
 CC			:=	cc
-GC			?=	0
-GC_VRB		?=	0
-
 FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-promotion \
-			-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=2 \
-			-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3\
-			$(if $(filter 1,$(GC)),-DUSE_GC) \
-			$(if $(filter 1,$(GC_VRB)),-DLK_VERB)
-AR		:=	ar rcs
+				-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=2 \
+				-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
+AR			:=	ar rcs
 OBJDIR		:=	build
 DIRS		:=	arena map vec tstr cstr alloc in is mem num out lst
 
