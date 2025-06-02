@@ -20,15 +20,6 @@
 
 #include "vec.h"
 
-__attribute__((always_inline))
-static inline size_t	max(size_t a, size_t b)
-{
-	if (a > b)
-		return (a);
-	else
-		return (b);
-}
-
 void	lv_vec_push(t_vec *vec, void *data, size_t len)
 {
 	void	*tmp;
@@ -38,7 +29,7 @@ void	lv_vec_push(t_vec *vec, void *data, size_t len)
 		return ;
 	if (vec->size + len > vec->alloc_size)
 	{
-		new_alloc = max(vec->alloc_size * 2, vec->size + len);
+		new_alloc = LV_MAX(vec->alloc_size * 2, vec->size + len);
 		tmp = lv_extend_zero(vec->data,
 				vec->alloc_size * vec->sizeof_type,
 				(new_alloc - vec->alloc_size) * vec->sizeof_type);

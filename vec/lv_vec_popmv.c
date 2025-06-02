@@ -20,8 +20,6 @@
 
 #include "vec.h"
 
-__attribute__((always_inline))
-__attribute__((hot))
 inline t_u8	lv_vec_popmv(void *__restrict__ dst,
 	t_vec *__restrict__ v)
 {

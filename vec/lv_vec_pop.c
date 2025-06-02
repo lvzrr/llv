@@ -20,8 +20,6 @@
 
 #include "vec.h"
 
-__attribute__((always_inline))
-__attribute__((hot))
 inline void	lv_vec_pop(t_vec *__restrict__ v)
 {
 	void	*ptr;

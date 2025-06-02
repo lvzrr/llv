@@ -20,7 +20,9 @@
 
 #include "mem.h"
 
-#define STACKED_SIZE 512
+#ifndef BUFFER_SIZE
+ # define BUFFER_SIZE 256
+#endif
 
 __attribute__((always_inline))
 inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
@@ -43,7 +45,7 @@ __attribute__((always_inline))
 inline static t_u8	lv_memswap_bounded(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
-	LV_ALIGN(128) t_u8 buffer[STACKED_SIZE];
+	LV_ALIGN(128) t_u8 buffer[BUFFER_SIZE];
 
 	if (!p1 || !p2 || !len)
 		return (0);
@@ -58,7 +60,7 @@ __attribute__((hot))
 inline t_u8	lv_memswap(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
-	if (len <= STACKED_SIZE)
+	if (len <= BUFFER_SIZE)
 		return (lv_memswap_bounded(p1, p2, len));
 	else
 		return (lv_memswap_dyn(p1, p2, len));

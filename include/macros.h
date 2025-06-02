@@ -34,4 +34,8 @@
 #  define LV_DEFER __attribute((cleanup(lv_defer)))
 # endif
 
+# ifndef LV_MAX
+#  define LV_MAX(x, y) (x > y) ? x : y
+# endif
+
 #endif

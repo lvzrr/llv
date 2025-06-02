@@ -20,6 +20,10 @@
 
 #include "llv.h"
 
+#ifndef BUFSIZE
+# define BUFSIZE 64
+#endif
+
 static void	*free_buf(char **ptr)
 {
 	if (!ptr || !*ptr)
@@ -77,13 +81,13 @@ static char	*read_buffer(int fd, char *buffer)
 	char				*joined;
 	int					bread;
 
-	tmp = lv_alloc(BUFFER_SIZE + 1);
+	tmp = lv_alloc(BUFSIZE + 1);
 	if (!tmp)
 		return (free_buf(&buffer));
 	bread = 1;
 	while (bread > 0 && !lv_strchr(buffer, '\n'))
 	{
-		bread = read(fd, tmp, BUFFER_SIZE);
+		bread = read(fd, tmp, BUFSIZE);
 		if (bread > 0)
 		{
 			tmp[bread] = '\0';
@@ -104,7 +108,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFSIZE <= 0)
 		return (NULL);
 	if (!buffer)
 	{
