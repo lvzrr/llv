@@ -20,6 +20,22 @@
 
 #include "alloc.h"
 
+/*
+ * Function: lv_defer
+ * ------------------
+ * Cleanup function used with LV_DEFER attribute.
+ *
+ * Parameters:
+ *   p - pointer to the memory pointer to be freed
+ *
+ * Returns:
+ *   None.
+ *
+ * Notes:
+ *   - Used for scope-based automatic cleanup.
+ *   - Frees the memory and sets the pointer to NULL.
+ */
+
 void	lv_defer(void *p)
 {
 	lv_free((void **)p);

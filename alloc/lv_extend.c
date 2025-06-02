@@ -20,19 +20,37 @@
 
 #include "alloc.h"
 
+/*
+ * Function: lv_extend
+ * -------------------
+ * Extends a memory block by allocating a new block of n + size bytes,
+ * copying the original data, and freeing the old block.
+ *
+ * Parameters:
+ *   ptr  - original memory block (can be NULL)
+ *   n    - size of data currently stored in ptr
+ *   size - number of additional bytes to add
+ *
+ * Returns:
+ *   Pointer to the new extended memory block, or NULL on failure.
+ *
+ * Notes:
+ *   - Always frees the original pointer.
+ *   - Returns NULL if size is zero and ptr is non-NULL.
+ *   - Memory is not zero-initialized.
+ */
+
 void	*lv_extend(void *ptr, size_t n, size_t size)
 {
 	unsigned char	*p2;
 
-	if (size > SIZE_MAX - n)
-		return (NULL);
-	if (size == 0 && ptr)
-		return (NULL);
+	if (size > SIZE_MAX - n || (size == 0 && ptr))
+		return (lv_free(&ptr), NULL);
 	if (!ptr)
 		return (lv_alloc(n + size));
 	p2 = lv_alloc(n + size);
 	if (!p2)
 		return (NULL);
 	lv_memmove(p2, ptr, n);
-	return (p2);
+	return (lv_free(&ptr), p2);
 }

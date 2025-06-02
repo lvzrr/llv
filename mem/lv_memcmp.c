@@ -36,6 +36,7 @@ inline ssize_t	_alinger(void *__restrict__ dest,
 			return (-1);
 		x += sizeof(t_u8);
 		*n -= sizeof(t_u8) * 2;
+		*r = _aligned((t_u8 *)dest, (t_u8 *)src, &x);
 	}
 	return (x);
 }
@@ -50,7 +51,7 @@ t_u8	lv_memcmp(void *__restrict__ dest,
 
 	if (n == 0)
 		return (0);
-	r = 0;
+	r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
 	r3 = 1;
 	r2 = _alinger(dest, src, &n, &r);
 	if (r2 < 0)

@@ -20,6 +20,22 @@
 
 #include "alloc.h"
 
+/*
+ * Function: lv_free
+ * -----------------
+ * Frees a memory block and nullifies the pointer.
+ *
+ * Parameters:
+ *   ptr - address of the pointer to free
+ *
+ * Returns:
+ *   None.
+ *
+ * Notes:
+ *   - Safe to call on NULL or already-freed pointers.
+ *   - Helps prevent use-after-free bugs.
+ */
+
 void	lv_free(void	**ptr)
 {
 	if (!ptr || !*ptr)

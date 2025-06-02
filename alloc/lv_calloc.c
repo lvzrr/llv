@@ -20,6 +20,23 @@
 
 #include "alloc.h"
 
+/*
+ * Function: lv_calloc
+ * -------------------
+ * Allocates and zeroes a block of memory with 128-byte alignment.
+ *
+ * Parameters:
+ *   n    - number of elements
+ *   size - size of each element
+ *
+ * Returns:
+ *   A pointer to the allocated memory on success.
+ *   NULL on overflow or allocation failure.
+ *
+ * Notes:
+ *   - Equivalent to calloc(n, size), but aligned.
+ */
+
 void	*lv_calloc(size_t n, size_t size)
 {
 	void			*alloc;

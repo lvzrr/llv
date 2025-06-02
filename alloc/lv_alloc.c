@@ -21,6 +21,23 @@
 #include "alloc.h"
 #include "printf.h"
 
+/*
+ * Function: lv_alloc
+ * ------------------
+ * Allocates a memory block with 128-byte alignment.
+ *
+ * Parameters:
+ *   size - size of memory to allocate in bytes
+ *
+ * Returns:
+ *   A pointer to the allocated memory on success.
+ *   NULL on failure.
+ *
+ * Notes:
+ *   - Uses posix_memalign to ensure alignment.
+ *   - Intended for optimized use with lv_mem* operations.
+ */
+
 void	*lv_alloc(size_t size)
 {
 	void	*new_alloc;

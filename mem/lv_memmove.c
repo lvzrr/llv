@@ -28,7 +28,7 @@ static inline void	b(void *__restrict__ dest,
 	t_u8	r;
 
 	i = 0;
-	r = 0;
+	r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
 	while (n >= 2 && !r)
 	{
 		((t_u8 *)dest)[i] = ((t_u8 *)src)[i];

@@ -20,13 +20,29 @@
 
 #include "alloc.h"
 
+/*
+ * Function: lv_extend_zero
+ * ------------------------
+ * Same as lv_extend, but zero-initializes the new memory.
+ *
+ * Parameters:
+ *   ptr  - original memory block (can be NULL)
+ *   n    - size of data currently stored in ptr
+ *   size - number of additional bytes to add
+ *
+ * Returns:
+ *   Pointer to the new extended memory block, or NULL on failure.
+ *
+ * Notes:
+ *   - Always frees the original pointer.
+ *   - New memory is zero-initialized.
+ */
+
 void	*lv_extend_zero(void *ptr, size_t n, size_t size)
 {
 	unsigned char	*p2;
 
-	if (size > SIZE_MAX - n)
-		return (NULL);
-	if (size == 0 && ptr)
+	if (size > SIZE_MAX - n || (size == 0 && ptr))
 		return (lv_free(&ptr), NULL);
 	if (!ptr)
 		return (lv_calloc(n + size, 1));

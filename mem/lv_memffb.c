@@ -36,15 +36,13 @@ static inline t_u128	populate(t_u8 y)
 __attribute__((always_inline))
 static inline void	*_look4_u64_tmp(void *__restrict__ ptr,
 	t_u64 x,
-	size_t *__restrict__ n, size_t *__restrict__ i)
+	size_t *__restrict__ n, size_t *__restrict__ i, t_u8 *__restrict__ r)
 {
 	t_u64	*d;
-	t_u8	r;
 	int		lk;
 
 	d = (t_u64 *) __builtin_assume_aligned(ptr, 8);
-	r = 0;
-	while (*n >= sizeof(t_u64) * 2 && !r)
+	while (*n >= sizeof(t_u64) * 2 && !*r)
 	{
 		lk = _lookup_u64(*d++, x);
 		if (lk != -1)
@@ -54,7 +52,7 @@ static inline void	*_look4_u64_tmp(void *__restrict__ ptr,
 			return ((t_u8 *)d - sizeof(t_u64) + lk);
 		*n -= sizeof(t_u64) * 2;
 		*i += sizeof(t_u64) * 2;
-		r = _aligned((t_u8 *)ptr, NULL, i);
+		*r = _aligned((t_u8 *)ptr, NULL, i);
 	}
 	return (NULL);
 }
@@ -71,8 +69,9 @@ void	*lv_memffb(const void *__restrict__ ptr,
 		return (NULL);
 	mask = populate(x);
 	i = 0;
-	p = _look4_u64_tmp((t_u8 *)ptr, mask, &n, &i);
 	r = _aligned((t_u8 *)ptr, NULL, &i);
+	if (r == 0)
+		p = _look4_u64_tmp((t_u8 *)ptr, mask, &n, &i, &r);
 	if (n >= sizeof(t_u128) * 2 && r == 128 && !p)
 		p = _look4_u128_fwd((t_u8 *)ptr, mask, &n, &i);
 	else if (n >= sizeof(t_u64) * 2 && r >= 64 && !p)
@@ -96,8 +95,9 @@ void	*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 		return (NULL);
 	mask = populate(x);
 	i = 0;
-	p = _look4_u64_tmp((t_u8 *)ptr, mask, &n, &i);
 	r = _aligned((t_u8 *)ptr, NULL, &i);
+	if (r == 0)
+		p = _look4_u64_tmp((t_u8 *)ptr, mask, &n, &i, &r);
 	if (n >= sizeof(t_u128) * 2 && r == 128 && !p)
 		p = _look4_u128_fwd((t_u8 *)ptr, mask, &n, &i);
 	else if (n >= sizeof(t_u64) * 2 && r >= 64 && !p)

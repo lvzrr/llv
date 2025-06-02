@@ -20,6 +20,24 @@
 
 #include "alloc.h"
 
+/*
+ * Function: lv_recalloc
+ * ---------------------
+ * Reallocates memory to a new size and zeroes the entire new block.
+ *
+ * Parameters:
+ *   ptr  - original memory block (can be NULL)
+ *   n    - number of bytes to copy from the original block
+ *   size - new size for the reallocated memory
+ *
+ * Returns:
+ *   Pointer to the new memory block, or NULL on failure.
+ *
+ * Notes:
+ *   - Always frees the original pointer.
+ *   - Zero-initializes the full new memory region.
+ */
+
 void	*lv_recalloc(void *ptr, size_t n, size_t size)
 {
 	void	*p;

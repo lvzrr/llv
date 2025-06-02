@@ -27,6 +27,7 @@ inline size_t	_alinger(void *__restrict__ dest,
 	size_t	x;
 
 	x = 0;
+	*r = _aligned((t_u8 *)dest, (t_u8 *)src, &x);
 	while (*n >= 2 && !*r)
 	{
 		((t_u8 *)dest)[x] = ((t_u8 *)src)[x];
@@ -48,7 +49,6 @@ void	*lv_memcpy(void *__restrict__ dest,
 
 	if ((!dest || !src || dest == src) && n != 0)
 		return (NULL);
-	i = 0;
 	r = 0;
 	ret = dest;
 	i = _alinger(dest, src, &n, &r);
