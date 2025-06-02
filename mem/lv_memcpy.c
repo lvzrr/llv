@@ -54,9 +54,9 @@ void	*lv_memcpy(void *__restrict__ dest,
 	i = _alinger(dest, src, &n, &r);
 	if (n >= sizeof(t_u128) * 2 && r == 128)
 		_copy_u128_fwd((t_u8 *)dest, (t_u8 *)src, &n, &i);
-	if (n >= sizeof(t_u64) * 2 && r == 64)
+	else if (n >= sizeof(t_u64) * 2 && r >= 64)
 		_copy_u64_fwd((t_u8 *)dest, (t_u8 *)src, &n, &i);
-	else if (n >= sizeof(t_u32) * 2 && r == 32)
+	else if (n >= sizeof(t_u32) * 2 && r >= 32)
 		_copy_u32_fwd((t_u8 *)dest, (t_u8 *)src, &n, &i);
 	if (n > 0)
 		_copy_u8_fwd((t_u8 *)dest, (t_u8 *)src, &n, &i);

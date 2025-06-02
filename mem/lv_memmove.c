@@ -39,9 +39,9 @@ static inline void	b(void *__restrict__ dest,
 	}
 	if (n > sizeof(t_u128) * 2 && r == 128)
 		_copy_u128_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
-	else if (n > sizeof(t_u64) * 2 && r == 64)
+	else if (n > sizeof(t_u64) * 2 && r >=  64)
 		_copy_u64_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
-	else if (n > sizeof(t_u32) * 32 && r == 32)
+	else if (n > sizeof(t_u32) * 32 && r >= 32)
 		_copy_u32_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
 	if (n > 0)
 		_copy_u8_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);

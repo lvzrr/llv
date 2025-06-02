@@ -75,9 +75,9 @@ void	*lv_memffb(const void *__restrict__ ptr,
 	r = _aligned((t_u8 *)ptr, NULL, &i);
 	if (n >= sizeof(t_u128) * 2 && r == 128 && !p)
 		p = _look4_u128_fwd((t_u8 *)ptr, mask, &n, &i);
-	else if (n >= sizeof(t_u64) * 2 && r == 64 && !p)
+	else if (n >= sizeof(t_u64) * 2 && r >= 64 && !p)
 		p = _look4_u64_fwd((t_u8 *)ptr, mask, &n, &i);
-	else if (n >= sizeof(t_u32) * 2 && r == 32 && !p)
+	else if (n >= sizeof(t_u32) * 2 && r >= 32 && !p)
 		p = _look4_u32_fwd((t_u8 *)ptr, (t_u32)mask, &n, &i);
 	if (n > 0 && !p)
 		p = _look4_u8_fwd((t_u8 *)ptr, x, &n, &i);
@@ -100,9 +100,9 @@ void	*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 	r = _aligned((t_u8 *)ptr, NULL, &i);
 	if (n >= sizeof(t_u128) * 2 && r == 128 && !p)
 		p = _look4_u128_fwd((t_u8 *)ptr, mask, &n, &i);
-	else if (n >= sizeof(t_u64) * 2 && r == 64 && !p)
+	else if (n >= sizeof(t_u64) * 2 && r >= 64 && !p)
 		p = _look4_u64_fwd((t_u8 *)ptr, (t_u64)mask, &n, &i);
-	else if (n >= sizeof(t_u32) * 2 && r == 32 && !p)
+	else if (n >= sizeof(t_u32) * 2 && r >= 32 && !p)
 		p = _look4_u32_fwd((t_u8 *)ptr, (t_u32)mask, &n, &i);
 	if (!p)
 		p = _look4_u8_fwd_unsafe((t_u8 *)ptr, x, &n, &i);

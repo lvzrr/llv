@@ -58,9 +58,9 @@ t_u8	lv_memcmp(void *__restrict__ dest,
 	i = (size_t)r2;
 	if (n >= sizeof(t_u128) * 2 && r == 128)
 		r3 = _cmp_u128((t_u8 *)dest, (t_u8 *)src, &n, &i);
-	if (n >= sizeof(t_u64) * 2 && r == 64)
+	else if (n >= sizeof(t_u64) * 2 && r >= 64)
 		r3 = _cmp_u64((t_u8 *)dest, (t_u8 *)src, &n, &i);
-	else if (n >= sizeof(t_u32) * 2 && r == 32)
+	else if (n >= sizeof(t_u32) * 2 && r >= 32)
 		r3 = _cmp_u32((t_u8 *)dest, (t_u8 *)src, &n, &i);
 	if (n > 0 && r3 != 0)
 		r3 = _cmp_u8((t_u8 *)dest, (t_u8 *)src, &n, &i);
