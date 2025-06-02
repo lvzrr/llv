@@ -73,9 +73,9 @@ static char	*getl(char *buffer)
 
 static char	*read_buffer(int fd, char *buffer)
 {
-	char	*tmp;
-	char	*joined;
-	int		bread;
+	DEFER char	*tmp;
+	char		*joined;
+	int			bread;
 
 	tmp = malloc(BUFFER_SIZE + 1);
 	if (!tmp)
@@ -89,12 +89,11 @@ static char	*read_buffer(int fd, char *buffer)
 			tmp[bread] = '\0';
 			joined = lv_strjoin(buffer, tmp);
 			if (!joined)
-				return (free_buf(&tmp), free_buf(&buffer));
+				return (free_buf(&buffer));
 			free_buf(&buffer);
 			buffer = joined;
 		}
 	}
-	free_buf(&tmp);
 	if (bread == -1)
 		return (free_buf(&buffer));
 	return (buffer);
