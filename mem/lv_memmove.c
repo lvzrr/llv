@@ -53,7 +53,8 @@ inline void	*lv_memmove(void *__restrict__ dest,
 {
 	if (!dest || !src || dest == src || n == 0)
 		return (dest);
-	if ((t_uptr)src < (t_uptr)dest)
+	if ((t_uptr)src < (t_uptr)dest
+		&& (t_uptr)src + n >= (t_uptr)dest)
 		b(dest, src, n);
 	else
 		lv_memcpy(dest, src, n);
