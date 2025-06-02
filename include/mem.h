@@ -25,6 +25,10 @@
 # include "alloc.h"
 # include "structs.h"
 
+# ifndef LV_ALIGN
+#  define LV_ALIGN(x) __attribute__((aligned(x)))
+# endif
+
 // Actual api
 
 void			lv_bzero(void *__restrict__ ptr, size_t n);

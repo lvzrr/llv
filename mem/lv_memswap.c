@@ -43,7 +43,7 @@ __attribute__((always_inline))
 inline static t_u8	lv_memswap_bounded(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
-	t_u8 buffer[STACKED_SIZE] __attribute__((aligned(16)));
+	LV_ALIGN(128) t_u8 buffer[STACKED_SIZE];
 
 	if (!p1 || !p2 || !len)
 		return (0);
