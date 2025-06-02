@@ -20,23 +20,50 @@
 
 #include "mem.h"
 
-int	lv_memcmp(const void *__restrict__ r1,
-	const void *__restrict__ r2, size_t n)
+__attribute__((always_inline))
+inline ssize_t	_alinger(void *__restrict__ dest,
+	const void *__restrict__ src, size_t *n, t_u8 *r)
 {
-	t_u8	*_r1;
-	t_u8	*_r2;
+	size_t	x;
 
-	_r1 = (t_u8 *)r1;
-	_r2 = (t_u8 *)r2;
+	x = 0;
+	while (*n >= 2 && !*r)
+	{
+		if(((t_u8 *)dest + x)[0] != ((t_u8 *)src + x)[0])
+			return (-1);
+		x += sizeof(t_u8);
+		if(((t_u8 *)dest + x)[0] != ((t_u8 *)src + x)[0])
+			return (-1);
+		x += sizeof(t_u8);
+		*n -= sizeof(t_u8) * 2;
+	}
+	return (x);
+}
+
+__attribute__((hot))
+inline t_u8 lv_memcmp(void *__restrict__ dest,
+	const void *__restrict__ src, size_t n)
+{
+	size_t	i;
+	t_u8	r;
+	ssize_t	r2;
+	t_u8	r3;
+
 	if (n == 0)
 		return (0);
-	while (n > 0)
-	{
-		if (*_r1 != *_r2)
-			return (*_r1 - *_r2);
-		_r1++;
-		_r2++;
-		n--;
-	}
-	return (0);
+	r = 0;
+	r3 = 1;
+	r2 = _alinger(dest, src, &n, &r);
+	if (r2 < 0)
+		return (0);
+	i = (size_t)r2;
+	if (n >= sizeof(t_u128) * 2 && r == 128)
+		r3 = _cmp_u128((t_u8 *)dest, (t_u8 *)src, &n, &i);
+	if (n >= sizeof(t_u64) * 2 && r == 64)
+		r3 = _cmp_u64((t_u8 *)dest, (t_u8 *)src, &n, &i);
+	else if (n >= sizeof(t_u32) * 2 && r == 32)
+		r3 = _cmp_u32((t_u8 *)dest, (t_u8 *)src, &n, &i);
+	if (n > 0 && r3 != 0)
+		r3 = _cmp_u8((t_u8 *)dest, (t_u8 *)src, &n, &i);
+	return (r3);
 }

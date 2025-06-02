@@ -41,9 +41,11 @@ t_u8			lv_memswap_extern(void *__restrict__ p1,
 void			*lv_memmove(void *__restrict__ dest,
 					const void *__restrict__ src, size_t n);
 void			*lv_memchr(const void *__restrict__ ptr, int c, size_t n);
-int				lv_memcmp(const void *__restrict__ r1,
-					const void *__restrict__ r2, size_t n);
+t_u8			lv_memcmp(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n);
 void			*lv_memffb(const void *__restrict__ ptr,
+					t_u8 x, size_t n);
+void			*lv_memffb_b2n(const void *__restrict__ ptr,
 					t_u8 x, size_t n);
 
 /*
@@ -105,12 +107,35 @@ void			*_look4_u32_fwd(void *__restrict__ ptr,
 void			*_look4_u64_fwd(void *__restrict__ ptr,
 					t_u64 x,
 					size_t *__restrict__ n, size_t *__restrict__ i);
+void			*_look4_u128_fwd(void *__restrict__ ptr,
+					t_u128 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+
+// CMP
+
+t_u8			_cmp_u8(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+t_u8			_cmp_u32(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+t_u8			_cmp_u64(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+t_u8			_cmp_u128(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+
+// LIL' HELPERS
+
 int				_lookup_u32(t_u32 word, t_u32 mask);
 int				_lookup_u64(t_u64 word, t_u64 mask);
+int				_lookup_u128(t_u128 word, t_u128 mask);
 
 // ALIGNMIENT & CHECKZ
 t_u8			lv_memctz_u32(t_u32 x);
 t_u8			lv_memctz_u64(t_u64 x);
+t_u8			lv_memctz_u128(t_u128 x);
 t_u8			_aligned(const void *__restrict__ dest,
 					const void *__restrict__ src, size_t *i);
 #endif

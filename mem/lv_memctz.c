@@ -22,6 +22,33 @@
 
 __attribute__((always_inline))
 __attribute__((hot))
+inline t_u8	lv_memctz_u128(t_u128 x)
+{
+	t_u8	c;
+
+	if (x == 0)
+		return (128);
+	c = 0;
+	while (!(x & 0xF))
+	{
+		c += 4;
+		x >>= 4;
+	}
+	while (!(x & 0x3))
+	{
+		c += 2;
+		x >>= 2;
+	}
+	while (!(x & 1))
+	{
+		c++;
+		x >>= 1;
+	}
+	return (c);
+}
+
+__attribute__((always_inline))
+__attribute__((hot))
 inline t_u8	lv_memctz_u64(t_u64 x)
 {
 	t_u8	c;

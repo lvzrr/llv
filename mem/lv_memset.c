@@ -64,8 +64,8 @@ void	*lv_memset(void *__restrict__ dest, int c, size_t n)
 	i = _alinger(dest, (t_u8)x, &n, &r);
 	if (n >= sizeof(t_u128) * 2 && r == 128)
 		_write_u128_fwd((t_u8 *)dest, x, &n, &i);
-	if (n >= sizeof(t_u64) * 2 && r == 64)
-		_write_u64_fwd((t_u8 *)dest, x, &n, &i);
+	else if (n >= sizeof(t_u64) * 2 && r == 64)
+		_write_u64_fwd((t_u8 *)dest, (t_u64)x, &n, &i);
 	else if (n >= sizeof(t_u32) * 2 && r == 32)
 		_write_u32_fwd((t_u8 *)dest, (t_u32)x, &n, &i);
 	if (n > 0)

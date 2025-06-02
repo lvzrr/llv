@@ -56,7 +56,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 
-re: fclean full
+re: fclean full all
 
 .PHONY: all clean fclean re bonus install full
 MAKEFLAGS += --no-print-directory

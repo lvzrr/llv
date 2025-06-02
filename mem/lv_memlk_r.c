@@ -51,6 +51,21 @@ inline int	_lookup_u64(t_u64 word, t_u64 mask)
 
 __attribute__((always_inline))
 __attribute__((hot))
+inline int _lookup_u128(t_u128 word, t_u128 mask)
+{
+	t_u128	diff;
+	t_u128	t;
+
+	diff = word ^ mask;
+	t = (diff - (t_u128)0x0101010101010101ULL)
+		& ~diff & (t_u128)0x8080808080808080ULL;
+	if (!t)
+		return (-1);
+	return lv_memctz_u128(t) >> 3;
+}
+
+__attribute__((always_inline))
+__attribute__((hot))
 inline void	*_look4_u8_fwd(void *__restrict__ ptr,
 	t_u8 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -121,6 +136,30 @@ inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 			return ((t_u8 *)d - sizeof(t_u64) + lk);
 		*n -= sizeof(t_u64) * 2;
 		*i += sizeof(t_u64) * 2;
+	}
+	return (NULL);
+}
+
+__attribute__((always_inline))
+__attribute__((hot))
+inline void	*_look4_u128_fwd(void *__restrict__ ptr,
+	t_u128 x,
+	size_t *__restrict__ n, size_t *__restrict__ i)
+{
+	t_u128	*d;
+	int		lk;
+
+	d = (t_u128 *) __builtin_assume_aligned(ptr, 8);
+	while (*n >= sizeof(t_u128) * 2)
+	{
+		lk = _lookup_u128(*d++, x);
+		if (lk != -1)
+			return ((t_u8 *)d - sizeof(t_u128) + lk);
+		lk = _lookup_u128(*d++, x);
+		if (lk != -1)
+			return ((t_u8 *)d - sizeof(t_u128) + lk);
+		*n -= sizeof(t_u128) * 2;
+		*i += sizeof(t_u128) * 2;
 	}
 	return (NULL);
 }

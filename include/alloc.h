@@ -33,8 +33,8 @@
 #  define USE_GC
 # endif
 
-# ifndef DEFER
-#  define DEFER __attribute((cleanup(lv_defer)))
+# ifndef LV_DEFER
+#  define LV_DEFER __attribute((cleanup(lv_defer)))
 # endif
 
 # ifndef LK_VERB

@@ -21,14 +21,15 @@
 #include "mem.h"
 
 __attribute__((always_inline))
-static inline t_u64	populate(t_u8 y)
+static inline t_u128	populate(t_u8 y)
 {
-	t_u64	x;
+	t_u128	x;
 
-	x = (t_u64)y;
+	x = (t_u128)y;
 	x |= x << 8;
 	x |= x << 16;
 	x |= x << 32;
+	x |= x << 64;
 	return (x);
 }
 
@@ -73,11 +74,38 @@ void	*lv_memffb(const void *__restrict__ ptr,
 	i = 0;
 	p = _look4_u64_tmp((t_u8 *)ptr, mask, &n, &i);
 	r = _aligned((t_u8 *)ptr, NULL, &i);
-	if (n >= sizeof(t_u64) * 2 && r == 64 && !p)
+	if (n >= sizeof(t_u128) * 2 && r == 128 && !p)
+		p = _look4_u128_fwd((t_u8 *)ptr, mask, &n, &i);
+	else if (n >= sizeof(t_u64) * 2 && r == 64 && !p)
 		p = _look4_u64_fwd((t_u8 *)ptr, mask, &n, &i);
 	else if (n >= sizeof(t_u32) * 2 && r == 32 && !p)
 		p = _look4_u32_fwd((t_u8 *)ptr, (t_u32)mask, &n, &i);
 	if (n > 0 && !p)
+		p = _look4_u8_fwd((t_u8 *)ptr, x, &n, &i);
+	return (p);
+}
+
+void	*lv_memffb_b2n(const void *__restrict__ ptr,
+	t_u8 x, size_t n)
+{
+	t_u64	mask;
+	t_u8	r;
+	size_t	i;
+	void	*p;
+
+	if (!ptr || n == 0)
+		return (NULL);
+	mask = populate(x);
+	i = 0;
+	p = _look4_u64_tmp((t_u8 *)ptr, mask, &n, &i);
+	r = _aligned((t_u8 *)ptr, NULL, &i);
+	if (n >= sizeof(t_u128) * 2 && r == 128 && !p)
+		p = _look4_u128_fwd((t_u8 *)ptr, mask, &n, &i);
+	else if (n >= sizeof(t_u64) * 2 && r == 64 && !p)
+		p = _look4_u64_fwd((t_u8 *)ptr, (t_u64)mask, &n, &i);
+	else if (n >= sizeof(t_u32) * 2 && r == 32 && !p)
+		p = _look4_u32_fwd((t_u8 *)ptr, (t_u32)mask, &n, &i);
+	if (!p)
 		p = _look4_u8_fwd((t_u8 *)ptr, x, &n, &i);
 	return (p);
 }
