@@ -52,7 +52,7 @@ char	*lv_strtrim(const char *str, const char *set)
 		b++;
 	while (e > b && in_set(str[e], set) >= 0)
 		e--;
-	out = malloc((e - b) + 2);
+	out = lv_alloc((e - b) + 2);
 	if (!out)
 		return (NULL);
 	while (b <= e)

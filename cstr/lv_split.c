@@ -49,7 +49,7 @@ static char	*eat_literal(char *str, char set)
 	i = 0;
 	while (str[i] && str[i] != set)
 		i++;
-	out = (char *)malloc(i + 1);
+	out = (char *)lv_alloc(i + 1);
 	if (!out)
 		return (NULL);
 	i = 0;
@@ -104,7 +104,7 @@ char	**lv_split(const char *str, char set)
 	if (!str)
 		return (NULL);
 	wc = count_words((char *)str, set);
-	out = (char **)malloc((wc + 1) * sizeof(char *));
+	out = (char **)lv_alloc((wc + 1) * sizeof(char *));
 	if (!out)
 		return (NULL);
 	out[wc] = NULL;

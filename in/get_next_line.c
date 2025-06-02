@@ -77,7 +77,7 @@ static char	*read_buffer(int fd, char *buffer)
 	char				*joined;
 	int					bread;
 
-	tmp = malloc(BUFFER_SIZE + 1);
+	tmp = lv_alloc(BUFFER_SIZE + 1);
 	if (!tmp)
 		return (free_buf(&buffer));
 	bread = 1;

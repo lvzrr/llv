@@ -25,6 +25,7 @@
 # include <sys/types.h>
 # include <stdint.h>
 # include "structs.h"
+# include "alloc.h"
 
 int				lv_tolower(int c);
 int				lv_toupper(int c);

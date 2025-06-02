@@ -31,7 +31,7 @@ char	*lv_substr(char const *s, unsigned int start, size_t len)
 		return (lv_strdup(""));
 	if (len > lv_strlen(s) - start)
 		len = lv_strlen(s) - start;
-	out = malloc(len + 1);
+	out = lv_alloc(len + 1);
 	if (!out)
 		return (NULL);
 	j = 0;

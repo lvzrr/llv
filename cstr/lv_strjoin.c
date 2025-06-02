@@ -32,7 +32,7 @@ char	*lv_strjoin(const char *s1, const char *s2)
 		return (NULL);
 	l1 = lv_strlen(s1);
 	l2 = lv_strlen(s2);
-	out = malloc(l1 + l2 + 1);
+	out = lv_alloc(l1 + l2 + 1);
 	if (!out)
 		return (NULL);
 	i = 0;

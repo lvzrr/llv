@@ -30,7 +30,7 @@ char	*lv_strdup(const char *str)
 	while (str[n])
 		n++;
 	i = 0;
-	newstr = (char *)malloc(n + 1);
+	newstr = (char *)lv_alloc(n + 1);
 	if (!newstr)
 		return ((void *) 0);
 	while (i < n)
