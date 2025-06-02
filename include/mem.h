@@ -45,7 +45,7 @@ t_u8			lv_memcmp(void *__restrict__ dest,
 					const void *__restrict__ src, size_t n);
 void			*lv_memffb(const void *__restrict__ ptr,
 					t_u8 x, size_t n);
-void			*lv_memffb_b2n(const void *__restrict__ ptr,
+void			*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 					t_u8 x, size_t n);
 
 /*
@@ -99,6 +99,9 @@ void			_write_u128_fwd(void *__restrict__ dest,
 // LOOKUP
 
 void			*_look4_u8_fwd(void *__restrict__ ptr,
+					t_u8 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
 					t_u8 x,
 					size_t *__restrict__ n, size_t *__restrict__ i);
 void			*_look4_u32_fwd(void *__restrict__ ptr,

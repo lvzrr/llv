@@ -85,7 +85,7 @@ void	*lv_memffb(const void *__restrict__ ptr,
 	return (p);
 }
 
-void	*lv_memffb_b2n(const void *__restrict__ ptr,
+void	*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 	t_u8 x, size_t n)
 {
 	t_u64	mask;
@@ -106,6 +106,6 @@ void	*lv_memffb_b2n(const void *__restrict__ ptr,
 	else if (n >= sizeof(t_u32) * 2 && r == 32 && !p)
 		p = _look4_u32_fwd((t_u8 *)ptr, (t_u32)mask, &n, &i);
 	if (!p)
-		p = _look4_u8_fwd((t_u8 *)ptr, x, &n, &i);
+		p = _look4_u8_fwd_unsafe((t_u8 *)ptr, x, &n, &i);
 	return (p);
 }
