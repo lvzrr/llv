@@ -28,17 +28,20 @@ inline t_u8	_cmp_u8(void *__restrict__ dest,
 {
 	while (*n >= sizeof(t_u8) * 2)
 	{
-		if(((t_u8 *)dest + *i)[0] != ((t_u8 *)src + *i)[0])
+		if (((t_u8 *)dest + *i)[0]
+			!= ((t_u8 *)src + *i)[0])
 			return (0);
 		*i += sizeof(t_u8);
-		if(((t_u8 *)dest + *i)[0] != ((t_u8 *)src + *i)[0])
+		if (((t_u8 *)dest + *i)[0]
+			!= ((t_u8 *)src + *i)[0])
 			return (0);
 		*i += sizeof(t_u8);
 		*n -= sizeof(t_u8) * 2;
 	}
 	while (*n > 0)
 	{
-		if(((t_u8 *)dest + *i)[0] != ((t_u8 *)src + *i)[0])
+		if (((t_u8 *)dest + *i)[0]
+			!= ((t_u8 *)src + *i)[0])
 			return (0);
 		*i += sizeof(t_u8);
 		*n -= sizeof(t_u8);
@@ -54,10 +57,12 @@ inline t_u8	_cmp_u32(void *__restrict__ dest,
 {
 	while (*n >= sizeof(t_u32) * 2)
 	{
-		if(((t_u32 *)((t_u8 *)dest + *i))[0] != ((t_u32 *)((t_u8 *)src + *i))[0])
+		if (((t_u32 *)((t_u8 *)dest + *i))[0]
+			!= ((t_u32 *)((t_u8 *)src + *i))[0])
 			return (0);
 		*i += sizeof(t_u32);
-		if(((t_u32 *)((t_u8 *)dest + *i))[0] != ((t_u32 *)((t_u8 *)src + *i))[0])
+		if (((t_u32 *)((t_u8 *)dest + *i))[0]
+			!= ((t_u32 *)((t_u8 *)src + *i))[0])
 			return (0);
 		*i += sizeof(t_u32);
 		*n -= sizeof(t_u32) * 2;
@@ -73,10 +78,12 @@ inline t_u8	_cmp_u64(void *__restrict__ dest,
 {
 	while (*n >= sizeof(t_u64) * 2)
 	{
-		if(((t_u64 *)((t_u8 *)dest + *i))[0] != ((t_u64 *)((t_u8 *)src + *i))[0])
+		if (((t_u64 *)((t_u8 *)dest + *i))[0]
+			!= ((t_u64 *)((t_u8 *)src + *i))[0])
 			return (0);
 		*i += sizeof(t_u64);
-		if(((t_u64 *)((t_u8 *)dest + *i))[0] != ((t_u64 *)((t_u8 *)src + *i))[0])
+		if (((t_u64 *)((t_u8 *)dest + *i))[0]
+			!= ((t_u64 *)((t_u8 *)src + *i))[0])
 			return (0);
 		*i += sizeof(t_u64);
 		*n -= sizeof(t_u64) * 2;
@@ -92,10 +99,12 @@ inline t_u8	_cmp_u128(void *__restrict__ dest,
 {
 	while (*n >= sizeof(t_u128) * 2)
 	{
-		if(((t_u128 *)((t_u8 *)dest + *i))[0] != ((t_u128 *)((t_u8 *)src + *i))[0])
+		if (((t_u128 *)((t_u8 *)dest + *i))[0]
+			!= ((t_u128 *)((t_u8 *)src + *i))[0])
 			return (0);
 		*i += sizeof(t_u128);
-		if(((t_u128 *)((t_u8 *)dest + *i))[0] != ((t_u128 *)((t_u8 *)src + *i))[0])
+		if (((t_u128 *)((t_u8 *)dest + *i))[0]
+			!= ((t_u128 *)((t_u8 *)src + *i))[0])
 			return (0);
 		*i += sizeof(t_u128);
 		*n -= sizeof(t_u128) * 2;
