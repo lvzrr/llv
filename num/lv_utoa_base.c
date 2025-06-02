@@ -70,7 +70,7 @@ char	*lv_utoa_base(size_t n, char *base)
 	blen = (size_t) blen1;
 	if (n == 0)
 		return (lv_strdup("0"));
-	out = lv_talloc(count(n, blen) + 1, "(utoa_b)");
+	out = lv_alloc(count(n, blen) + 1);
 	if (!out)
 		return (NULL);
 	c = count(n, blen);

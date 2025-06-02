@@ -21,49 +21,11 @@
 #include "alloc.h"
 #include "printf.h"
 
-t_map	*g_table;
-int		g_gc_critical;
-
 void	*lv_alloc(size_t size)
 {
-	return (lv_talloc(size, NULL));
-}
-
-void	*lv_talloc(size_t size, const char *t)
-{
 	void	*new_alloc;
 
 	if (posix_memalign(&new_alloc, 128, size) != 0)
 		return (NULL);
-#ifdef USE_GC
-	if (!g_gc_critical)
-	{
-		if (!g_table)
-		{
-			lv_gc();
-			g_table = lv_map_init();
-		}
-		if (!t || !*t)
-			t = "(untagged)";
-		lv_map_insert(new_alloc, size, g_table, t);
-	}
-#endif
-	return (new_alloc);
-}
-
-void	*lv_talloc_raw(size_t size, const char *t, int skip)
-{
-	void	*new_alloc;
-
-	if (posix_memalign(&new_alloc, 128, size) != 0)
-		return (NULL);
-#ifdef USE_GC
-	if (!skip && !g_gc_critical)
-	{
-		if (!t || !*t)
-			t = "(untagged)";
-		lv_map_insert(new_alloc, size, g_table, t);
-	}
-#endif
 	return (new_alloc);
 }

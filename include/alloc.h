@@ -30,15 +30,9 @@
 # include "map.h"
 # include "macros.h"
 
-extern t_map	*g_table;
-extern int		g_gc_critical;
-
 void			*lv_alloc(size_t size);
-void			*lv_talloc(size_t size, const char *t);
-void			*lv_talloc_raw(size_t size, const char *t, int s);
 void			lv_free(void **ptr);
 void			lv_defer(void *ptr);
-void			lv_gc(void);
 void			*lv_calloc(size_t n, size_t size);
 void			*lv_extend(void *ptr, size_t n, size_t size);
 void			*lv_extend_zero(void *ptr, size_t n, size_t size);

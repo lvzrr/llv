@@ -30,9 +30,7 @@ void	*lv_extend(void *ptr, size_t n, size_t size)
 		return (NULL);
 	if (!ptr)
 		return (lv_alloc(n + size));
-	g_gc_critical = 1;
 	p2 = lv_alloc(n + size);
-	g_gc_critical = 0;
 	if (!p2)
 		return (NULL);
 	lv_memmove(p2, ptr, n);

@@ -22,24 +22,8 @@
 
 void	lv_free(void	**ptr)
 {
-	t_mem	*mem;
-
 	if (!ptr || !*ptr)
 		return ;
-#ifdef USE_GC
-		mem = lv_map_lookup(g_table,
-				(size_t)(*ptr) >> 4);
-		if (mem && !mem->freed && mem->ptr)
-		{
-			free(mem->ptr);
-			mem->freed = 1;
-			mem->ptr = NULL;
-			mem->size = 0;
-		}
-		else if (!mem || mem->ptr != *ptr)
-			free(*ptr);
-#else
 	free(*ptr);
 	*ptr = NULL;
-#endif
 }

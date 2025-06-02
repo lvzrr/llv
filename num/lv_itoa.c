@@ -50,7 +50,7 @@ char	*lv_itoa(int n)
 
 	cc = count(n);
 	neg = 1;
-	out = lv_talloc(cc + 1, "(itoa)");
+	out = lv_alloc(cc + 1);
 	if (!out)
 		return (NULL);
 	if (n < 0)

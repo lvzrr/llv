@@ -77,7 +77,7 @@ char	*lv_itoa_base(int n, char *base)
 		return (NULL);
 	if (n == 0)
 		return (lv_strdup("0"));
-	out = lv_talloc(count(n, blen) + 1, "(itoa_base)");
+	out = lv_alloc(count(n, blen) + 1);
 	if (!out)
 		return (NULL);
 	c = count(n, blen);
