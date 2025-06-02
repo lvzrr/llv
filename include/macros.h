@@ -1,5 +1,5 @@
 /**
- * structs.h
+ * macros.h
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,53 +18,28 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef MACROS_H
+# define MACROS_H
 
-# include <sys/types.h>
-# include <stdint.h>
-# include "macros.h"
+# ifndef LV_ALIGN
+#  define LV_ALIGN(x) __attribute__((aligned(x)))
+# endif
 
-typedef unsigned char	t_u8;
-typedef uint32_t		t_u32;
-typedef uint64_t		t_u64;
-typedef __uint128_t		t_u128;
-typedef uintptr_t		t_uptr;
+# ifndef LV_STRUCT
+#define LV_STRUCT(name, align, body, tdef) \
+	typedef struct __attribute__((aligned(align))) name body tdef;
+# endif
 
-LV_STRUCT(s_string, 32,
-{
-	size_t	len;
-	size_t	alloc_size;
-	char	*data;
-}, t_string)
+# ifndef USE_GC
+#  define USE_GC
+# endif
 
-LV_STRUCT(s_vec, 32,
-{
-	size_t	size;
-	void	*data;
-	size_t	alloc_size;
-	size_t	sizeof_type;
-}, t_vec)
+# ifndef LV_DEFER
+#  define LV_DEFER __attribute((cleanup(lv_defer)))
+# endif
 
-LV_STRUCT(s_mem, 32,
-{
-	void			*ptr;
-	size_t			size;
-	unsigned int	freed;
-}, t_mem)
+# ifndef LK_VERB
+#  define LK_VERB
+# endif
 
-LV_STRUCT(s_map, 32,
-{
-	t_vec	keys;
-	t_vec	values;
-	t_vec	tags;
-}, t_map)
-
-LV_STRUCT(s_arena, 32,
-{
-	void	*next;
-	void	*data;
-	size_t	used;
-	size_t	size;
-}, t_arena)
 #endif

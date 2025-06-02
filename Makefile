@@ -47,7 +47,7 @@ $(NAME): $(OBJS)
 
 install: all
 	@sudo cp $(NAME) /usr/local/lib
-	@mkdir /usr/local/include/liblv/
+	@mkdir -p /usr/local/include/liblv/
 	@sudo cp include/* /usr/local/include/liblv/
 
 clean:

@@ -43,5 +43,6 @@
 # include "nums.h"
 # include "vec.h"
 # include "map.h"
+# include "macros.h"
 
 #endif

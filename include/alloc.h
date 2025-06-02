@@ -28,18 +28,7 @@
 # include "mem.h"
 # include "vec.h"
 # include "map.h"
-
-# ifndef USE_GC
-#  define USE_GC
-# endif
-
-# ifndef LV_DEFER
-#  define LV_DEFER __attribute((cleanup(lv_defer)))
-# endif
-
-# ifndef LK_VERB
-#  define LK_VERB
-# endif
+# include "macros.h"
 
 extern t_map	*g_table;
 extern int		g_gc_critical;

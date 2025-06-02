@@ -24,10 +24,7 @@
 # include <stdlib.h>
 # include "alloc.h"
 # include "structs.h"
-
-# ifndef LV_ALIGN
-#  define LV_ALIGN(x) __attribute__((aligned(x)))
-# endif
+# include "macros.h"
 
 // Actual api
 
