@@ -1,0 +1,47 @@
+/**
+ * liblv.h
+ *
+ * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version
+ * 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General
+ * Public License along with this program. If not, see
+ * <https://www.gnu.org/licenses/>.
+ */
+
+#ifndef LIBLV_H
+# define LIBLV_H
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <stdarg.h>
+# include <stdio.h>
+# include <limits.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+# include "structs.h"
+# include "cstr.h"
+# include "tstr.h"
+# include "mem.h"
+# include "chars.h"
+# include "put.h"
+# include "printf.h"
+# include "gnl.h"
+# include "lst.h"
+# include "nums.h"
+# include "vec.h"
+# include "map.h"
+
+#endif
