@@ -21,7 +21,6 @@
 #include "mem.h"
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline t_u8	_cmp_u8(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -50,7 +49,6 @@ inline t_u8	_cmp_u8(void *__restrict__ dest,
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline t_u8	_cmp_u32(void *__restrict__ dest,
 	const void * __restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -71,7 +69,6 @@ inline t_u8	_cmp_u32(void *__restrict__ dest,
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline t_u8	_cmp_u64(void *__restrict__ dest,
 	const void * __restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -92,7 +89,6 @@ inline t_u8	_cmp_u64(void *__restrict__ dest,
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline t_u8	_cmp_u128(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)

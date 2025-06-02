@@ -65,7 +65,6 @@ inline int _lookup_u128(t_u128 word, t_u128 mask)
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline void	*_look4_u8_fwd(void *__restrict__ ptr,
 	t_u8 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -93,7 +92,6 @@ inline void	*_look4_u8_fwd(void *__restrict__ ptr,
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline void	*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
 	t_u8 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -120,7 +118,6 @@ inline void	*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline void	*_look4_u32_fwd(void *__restrict__ ptr,
 	t_u32 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -144,7 +141,6 @@ inline void	*_look4_u32_fwd(void *__restrict__ ptr,
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 	t_u64 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
@@ -168,7 +164,6 @@ inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 inline void	*_look4_u128_fwd(void *__restrict__ ptr,
 	t_u128 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
