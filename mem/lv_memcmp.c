@@ -40,7 +40,6 @@ inline ssize_t	_alinger(void *__restrict__ dest,
 	return (x);
 }
 
-__attribute__((hot))
 inline t_u8 lv_memcmp(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {

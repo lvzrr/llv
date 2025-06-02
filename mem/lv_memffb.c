@@ -34,7 +34,6 @@ static inline t_u128	populate(t_u8 y)
 }
 
 __attribute__((always_inline))
-__attribute__((hot))
 static inline void	*_look4_u64_tmp(void *__restrict__ ptr,
 	t_u64 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)

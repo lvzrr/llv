@@ -48,7 +48,7 @@ static inline void	b(void *__restrict__ dest,
 }
 
 __attribute__((hot))
-inline void	*lv_memmove(void *__restrict__ dest,
+void	*lv_memmove(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	if (!dest || !src || dest == src || n == 0)

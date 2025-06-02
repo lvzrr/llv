@@ -55,9 +55,7 @@ inline static t_u8	lv_memswap_bounded(void *__restrict__ p1,
 	return (1);
 }
 
-__attribute__((always_inline))
-__attribute__((hot))
-inline t_u8	lv_memswap(void *__restrict__ p1,
+t_u8	lv_memswap(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
 	if (len <= BUFFER_SIZE)
