@@ -26,7 +26,7 @@ __attribute__((always_inline))
 inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
-	t_u8	*buffer;
+	LV_DEFER t_u8	*buffer;
 
 	if (!p1 || !p2 || !len)
 		return (0);
@@ -36,7 +36,6 @@ inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
 	lv_memcpy(buffer, p1, len);
 	lv_memcpy(p1, p2, len);
 	lv_memcpy(p2, buffer, len);
-	free(buffer);
 	return (1);
 }
 
