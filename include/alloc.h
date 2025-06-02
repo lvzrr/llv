@@ -26,8 +26,6 @@
 # include <stdint.h>
 # include <stdarg.h>
 # include "mem.h"
-# include "vec.h"
-# include "map.h"
 # include "macros.h"
 
 void			*lv_alloc(size_t size);

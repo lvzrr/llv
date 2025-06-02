@@ -45,26 +45,4 @@ LV_STRUCT(s_vec, 32,
 	size_t	alloc_size;
 	size_t	sizeof_type;
 }, t_vec)
-
-LV_STRUCT(s_mem, 32,
-{
-	void			*ptr;
-	size_t			size;
-	unsigned int	freed;
-}, t_mem)
-
-LV_STRUCT(s_map, 32,
-{
-	t_vec	keys;
-	t_vec	values;
-	t_vec	tags;
-}, t_map)
-
-LV_STRUCT(s_arena, 32,
-{
-	void	*next;
-	void	*data;
-	size_t	used;
-	size_t	size;
-}, t_arena)
 #endif

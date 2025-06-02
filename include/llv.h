@@ -20,12 +20,6 @@
 
 #ifndef LIBLV_H
 # define LIBLV_H
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include <limits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -42,7 +36,6 @@
 # include "lst.h"
 # include "nums.h"
 # include "vec.h"
-# include "map.h"
 # include "macros.h"
 
 #endif

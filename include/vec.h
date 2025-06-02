@@ -23,9 +23,7 @@
 
 # include <stddef.h>
 # include "structs.h"
-# include "map.h"
 # include "mem.h"
-# include "put.h"
 
 t_vec		lv_vec(size_t alloc_size, size_t sizeof_type);
 void		lv_vec_push(t_vec *vec, void *data, size_t len);
