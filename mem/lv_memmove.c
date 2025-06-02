@@ -31,8 +31,8 @@ static inline void	b(void *__restrict__ dest,
 	r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
 	while (n >= 2 && !r)
 	{
-		((t_u8 *)dest)[i] = ((t_u8 *)src)[i];
-		((t_u8 *)dest)[i + 1] = ((t_u8 *)src)[i + 1];
+		((t_u8 *)dest - 2)[i] = ((t_u8 *)src - 2)[i];
+		((t_u8 *)dest - 2)[i + 1] = ((t_u8 *)src - 2)[i + 1];
 		i += sizeof(t_u8) * 2;
 		n -= sizeof(t_u8) * 2;
 		r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
