@@ -73,9 +73,9 @@ static char	*getl(char *buffer)
 
 static char	*read_buffer(int fd, char *buffer)
 {
-	DEFER char	*tmp;
-	char		*joined;
-	int			bread;
+	LV_DEFER char		*tmp;
+	char				*joined;
+	int					bread;
 
 	tmp = malloc(BUFFER_SIZE + 1);
 	if (!tmp)
