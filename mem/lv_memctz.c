@@ -20,6 +20,25 @@
 
 #include "mem.h"
 
+/*
+ * Function: lv_memctz_u32
+ * -----------------------
+ * Counts the number of trailing zero bits in a 32-bit unsigned integer `x`.
+ *
+ * Parameters:
+ * x - The 32-bit unsigned integer.
+ *
+ * Returns:
+ * The number of trailing zero bits. If `x` is 0, it returns 32.
+ *
+ * Notes:
+ * - This function is `always_inline` and `hot` for performance.
+ * - It uses the GCC built-in `__builtin_ctz` for highly optimized performance
+ * when available.
+ * - A fallback software implementation is provided for compilers that don't
+ * support `__builtin_ctz`, which counts bits in chunks of 4, 2, then 1.
+ */
+
 __attribute__((always_inline))
 __attribute__((hot))
 inline t_u8 lv_memctz_u32(t_u32 x)
@@ -39,6 +58,25 @@ inline t_u8 lv_memctz_u32(t_u32 x)
 #endif
 }
 
+/*
+ * Function: lv_memctz_u64
+ * -----------------------
+ * Counts the number of trailing zero bits in a 64-bit unsigned integer `x`.
+ *
+ * Parameters:
+ * x - The 64-bit unsigned integer.
+ *
+ * Returns:
+ * The number of trailing zero bits. If `x` is 0, it returns 64.
+ *
+ * Notes:
+ * - This function is `always_inline` and `hot` for performance.
+ * - It uses the GCC built-in `__builtin_ctzll` for highly optimized performance
+ * when available.
+ * - A fallback software implementation is provided for compilers that don't
+ * support `__builtin_ctzll`, which counts bits in chunks of 4, 2, then 1.
+ */
+
 __attribute__((always_inline))
 __attribute__((hot))
 inline t_u8 lv_memctz_u64(t_u64 x)
@@ -57,6 +95,26 @@ inline t_u8 lv_memctz_u64(t_u64 x)
 	return (c);
 #endif
 }
+
+/*
+ * Function: lv_memctz_u128
+ * ------------------------
+ * Counts the number of trailing zero bits in a 128-bit unsigned integer `x`.
+ *
+ * Parameters:
+ * x - The 128-bit unsigned integer.
+ *
+ * Returns:
+ * The number of trailing zero bits. If `x` is 0, it returns 128.
+ *
+ * Notes:
+ * - This function is `always_inline` and `hot` for performance.
+ * - It uses the GCC built-in `__builtin_ctz` (with `__SIZEOF_INT128__` defined)
+ * for highly optimized performance when available.
+ * - A fallback software implementation is provided for compilers that don't
+ * support 128-bit integers or the corresponding built-in, which counts
+ * bits in chunks of 4, 2, then 1.
+ */
 
 __attribute__((always_inline))
 __attribute__((hot))

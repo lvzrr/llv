@@ -20,6 +20,26 @@
 
 #include "mem.h"
 
+/*
+ * Function: _write_u8_fwd
+ * -----------------------
+ * Fills a memory region with a specific 8-bit value (byte) in a forward direction.
+ * This is a helper for `memset`-like operations for unaligned or small remaining data.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * x    - The 8-bit value (byte) to write.
+ * n    - A pointer to the remaining number of bytes to write.
+ * i    - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2 bytes where possible, then single bytes.
+ */
+
 __attribute__((always_inline))
 inline void	_write_u8_fwd(void *__restrict__ dest,
 	t_u8 x,
@@ -40,6 +60,27 @@ inline void	_write_u8_fwd(void *__restrict__ dest,
 		*n -= sizeof(t_u8);
 	}
 }
+
+/*
+ * Function: _write_u32_fwd
+ * ------------------------
+ * Fills a memory region with a specific 32-bit value in a forward direction.
+ * This is a helper for `memset`-like operations, optimized for 32-bit writes.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * x    - The 32-bit value to write.
+ * n    - A pointer to the remaining number of bytes to write.
+ * i    - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 32-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 32-bit access.
+ */
 
 __attribute__((always_inline))
 inline void	_write_u32_fwd(void *__restrict__ dest,
@@ -62,6 +103,26 @@ inline void	_write_u32_fwd(void *__restrict__ dest,
 	}
 }
 
+/*
+ * Function: _write_u64_fwd
+ * ------------------------
+ * Fills a memory region with a specific 64-bit value in a forward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * x    - The 64-bit value to write.
+ * n    - A pointer to the remaining number of bytes to write.
+ * i    - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 64-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 64-bit access.
+ */
+
 __attribute__((always_inline))
 inline void	_write_u64_fwd(void *__restrict__ dest,
 	t_u64 x,
@@ -82,6 +143,26 @@ inline void	_write_u64_fwd(void *__restrict__ dest,
 		*n -= sizeof(t_u64);
 	}
 }
+
+/*
+ * Function: _write_u128_fwd
+ * -------------------------
+ * Fills a memory region with a specific 128-bit value in a forward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * x    - The 128-bit value to write.
+ * n    - A pointer to the remaining number of bytes to write.
+ * i    - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 128-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 128-bit access.
+ */
 
 __attribute__((always_inline))
 inline void	_write_u128_fwd(void *__restrict__ dest,

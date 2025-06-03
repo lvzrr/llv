@@ -20,6 +20,23 @@
 
 #include "mem.h"
 
+/*
+ * Function: lv_bzero
+ * ------------------
+ * Sets the first `n` bytes of the memory area pointed to by `ptr` to zero.
+ * This function is essentially a wrapper around `lv_memset` with the value `0`.
+ *
+ * Parameters:
+ * ptr - A pointer to the memory area to be zeroed.
+ * n   - The number of bytes to zero.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This function is commonly used to clear sensitive data or initialize memory.
+ */
+
 void	lv_bzero(void *__restrict__ ptr, size_t n)
 {
 	lv_memset(ptr, 0, n);

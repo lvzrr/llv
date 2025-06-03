@@ -20,12 +20,46 @@
 
 #include "mem.h"
 
+/*
+ * Function: __hasz64
+ * ------------------
+ * Checks if a 64-bit unsigned integer contains a zero byte. This is an
+ * optimized way to detect null bytes within a word.
+ *
+ * Parameters:
+ * x - The 64-bit unsigned integer to check.
+ *
+ * Returns:
+ * A non-zero value if a zero byte is found, 0 otherwise.
+ *
+ * Notes:
+ * - This is an inline, hot function for performance.
+ * - It leverages bitwise operations for efficient null byte detection.
+ */
+
 __attribute((hot))
 __attribute((always_inline))
 inline int	__hasz64(t_u64 x)
 {
     return (((x) -ONES_64) & (~x) & HIGHS_64);
 }
+
+/*
+ * Function: __hasz128
+ * -------------------
+ * Checks if a 128-bit unsigned integer contains a zero byte.
+ *
+ * Parameters:
+ * x - The 128-bit unsigned integer to check.
+ *
+ * Returns:
+ * A non-zero value if a zero byte is found, 0 otherwise.
+ *
+ * Notes:
+ * - This is an inline, hot function for performance.
+ * - It splits the 128-bit integer into two 64-bit parts and uses `__hasz64`
+ * on each part.
+ */
 
 __attribute((always_inline))
 __attribute((hot))

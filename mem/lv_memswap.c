@@ -24,6 +24,28 @@
  # define BUFFER_SIZE 256
 #endif
 
+/*
+ * Function: lv_memswap_dyn
+ * ------------------------
+ * Swaps the contents of two memory regions (`p1` and `p2`) of `len` bytes
+ * using a dynamically allocated temporary buffer. This is used when `len`
+ * exceeds a predefined `BUFFER_SIZE` or when a stack-allocated buffer is
+ * not feasible.
+ *
+ * Parameters:
+ * p1  - A pointer to the first memory region.
+ * p2  - A pointer to the second memory region.
+ * len - The number of bytes to swap.
+ *
+ * Returns:
+ * 1 on success, 0 if `p1`, `p2`, or `len` is invalid, or if memory allocation fails.
+ *
+ * Notes:
+ * - This function is `always_inline` for performance.
+ * - It allocates memory using `lv_alloc` and ensures it's freed using `LV_DEFER`.
+ * - It performs the swap by copying `p1` to buffer, `p2` to `p1`, then buffer to `p2`.
+ */
+
 __attribute__((always_inline))
 inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
@@ -41,6 +63,28 @@ inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
 	return (1);
 }
 
+/*
+ * Function: lv_memswap_bounded
+ * ----------------------------
+ * Swaps the contents of two memory regions (`p1` and `p2`) of `len` bytes
+ * using a fixed-size, stack-allocated buffer. This is used when `len` is
+ * within the `BUFFER_SIZE` limit, avoiding dynamic memory allocation overhead.
+ *
+ * Parameters:
+ * p1  - A pointer to the first memory region.
+ * p2  - A pointer to the second memory region.
+ * len - The number of bytes to swap.
+ *
+ * Returns:
+ * 1 on success, 0 if `p1`, `p2`, or `len` is invalid.
+ *
+ * Notes:
+ * - This function is `always_inline` for performance.
+ * - It uses `LV_ALIGN(128)` to ensure the buffer is 128-byte aligned for
+ * potential vectorized operations.
+ * - It performs the swap by copying `p1` to buffer, `p2` to `p1`, then buffer to `p2`.
+ */
+
 __attribute__((always_inline))
 inline static t_u8	lv_memswap_bounded(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
@@ -55,6 +99,28 @@ inline static t_u8	lv_memswap_bounded(void *__restrict__ p1,
 	return (1);
 }
 
+/*
+ * Function: lv_memswap
+ * --------------------
+ * Swaps the contents of two memory regions (`p1` and `p2`) of `len` bytes.
+ * This function acts as a dispatcher, choosing between a stack-allocated
+ * buffer (`lv_memswap_bounded`) or a dynamically allocated buffer (`lv_memswap_dyn`)
+ * based on the `len` and `BUFFER_SIZE`.
+ *
+ * Parameters:
+ * p1  - A pointer to the first memory region.
+ * p2  - A pointer to the second memory region.
+ * len - The number of bytes to swap.
+ *
+ * Returns:
+ * 1 on successful swap, 0 otherwise (e.g., invalid pointers, zero length,
+ * or memory allocation failure for dynamic swap).
+ *
+ * Notes:
+ * - `BUFFER_SIZE` is a preprocessor macro that determines the threshold
+ * for using a stack-allocated vs. heap-allocated buffer.
+ */
+
 t_u8	lv_memswap(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
@@ -63,6 +129,28 @@ t_u8	lv_memswap(void *__restrict__ p1,
 	else
 		return (lv_memswap_dyn(p1, p2, len));
 }
+
+/*
+ * Function: lv_memswap_extern
+ * ---------------------------
+ * Swaps the contents of two memory regions (`p1` and `p2`) of `len` bytes
+ * using an externally provided temporary `buffer`. This function is useful
+ * when the caller wants to manage the temporary buffer's allocation.
+ *
+ * Parameters:
+ * p1     - A pointer to the first memory region.
+ * p2     - A pointer to the second memory region.
+ * len    - The number of bytes to swap.
+ * buffer - A pointer to an externally provided temporary buffer of at least `len` bytes.
+ *
+ * Returns:
+ * 1 on success, 0 if `p1`, `p2`, `len` is invalid.
+ *
+ * Notes:
+ * - This function is `always_inline` for performance.
+ * - The caller is responsible for ensuring `buffer` is valid and has sufficient size.
+ * - It performs the swap by copying `p1` to buffer, `p2` to `p1`, then buffer to `p2`.
+ */
 
 __attribute__((always_inline))
 inline t_u8	lv_memswap_extern(void *__restrict__ p1,

@@ -20,6 +20,27 @@
 
 #include "mem.h"
 
+/*
+ * Function: _cmp_u8
+ * -----------------
+ * Compares two memory regions byte-by-byte (8-bit) in a forward direction.
+ * This is a helper for `memcmp`-like operations for unaligned or small remaining data.
+ *
+ * Parameters:
+ * dest - A pointer to the first memory region.
+ * src  - A pointer to the second memory region.
+ * n    - A pointer to the remaining number of bytes to compare.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * An integer less than, equal to, or greater than zero if `dest` is found,
+ * respectively, to be less than, to match, or be greater than `src`.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2 bytes where possible, then single bytes.
+ */
+
 __attribute__((always_inline))
 inline ssize_t	_cmp_u8(void *__restrict__ dest,
 	const void *__restrict__ src,
@@ -51,6 +72,28 @@ inline ssize_t	_cmp_u8(void *__restrict__ dest,
 	}
 	return (0);
 }
+
+/*
+ * Function: _cmp_u32
+ * ------------------
+ * Compares two memory regions in 32-bit (4-byte) word chunks in a forward direction.
+ * This is a helper for `memcmp`-like operations, optimized for 32-bit comparisons.
+ *
+ * Parameters:
+ * dest - A pointer to the first memory region.
+ * src  - A pointer to the second memory region.
+ * n    - A pointer to the remaining number of bytes to compare.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * An integer based on the difference of the first differing 32-bit word,
+ * or 0 if no difference found within `n` bytes.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 32-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 32-bit access.
+ */
 
 __attribute__((always_inline))
 inline ssize_t    _cmp_u32(void *__restrict__ dest,
@@ -84,6 +127,27 @@ inline ssize_t    _cmp_u32(void *__restrict__ dest,
 	return (0);
 }
 
+/*
+ * Function: _cmp_u64
+ * ------------------
+ * Compares two memory regions in 64-bit (8-byte) word chunks in a forward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the first memory region.
+ * src  - A pointer to the second memory region.
+ * n    - A pointer to the remaining number of bytes to compare.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * An integer based on the difference of the first differing 64-bit word,
+ * or 0 if no difference found within `n` bytes.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 64-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 64-bit access.
+ */
+
 __attribute__((always_inline))
 inline ssize_t	_cmp_u64(void *__restrict__ dest,
 	const void * __restrict__ src,
@@ -115,6 +179,27 @@ inline ssize_t	_cmp_u64(void *__restrict__ dest,
 	}
 	return (0);
 }
+
+/*
+ * Function: _cmp_u128
+ * -------------------
+ * Compares two memory regions in 128-bit (16-byte) word chunks in a forward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the first memory region.
+ * src  - A pointer to the second memory region.
+ * n    - A pointer to the remaining number of bytes to compare.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * An integer based on the difference of the first differing 128-bit word,
+ * or 0 if no difference found within `n` bytes.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 128-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 128-bit access.
+ */
 
 __attribute__((always_inline))
 inline ssize_t	_cmp_u128(void *__restrict__ dest,

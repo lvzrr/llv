@@ -20,6 +20,27 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_memtake
+ * --------------------
+ * Copies `len` bytes from the memory area `src` to `dst`, and then
+ * zeroes out the original `src` memory area. This function is useful
+ * for "moving" data by copying and then clearing the source,
+ * especially for sensitive information.
+ *
+ * Parameters:
+ * dst - A pointer to the destination memory area.
+ * src - A pointer to the source memory area.
+ * len - The number of bytes to copy and then zero out.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This function combines the functionality of `lv_memcpy` and `lv_bzero`.
+ * - It handles null pointers or zero length by doing nothing.
+ */
+
 void	lv_memtake(void *__restrict__ dst,
 	void *__restrict__ src, size_t len)
 {

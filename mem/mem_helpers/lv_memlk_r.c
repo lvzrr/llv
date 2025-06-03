@@ -20,6 +20,28 @@
 
 #include "mem.h"
 
+/*
+ * Function: _look4_u8_fwd_unsafe
+ * ------------------------------
+ * Searches for the first occurrence of a specific 8-bit value (byte)
+ * within a memory region, advancing forward, without bounds checking.
+ * It assumes the value will eventually be found or the memory is valid.
+ *
+ * Parameters:
+ * ptr - A pointer to the memory region to search.
+ * x   - The 8-bit value (byte) to search for.
+ * i   - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * A pointer to the first occurrence of `x`.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It's "unsafe" because it performs an infinite loop (`while (true)`)
+ * and relies on the caller to ensure `x` will be found within valid memory.
+ * - Processes memory in chunks of 2 bytes.
+ */
+
 __attribute__((always_inline))
 inline void	*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
 	t_u8 x,
@@ -39,6 +61,29 @@ inline void	*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
 	}
 	return ((t_u8 *)d - 1);
 }
+
+/*
+ * Function: _look4_u32_fwd
+ * ------------------------
+ * Searches for the first occurrence of a specific 32-bit value (or a byte
+ * within it) within a memory region, advancing forward. This uses optimized
+ * 32-bit word comparisons.
+ *
+ * Parameters:
+ * ptr - A pointer to the memory region to search.
+ * x   - The 32-bit value to search for (used as a mask for `_lookup_u32`).
+ * n   - A pointer to the remaining number of bytes to search.
+ * i   - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * A pointer to the first occurrence of `x` (or a byte matching `x` within a word)
+ * if found, NULL otherwise.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It assumes 4-byte alignment for `ptr` and processes memory in 32-bit words,
+ * using `_lookup_u32` to find specific byte matches within those words.
+ */
 
 __attribute__((always_inline))
 inline void	*_look4_u32_fwd(void *__restrict__ ptr,
@@ -71,6 +116,29 @@ inline void	*_look4_u32_fwd(void *__restrict__ ptr,
 	return (NULL);
 }
 
+/*
+ * Function: _look4_u64_fwd
+ * ------------------------
+ * Searches for the first occurrence of a specific 64-bit value (or a byte
+ * within it) within a memory region, advancing forward. This uses optimized
+ * 64-bit word comparisons.
+ *
+ * Parameters:
+ * ptr - A pointer to the memory region to search.
+ * x   - The 64-bit value to search for (used as a mask for `_lookup_u64`).
+ * n   - A pointer to the remaining number of bytes to search.
+ * i   - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * A pointer to the first occurrence of `x` (or a byte matching `x` within a word)
+ * if found, NULL otherwise.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It assumes 8-byte alignment for `ptr` and processes memory in 64-bit words,
+ * using `_lookup_u64` to find specific byte matches within those words.
+ */
+
 __attribute__((always_inline))
 inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 	t_u64 x,
@@ -101,6 +169,30 @@ inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 	}
 	return (NULL);
 }
+
+/*
+ * Function: _look4_u128_fwd
+ * -------------------------
+ * Searches for the first occurrence of a specific 128-bit value (or a byte
+ * within it) within a memory region, advancing forward. This uses optimized
+ * 128-bit word comparisons.
+ *
+ * Parameters:
+ * ptr - A pointer to the memory region to search.
+ * x   - The 128-bit value to search for (used as a mask for `_lookup_u128`).
+ * n   - A pointer to the remaining number of bytes to search.
+ * i   - A pointer to the current index within the buffer.
+ *
+ * Returns:
+ * A pointer to the first occurrence of `x` (or a byte matching `x` within a word)
+ * if found, NULL otherwise.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It assumes 8-byte alignment for `ptr` (though 16-byte would be ideal for 128-bit)
+ * and processes memory in 128-bit words, using `_lookup_u128` to find specific
+ * byte matches within those words.
+ */
 
 __attribute__((always_inline))
 inline void	*_look4_u128_fwd(void *__restrict__ ptr,

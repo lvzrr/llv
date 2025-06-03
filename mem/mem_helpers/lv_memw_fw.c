@@ -20,6 +20,26 @@
 
 #include "mem.h"
 
+/*
+ * Function: _copy_u8_fwd
+ * ----------------------
+ * Copies a memory region byte-by-byte (8-bit) in a forward direction.
+ * This is a helper for `memcpy`-like operations for unaligned or small remaining data.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * src  - A pointer to the source memory region.
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2 bytes where possible, then single bytes,
+ * working from the beginning of the specified range forwards.
+ */
 __attribute__((always_inline))
 inline void	_copy_u8_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
@@ -40,6 +60,28 @@ inline void	_copy_u8_fwd(void *__restrict__ dest,
 		*n -= sizeof(t_u8);
 	}
 }
+
+/*
+ * Function: _copy_u32_fwd
+ * -----------------------
+ * Copies a memory region in 32-bit (4-byte) word chunks in a forward direction.
+ * This is a helper for `memcpy`-like operations, optimized for 32-bit copies.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * src  - A pointer to the source memory region.
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 32-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 32-bit access.
+ */
+
 
 __attribute__((always_inline))
 inline void	_copy_u32_fwd(void *__restrict__ dest,
@@ -62,6 +104,26 @@ inline void	_copy_u32_fwd(void *__restrict__ dest,
 	}
 }
 
+/*
+ * Function: _copy_u64_fwd
+ * -----------------------
+ * Copies a memory region in 64-bit (8-byte) word chunks in a forward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * src  - A pointer to the source memory region.
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 64-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 64-bit access.
+ */
+
 __attribute__((always_inline))
 inline void	_copy_u64_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
@@ -83,6 +145,26 @@ inline void	_copy_u64_fwd(void *__restrict__ dest,
 	}
 }
 
+/*
+ * Function: _copy_u128_fwd
+ * ------------------------
+ * Copies a memory region in 128-bit (16-byte) word chunks in a forward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * src  - A pointer to the source memory region.
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 128-bit words where possible, then single words.
+ * - Assumes appropriate alignment for 128-bit access.
+ */
+
 __attribute__((always_inline))
 inline void	_copy_u128_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
@@ -103,6 +185,29 @@ inline void	_copy_u128_fwd(void *__restrict__ dest,
 		*n -= sizeof(t_u128);
 	}
 }
+
+/*
+ * Function: _aligned
+ * ------------------
+ * Determines the largest common alignment for two memory pointers.
+ * This is used to select the most efficient word size (8, 32, 64, or 128-bit)
+ * for memory operations like copy, set, or compare.
+ *
+ * Parameters:
+ * dest - A pointer to the first memory region.
+ * src  - A pointer to the second memory region.
+ * i    - A pointer to the current offset (index) within the buffers.
+ *
+ * Returns:
+ * The largest power of 2 (in bits: 128, 64, 32, or 0 for byte-wise)
+ * that both `dest` and `src` are currently aligned to at the given offset.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It helps optimize memory operations by allowing word-sized access
+ * when memory is appropriately aligned.
+ * - `s == *i` is likely a check for `src` being `NULL` or very early in buffer.
+ */
 
 __attribute__((always_inline))
 inline t_u8	_aligned(const void *__restrict__ dest,

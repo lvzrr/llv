@@ -20,6 +20,24 @@
 
 #include "mem.h"
 
+/*
+ * Function: populate
+ * ------------------
+ * Populates a 128-bit unsigned integer with a repeating byte value `y`.
+ * This creates a mask where every byte is `y`, useful for fast memory
+ * setting in word-sized operations.
+ *
+ * Parameters:
+ * y - The integer value (character) to repeat, cast to `t_u128`.
+ *
+ * Returns:
+ * A 128-bit unsigned integer with `y` replicated across all its bytes.
+ *
+ * Notes:
+ * - This function is `always_inline` for performance.
+ * - It works by successive left shifts and OR operations to fill the `t_u128`.
+ */
+
 __attribute__((always_inline))
 static inline t_u128	populate(int y)
 {
@@ -32,6 +50,28 @@ static inline t_u128	populate(int y)
 	x |= x << 64;
 	return (x);
 }
+
+/*
+ * Function: _alinger
+ * ------------------
+ * Helper function for `lv_memset` to handle initial unaligned bytes
+ * and attempt to align the destination pointer for more efficient word-sized writes.
+ * It writes the specified byte `o` two at a time until alignment is achieved.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * o    - The 8-bit value (byte) to write.
+ * n    - A pointer to the remaining number of bytes to write. This value is decremented.
+ * r    - A pointer to a `t_u8` that will store the alignment status from `_aligned`.
+ *
+ * Returns:
+ * The number of bytes processed by this function to achieve alignment or exhaust `n`.
+ *
+ * Notes:
+ * - This function is `always_inline` for performance critical paths.
+ * - It updates `n` to reflect the bytes processed.
+ * - `*r` is set by calls to `_aligned` to indicate if alignment has been achieved.
+ */
 
 __attribute__((always_inline))
 inline size_t	_alinger(void *__restrict__ dest,
@@ -50,6 +90,29 @@ inline size_t	_alinger(void *__restrict__ dest,
 	}
 	return (x);
 }
+
+/*
+ * Function: lv_memset
+ * -------------------
+ * Fills the first `n` bytes of the memory area pointed to by `dest` with
+ * the constant byte `c`.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory area.
+ * c    - The integer value to fill the memory with, interpreted as an `unsigned char`.
+ * n    - The number of bytes to set.
+ *
+ * Returns:
+ * A pointer to the destination memory area `dest`.
+ *
+ * Notes:
+ * - This function is optimized to handle initial unaligned bytes and then
+ * transition to word-sized writes (32-bit, 64-bit, 128-bit) if alignment
+ * is achieved, falling back to byte-wise write for any remaining bytes.
+ * - It uses `populate` to create a repeated byte mask for word-sized writes.
+ * - It uses helper functions `_alinger`, `_write_u8_fwd`, `_write_u32_fwd`,
+ * `_write_u64_fwd`, and `_write_u128_fwd` for efficient filling.
+ */
 
 void	*lv_memset(void *__restrict__ dest, int c, size_t n)
 {

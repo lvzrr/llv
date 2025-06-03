@@ -20,6 +20,27 @@
 
 #include "mem.h"
 
+/*
+ * Function: lv_memclone
+ * ---------------------
+ * Allocates a new memory region of `size` bytes and copies the contents
+ * of the memory area pointed to by `ptr` into this new region.
+ *
+ * Parameters:
+ * ptr  - A pointer to the source memory region to be cloned.
+ * size - The number of bytes to clone.
+ *
+ * Returns:
+ * A pointer to the newly allocated and populated memory region if successful,
+ * or a null pointer if `ptr` is NULL, `size` is 0, or memory allocation fails.
+ *
+ * Notes:
+ * - This function performs a deep copy of the memory.
+ * - It relies on `lv_alloc` for memory allocation and `lv_memmove` for copying.
+ * - The caller is responsible for freeing the returned memory using `lv_free`
+ * (or equivalent).
+ */
+
 void	*lv_memclone(void *__restrict__ ptr, size_t size)
 {
 	void	*new_reg;

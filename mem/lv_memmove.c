@@ -20,6 +20,32 @@
 
 #include "mem.h"
 
+/*
+ * Function: b
+ * -----------
+ * Helper function for `lv_memmove` specifically for backward copying.
+ * This is invoked when the source and destination memory regions overlap
+ * and the destination starts before the source, requiring a copy from
+ * the end of the region backward to prevent overwriting uncopied data.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region (adjusted for backward copy).
+ * src  - A pointer to the source memory region (adjusted for backward copy).
+ * n    - The number of bytes to copy.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This function is `always_inline` for performance critical paths.
+ * - It handles initial unaligned bytes, then performs backward word-sized
+ * copies (128-bit, 64-bit, 32-bit), and finally falls back to byte-wise
+ * backward copy for remaining bytes.
+ * - The pointers `dest` and `src` are expected to be incremented by `n`
+ * by the caller before calling this function, effectively pointing to
+ * the end of the respective regions for backward iteration.
+ */
+
 __attribute__((always_inline))
 static inline void	b(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
@@ -46,6 +72,29 @@ static inline void	b(void *__restrict__ dest,
 	if (n > 0)
 		_copy_u8_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
 }
+
+/*
+ * Function: lv_memmove
+ * --------------------
+ * Copies `n` bytes from the memory area `src` to the memory area `dest`.
+ * The memory areas may overlap.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory area.
+ * src  - A pointer to the source memory area.
+ * n    - The number of bytes to copy.
+ *
+ * Returns:
+ * A pointer to the destination memory area `dest`.
+ *
+ * Notes:
+ * - This function is marked `hot` indicating it's expected to be called frequently.
+ * - It handles overlapping memory regions by determining if a forward copy
+ * (using `lv_memcpy`) or a backward copy (using the internal `b` helper)
+ * is necessary.
+ * - If `dest` and `src` are the same, or `n` is 0 and `dest` or `src` is NULL,
+ * it immediately returns `dest`.
+ */
 
 __attribute__((hot))
 void	*lv_memmove(void *__restrict__ dest,

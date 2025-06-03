@@ -20,6 +20,30 @@
 
 #include "mem.h"
 
+/*
+ * Function: _copy_u8_bw
+ * ---------------------
+ * Copies a memory region byte-by-byte (8-bit) in a backward direction.
+ * This is a helper for `memmove`-like operations when source and destination
+ * overlap and backward copy is required.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region (adjusted for backward copy).
+ * src  - A pointer to the source memory region (adjusted for backward copy).
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers (from end).
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2 bytes where possible, then single bytes,
+ * working from the end of the specified range backwards.
+ * - The `dest` and `src` pointers typically need to be adjusted to point
+ * to the end of the regions before calling this.
+ */
+
 __attribute__((always_inline))
 inline void	_copy_u8_bw(void *__restrict__ dest,
 	const void *__restrict__ src, size_t *__restrict__ n,
@@ -42,6 +66,27 @@ inline void	_copy_u8_bw(void *__restrict__ dest,
 		*n -= sizeof(t_u8);
 	}
 }
+
+/*
+ * Function: _copy_u32_bw
+ * ----------------------
+ * Copies a memory region in 32-bit (4-byte) word chunks in a backward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * src  - A pointer to the source memory region.
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers (from end).
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 32-bit words where possible, then single words,
+ * working from the end of the specified range backwards.
+ * - Assumes appropriate alignment for 32-bit access.
+ */
 
 __attribute__((always_inline))
 inline void	_copy_u32_bw(void *__restrict__ dest,
@@ -67,6 +112,27 @@ inline void	_copy_u32_bw(void *__restrict__ dest,
 	}
 }
 
+/*
+ * Function: _copy_u64_bw
+ * ----------------------
+ * Copies a memory region in 64-bit (8-byte) word chunks in a backward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * src  - A pointer to the source memory region.
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers (from end).
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 64-bit words where possible, then single words,
+ * working from the end of the specified range backwards.
+ * - Assumes appropriate alignment for 64-bit access.
+ */
+
 __attribute__((always_inline))
 inline void	_copy_u64_bw(void *__restrict__ dest,
 	const void *__restrict__ src,
@@ -90,6 +156,27 @@ inline void	_copy_u64_bw(void *__restrict__ dest,
 		*n -= sizeof(t_u64);
 	}
 }
+
+/*
+ * Function: _copy_u128_bw
+ * -----------------------
+ * Copies a memory region in 128-bit (16-byte) word chunks in a backward direction.
+ *
+ * Parameters:
+ * dest - A pointer to the destination memory region.
+ * src  - A pointer to the source memory region.
+ * n    - A pointer to the remaining number of bytes to copy.
+ * i    - A pointer to the current index within the buffers (from end).
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This is an inline helper function.
+ * - It processes memory in chunks of 2x 128-bit words where possible, then single words,
+ * working from the end of the specified range backwards.
+ * - Assumes appropriate alignment for 128-bit access.
+ */
 
 __attribute__((always_inline))
 inline void	_copy_u128_bw(void *__restrict__ dest,
