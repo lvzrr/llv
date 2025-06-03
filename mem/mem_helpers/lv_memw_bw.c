@@ -58,6 +58,13 @@ inline void	_copy_u32_bw(void *__restrict__ dest,
 		*i += sizeof(t_u32);
 		*n -= sizeof(t_u32) * 2;
 	}
+	while (*n >= sizeof(t_u32))
+	{
+		((t_u32 *)((t_u8 *)dest + *i) - 2)[1]
+			= ((t_u32 *)((t_u8 *)src + *i) - 2)[1];
+		*i += sizeof(t_u32);
+		*n -= sizeof(t_u32);
+	}
 }
 
 __attribute__((always_inline))
@@ -75,6 +82,13 @@ inline void	_copy_u64_bw(void *__restrict__ dest,
 		*i += sizeof(t_u64);
 		*n -= sizeof(t_u64) * 2;
 	}
+	while (*n >= sizeof(t_u64))
+	{
+		((t_u64 *)((t_u8 *)dest + *i) - 2)[0]
+			= ((t_u64 *)((t_u8 *)src + *i) - 2)[0];
+		*i += sizeof(t_u64);
+		*n -= sizeof(t_u64);
+	}
 }
 
 __attribute__((always_inline))
@@ -91,5 +105,12 @@ inline void	_copy_u128_bw(void *__restrict__ dest,
 			= ((t_u128 *)((t_u8 *)src + *i) - 2)[0];
 		*i += sizeof(t_u128);
 		*n -= sizeof(t_u128) * 2;
+	}
+	while (*n >= sizeof(t_u128))
+	{
+		((t_u128 *)((t_u8 *)dest + *i) - 2)[0]
+			= ((t_u128 *)((t_u8 *)src + *i) - 2)[0];
+		*i += sizeof(t_u128);
+		*n -= sizeof(t_u128);
 	}
 }

@@ -137,6 +137,14 @@ inline void	*_look4_u32_fwd(void *__restrict__ ptr,
 		*n -= sizeof(t_u32) * 2;
 		*i += sizeof(t_u32) * 2;
 	}
+	while (*n >= sizeof(t_u32))
+	{
+		lk = _lookup_u32(*d++, x);
+		if (lk != -1)
+			return ((t_u8 *)d - sizeof(t_u32) + lk);
+		*n -= sizeof(t_u32);
+		*i += sizeof(t_u32);
+	}
 	return (NULL);
 }
 
@@ -160,6 +168,14 @@ inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 		*n -= sizeof(t_u64) * 2;
 		*i += sizeof(t_u64) * 2;
 	}
+	while (*n >= sizeof(t_u64))
+	{
+		lk = _lookup_u64(*d++, x);
+		if (lk != -1)
+			return ((t_u8 *)d - sizeof(t_u64) + lk);
+		*n -= sizeof(t_u64);
+		*i += sizeof(t_u64);
+	}
 	return (NULL);
 }
 
@@ -181,6 +197,14 @@ inline void	*_look4_u128_fwd(void *__restrict__ ptr,
 			return ((t_u8 *)d - sizeof(t_u128) + lk);
 		*n -= sizeof(t_u128) * 2;
 		*i += sizeof(t_u128) * 2;
+	}
+	while (*n >= sizeof(t_u128))
+	{
+		lk = _lookup_u128(*d++, x);
+		if (lk != -1)
+			return ((t_u8 *)d - sizeof(t_u128) + lk);
+		*n -= sizeof(t_u128);
+		*i += sizeof(t_u128);
 	}
 	return (NULL);
 }
