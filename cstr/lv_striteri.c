@@ -20,6 +20,24 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_striteri
+ * ---------------------
+ * Applies a function to each character of a string, passing the index
+ * and a pointer to the character.
+ *
+ * Parameters:
+ * s - The string to iterate over.
+ * f - The function to apply to each character. It takes an unsigned int
+ * (index) and a char pointer (to the character) as arguments.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - The function `f` can modify the characters in the string `s`.
+ */
+
 void	lv_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	unsigned int	i;

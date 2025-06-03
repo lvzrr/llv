@@ -20,6 +20,26 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strtrim
+ * --------------------
+ * Creates a new string by removing all characters specified in `set`
+ * from the beginning and end of the input `str`.
+ *
+ * Parameters:
+ * str - The string to be trimmed.
+ * set - The set of characters to trim from the beginning and end of `str`.
+ *
+ * Returns:
+ * A pointer to the newly allocated trimmed string on success.
+ * NULL if the input string is NULL or if memory allocation fails.
+ *
+ * Notes:
+ * - The caller is responsible for freeing the allocated memory.
+ * - If `str` is empty or only contains characters from `set`, an empty string is returned.
+ * - If `set` is empty, a duplicate of `str` is returned.
+ */
+
 static int	in_set(char c, const char *set)
 {
 	int	i;
@@ -34,29 +54,30 @@ static int	in_set(char c, const char *set)
 	return (-1);
 }
 
-char	*lv_strtrim(const char *str, const char *set)
+char *lv_strtrim(const char *str, const char *set)
 {
-	size_t			b;
-	size_t			e;
-	size_t			i;
-	char			*out;
-
-	if (!str)
-		return (NULL);
-	if (!set || !set[0] || !str[0])
-		return (lv_strdup(str));
-	i = 0;
-	b = 0;
-	e = lv_strlen(str) - 1;
-	while (in_set(str[b], set) >= 0)
-		b++;
-	while (e > b && in_set(str[e], set) >= 0)
-		e--;
-	out = lv_alloc((e - b) + 2);
-	if (!out)
-		return (NULL);
-	while (b <= e)
-		out[i++] = str[b++];
-	out[i] = 0;
-	return (out);
+    size_t b;
+    size_t e;
+    size_t trimmed_len;
+    char   *out;
+    if (!str)
+        return (NULL);
+    if (!set || !set[0] || !str[0])
+        return (lv_strdup(str));
+    b = 0;
+    e = lv_strlen(str) - 1;
+    while (str[b] && in_set(str[b], set) >= 0)
+        b++;
+    while (e >= b && in_set(str[e], set) >= 0)
+        e--;
+    if (b > e)
+        trimmed_len = 0;
+    else
+        trimmed_len = e - b + 1;
+    out = lv_alloc(trimmed_len + 1);
+    if (!out)
+        return (NULL);
+    lv_memcpy(out, str + b, trimmed_len);
+    out[trimmed_len] = '\0';
+    return (out);
 }

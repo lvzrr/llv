@@ -20,6 +20,25 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strmapi
+ * --------------------
+ * Applies a function to each character of a string to create a new string.
+ *
+ * Parameters:
+ * str - The source string.
+ * f   - The function to apply. It takes an unsigned int (index) and a char
+ * (character) as arguments and returns the transformed character.
+ *
+ * Returns:
+ * A pointer to the newly allocated string with the transformed characters on success.
+ * NULL if the input string is NULL or if memory allocation fails.
+ *
+ * Notes:
+ * - The caller is responsible for freeing the allocated memory.
+ * - The original string `str` is not modified.
+ */
+
 char	*lv_strmapi(char const *str, char (*f)(unsigned int, char))
 {
 	unsigned int	i;

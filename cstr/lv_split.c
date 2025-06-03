@@ -20,6 +20,26 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_split
+ * ------------------
+ * Splits a string into an array of substrings based on a delimiter character.
+ * Each substring is allocated dynamically and the array is NULL-terminated.
+ *
+ * Parameters:
+ * str - The string to be split.
+ * set - The delimiter character to split the string by.
+ *
+ * Returns:
+ * A dynamically allocated array of strings (char**) on success.
+ * NULL if the input string is NULL or if memory allocation fails.
+ *
+ * Notes:
+ * - The caller is responsible for freeing the allocated memory for each
+ * substring and the array itself.
+ * - Helper functions `count_words`, `eat_literal`, and `free_words` are used.
+ */
+
 static unsigned int	count_words(char *str, char set)
 {
 	unsigned int	iw;

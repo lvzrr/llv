@@ -20,16 +20,34 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strdup
+ * -------------------
+ * Duplicates a null-terminated string. A new memory block is allocated
+ * and the content of the source string is copied into it.
+ *
+ * Parameters:
+ * str - The null-terminated string to duplicate.
+ *
+ * Returns:
+ * A pointer to the newly allocated and duplicated string on success.
+ * NULL if the input string is NULL or if memory allocation fails.
+ *
+ * Notes:
+ * - The caller is responsible for freeing the allocated memory.
+ * - Uses `lv_strlen` to determine the length and `lv_alloc` for memory.
+ */
+
 char	*lv_strdup(const char *str)
 {
 	unsigned int	i;
 	unsigned int	n;
 	char			*newstr;
 
-	n = 0;
-	while (str[n])
-		n++;
+	if (!str)
+		return (NULL);
 	i = 0;
+	n = lv_strlen(str);
 	newstr = (char *)lv_alloc(n + 1);
 	if (!newstr)
 		return ((void *) 0);

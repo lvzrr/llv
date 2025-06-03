@@ -20,6 +20,25 @@
 
 #include "llv.h"
 
+/*
+ * Function: lv_isnumeric
+ * --------------------
+ * Checks if a string represents a numeric value, allowing for optional leading
+ * plus or minus signs and spaces. It returns 1 if at least one digit is found
+ * and only contains digits, '+', '-', or ' '. Returns 0 otherwise.
+ *
+ * Parameters:
+ * s - The string to check.
+ *
+ * Returns:
+ * 1 if the string is numeric (contains at least one digit and valid characters),
+ * 0 otherwise (including for NULL or empty strings).
+ *
+ * Notes:
+ * - The string must contain at least one digit to be considered numeric.
+ * - Spaces, '+' and '-' are allowed but do not count as digits.
+ */
+
 inline t_u8	lv_isnumeric(const char *__restrict__ s)
 {
 	t_u8	has_digit;

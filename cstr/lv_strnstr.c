@@ -20,19 +20,40 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strnstr
+ * --------------------
+ * Locates the first occurrence of a null-terminated needle string within
+ * a null-terminated haystack string, examining at most `n` characters.
+ *
+ * Parameters:
+ * haystack - The string to be searched.
+ * needle   - The string to search for.
+ * n        - The maximum number of characters to search within `haystack`.
+ *
+ * Returns:
+ * A pointer to the first character of the first occurrence of `needle` in
+ * `haystack` within the first `n` characters.
+ * If `needle` is an empty string, `haystack` is returned.
+ * NULL if `needle` is not found within the specified length, or if
+ * `haystack` is an empty string and `needle` is not empty.
+ *
+ * Notes:
+ * - If `n` is 0, the function will not find any matches unless `needle` is empty.
+ * - Uses `lv_strlen` and `lv_strncmp`.
+ */
+
 char	*lv_strnstr(const char *haystack, const char *needle, size_t n)
 {
 	size_t	i;
 	size_t	l;
 
-	i = 0;
-	l = 0;
 	if (!*needle)
 		return ((char *)haystack);
 	if (!*haystack)
 		return (NULL);
-	while (needle[l])
-		l++;
+	i = 0;
+	l = lv_strlen(needle);
 	while (haystack[i] && (i + l) <= n)
 	{
 		if (!lv_strncmp(&(haystack[i]), needle, l))

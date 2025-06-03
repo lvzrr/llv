@@ -20,6 +20,23 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strrchr
+ * --------------------
+ * Locates the last occurrence of a character in a string.
+ *
+ * Parameters:
+ * haystack - The string to be searched.
+ * needle   - The character to search for (an int, but treated as char).
+ *
+ * Returns:
+ * A pointer to the last occurrence of `needle` in `haystack`.
+ * NULL if the character is not found.
+ *
+ * Notes:
+ * - Searches from the end of the string towards the beginning.
+ */
+
 char	*lv_strrchr(const char *haystack, int needle)
 {
 	size_t	l;

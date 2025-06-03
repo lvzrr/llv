@@ -20,6 +20,26 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strlen
+ * -------------------
+ * Calculates the length of a null-terminated string. This implementation
+ * attempts to optimize the length calculation by checking multiple bytes
+ * at a time using 64-bit word comparisons.
+ *
+ * Parameters:
+ * str - The null-terminated string.
+ *
+ * Returns:
+ * The number of characters in `str`, excluding the null terminator.
+ *
+ * Notes:
+ * - Handles unaligned initial bytes.
+ * - Uses `t_u64` and `t_u128` for word-sized processing.
+ * - Relies on `__hasz64` macro to efficiently check for null bytes
+ * within a 64-bit word.
+ */
+
 size_t	lv_strlen(const char *str)
 {
 	const char	*a;
@@ -33,11 +53,11 @@ size_t	lv_strlen(const char *str)
 			return (str - a);
 		str++;
 	}
-	while (!__hasz64(w_64[0]) && !__hasz64(w_64[1]))
+	while (true)
 	{
 		if (__hasz64(w_64[0]))
 			str = (const char *)&w_64[0];
-		else if (__hasz64(w_64[0]))
+		else if (__hasz64(w_64[1]))
 			str = (const char *)&w_64[1];
 		if (str == (const char *)&w_64[1]
 			|| str == (const char *)&w_64[0])

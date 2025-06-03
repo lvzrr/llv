@@ -20,14 +20,24 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strchr
+ * -------------------
+ * Locates the first occurrence of a character in a string.
+ *
+ * Parameters:
+ * haystack - The string to be searched.
+ * needle   - The character to search for (an int, but treated as char).
+ *
+ * Returns:
+ * A pointer to the first occurrence of `needle` in `haystack`.
+ * NULL if the character is not found.
+ *
+ * Notes:
+ * - Internally uses `lv_memffb` and `lv_strlen`.
+ */
+
 char	*lv_strchr(const char *haystack, int needle)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (haystack[i] && haystack[i] != (char)needle)
-		i++;
-	if (haystack[i] == 0 && (char)needle != 0)
-		return ((void *) 0);
-	return ((char *)(haystack + i));
+	return (lv_memffb(haystack, needle, lv_strlen(haystack) + 1));
 }

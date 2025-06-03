@@ -20,18 +20,34 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strlcat
+ * --------------------
+ * Concatenates a null-terminated source string to a null-terminated
+ * destination buffer, ensuring null termination and preventing buffer overflow.
+ *
+ * Parameters:
+ * dest - The destination buffer.
+ * src  - The source string to append.
+ * n    - The total size of the destination buffer (including null terminator).
+ *
+ * Returns:
+ * The total length of the string that would have been created if there
+ * was enough room (strlen(src) + strlen(initial dest)).
+ *
+ * Notes:
+ * - Appends at most `n - strlen(dest) - 1` bytes from `src`.
+ * - Always null-terminates the result if `n` is greater than 0.
+ */
+
 size_t	lv_strlcat(char *dest, const char *src, size_t n)
 {
 	size_t	srclen;
 	size_t	dstlen;
 	size_t	i;
 
-	srclen = 0;
-	while (src[srclen])
-		srclen++;
-	dstlen = 0;
-	while (dest[dstlen] && dstlen < n)
-		dstlen++;
+	srclen = lv_strlen(src);
+	dstlen = lv_strlen(dest);
 	if (n <= dstlen)
 		return (srclen + n);
 	i = 0;

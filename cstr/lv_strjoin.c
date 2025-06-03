@@ -20,12 +20,29 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strjoin
+ * --------------------
+ * Concatenates two null-terminated strings into a new dynamically allocated string.
+ *
+ * Parameters:
+ * s1 - The first string.
+ * s2 - The second string.
+ *
+ * Returns:
+ * A pointer to the newly allocated concatenated string on success.
+ * NULL if either input string is NULL or if memory allocation fails.
+ *
+ * Notes:
+ * - The caller is responsible for freeing the allocated memory.
+ * - Uses `lv_strlen` to determine lengths and `lv_alloc` and `lv_memcpy`
+ * for memory handling and copying.
+ */
+
 char	*lv_strjoin(const char *s1, const char *s2)
 {
 	size_t			l1;
 	size_t			l2;
-	size_t			i;
-	size_t			j;
 	char			*out;
 
 	if (!s1 || !s2)
@@ -35,13 +52,8 @@ char	*lv_strjoin(const char *s1, const char *s2)
 	out = lv_alloc(l1 + l2 + 1);
 	if (!out)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (j < l1)
-		out[i++] = s1[j++];
-	j = 0;
-	while (j < l2)
-		out[i++] = s2[j++];
-	out[i] = 0;
+	lv_memcpy(out, s1, l1);
+	lv_memcpy(out + l1, s2, l2);
+	out[l1 + l2] = 0;
 	return (out);
 }

@@ -20,17 +20,40 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_substr
+ * -------------------
+ * Extracts a substring from a given string.
+ *
+ * Parameters:
+ * s     - The source string.
+ * start - The starting index of the substring in `s`.
+ * len   - The maximum length of the substring to extract.
+ *
+ * Returns:
+ * A pointer to the newly allocated substring on success.
+ * NULL if the input string is NULL or if memory allocation fails.
+ *
+ * Notes:
+ * - The caller is responsible for freeing the allocated memory.
+ * - If `start` is beyond the string length, an empty string is returned.
+ * - If `len` would go beyond the string length, it is adjusted to the
+ * remaining length of the string.
+ */
+
 char	*lv_substr(char const *s, unsigned int start, size_t len)
 {
 	unsigned int	j;
 	char			*out;
+	size_t			ls;
 
 	if (!s)
 		return (NULL);
-	if (len == 0 || start >= lv_strlen(s))
+	ls = lv_strlen(s);
+	if (len == 0 || start >= ls)
 		return (lv_strdup(""));
-	if (len > lv_strlen(s) - start)
-		len = lv_strlen(s) - start;
+	if (len > ls - start)
+		len = ls - start;
 	out = lv_alloc(len + 1);
 	if (!out)
 		return (NULL);

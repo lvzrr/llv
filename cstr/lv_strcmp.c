@@ -20,6 +20,24 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strcmp
+ * -------------------
+ * Compares two null-terminated strings lexicographically.
+ *
+ * Parameters:
+ * a - The first string to compare.
+ * b - The second string to compare.
+ *
+ * Returns:
+ * An integer less than, equal to, or greater than zero if `a` is found,
+ * respectively, to be less than, to match, or be greater than `b`.
+ *
+ * Notes:
+ * - The comparison stops at the first differing character or at the
+ * null terminator of either string.
+ */
+
 int	lv_strcmp(const char *a, const char *b)
 {
 	size_t	c;

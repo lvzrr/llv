@@ -20,6 +20,22 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_toupper
+ * --------------------
+ * Converts a lowercase letter to its uppercase equivalent.
+ *
+ * Parameters:
+ * c - The character to convert.
+ *
+ * Returns:
+ * The uppercase equivalent of `c` if `c` is a lowercase letter; otherwise,
+ * `c` is returned unchanged.
+ *
+ * Notes:
+ * - Assumes ASCII character set for conversion.
+ */
+
 int	lv_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')

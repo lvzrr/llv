@@ -20,20 +20,26 @@
 
 #include "cstr.h"
 
+/*
+ * Function: lv_strncmp
+ * --------------------
+ * Compares up to `n` characters of two null-terminated strings lexicographically.
+ *
+ * Parameters:
+ * s1 - The first string to compare.
+ * s2 - The second string to compare.
+ * n  - The maximum number of characters to compare.
+ *
+ * Returns:
+ * An integer less than, equal to, or greater than zero if the first `n`
+ * characters of `s1` are found, respectively, to be less than, to match,
+ * or be greater than the first `n` characters of `s2`.
+ *
+ * Notes:
+ * - Internally uses `lv_memcmp` for the comparison.
+ */
+
 int	lv_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t			i;
-	unsigned char	*w;
-	unsigned char	*z;
-
-	w = (unsigned char *)s1;
-	z = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
-	{
-		if (w[i] != z[i] || !w[i] || !z[i])
-			return (w[i] - z[i]);
-		i++;
-	}
-	return (0);
+	return (lv_memcmp((void *)s1, (void *)s2, n));
 }

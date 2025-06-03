@@ -20,6 +20,22 @@
 
 #include "cstr.h"
 
+/*
+ * function: lv_tolower
+ * --------------------
+ * converts an uppercase letter to its lowercase equivalent.
+ *
+ * parameters:
+ * c - the character to convert.
+ *
+ * returns:
+ * the lowercase equivalent of `c` if `c` is an uppercase letter; otherwise,
+ * `c` is returned unchanged.
+ *
+ * notes:
+ * - assumes ascii character set for conversion.
+ */
+
 int	lv_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
