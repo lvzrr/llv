@@ -34,8 +34,20 @@
 #  define LV_DEFER __attribute((cleanup(lv_defer)))
 # endif
 
+# ifndef LV_FMT_INLINE
+#  define LV_FMT_INLINE(fmt, ...) ({ LV_DEFER char *_s = lv_fmt(fmt, __VA_ARGS__); _s; })
+# endif
+
+# ifndef LV_FMT
+#  define LV_FMT(fmt, ...) (lv_fmt(fmt, __VA_ARGS__))
+# endif
+
+# ifndef LV_UNUSED
+#  define LV_UNUSED(x) (void)(x)
+# endif
+
 # ifndef LV_MAX
-#  define LV_MAX(x, y) (x > y) ? x : y
+#  define LV_MAX(x, y) ((x) > (y) ? (x) : (y))
 # endif
 
 #endif
