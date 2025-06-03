@@ -1,5 +1,5 @@
 /**
- * lv_memffb.c
+ * lv_memffb_unchecked.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -19,6 +19,7 @@
  */
 
 #include "mem.h"
+
 __attribute__((always_inline))
 static inline t_u128	populate(t_u8 y)
 {
@@ -57,7 +58,55 @@ static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
 	return (NULL);
 }
 
-void	*lv_memffb(const void *__restrict__ ptr,
+__attribute__((always_inline))
+static inline void	*_look4_u8_tmp_unsafe(void *__restrict__ ptr,
+	t_u8 x,
+	size_t *__restrict__ i, t_u8 *__restrict__ r)
+{
+	t_u8	*d;
+
+	d = (t_u8 *) __builtin_assume_aligned(ptr, 8);
+	while (!*r)
+	{
+		if (*d++ == x)
+			return ((t_u8 *)d - sizeof(t_u8));
+		*r = _aligned((t_u8 *)ptr, NULL, i);
+		if (*r)
+			return (NULL);
+		if (*d++ == x)
+			return ((t_u8 *)d - sizeof(t_u8));
+		*i += sizeof(t_u8) * 2;
+		*r = _aligned((t_u8 *)ptr, NULL, i);
+	}
+	return (NULL);
+}
+
+void	*lv_memffb_unchecked(const void *__restrict__ ptr,
+	t_u8 x)
+{
+	t_u64	mask;
+	t_u8	r;
+	size_t	i;
+	void	*p;
+
+	if (!ptr)
+		return (NULL);
+	mask = populate(x);
+	i = 0;
+	p = 0;
+	r = _aligned((t_u8 *)ptr, NULL, &i);
+	if (r == 0)
+		p = _look4_u8_tmp_unsafe((t_u8 *)ptr, mask, &i, &r);
+	if (r == 128 && !p)
+		p = _look4_u128_fwd_unsafe((t_u8 *)ptr, mask, &i);
+	else if (r >= 64 && !p)
+		p = _look4_u64_fwd_unsafe((t_u8 *)ptr, (t_u64)mask, &i);
+	else if (r >= 32 && !p)
+		p = _look4_u32_fwd_unsafe((t_u8 *)ptr, (t_u32)mask, &i);
+	return (p);
+}
+
+void	*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 	t_u8 x, size_t n)
 {
 	t_u64	mask;
@@ -75,10 +124,10 @@ void	*lv_memffb(const void *__restrict__ ptr,
 	if (n >= sizeof(t_u128) * 2 && r == 128 && !p)
 		p = _look4_u128_fwd((t_u8 *)ptr, mask, &n, &i);
 	else if (n >= sizeof(t_u64) * 2 && r >= 64 && !p)
-		p = _look4_u64_fwd((t_u8 *)ptr, mask, &n, &i);
+		p = _look4_u64_fwd((t_u8 *)ptr, (t_u64)mask, &n, &i);
 	else if (n >= sizeof(t_u32) * 2 && r >= 32 && !p)
 		p = _look4_u32_fwd((t_u8 *)ptr, (t_u32)mask, &n, &i);
-	if (n > 0 && !p)
-		p = _look4_u8_fwd((t_u8 *)ptr, x, &n, &i);
+	if (!p)
+		p = _look4_u8_fwd_unsafe((t_u8 *)ptr, x, &i);
 	return (p);
 }

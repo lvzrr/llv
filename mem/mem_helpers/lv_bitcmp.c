@@ -22,46 +22,60 @@
 
 __attribute__((always_inline))
 __attribute__((hot))
-inline int	_lookup_u32(t_u32 word, t_u32 mask)
+inline int _lookup_u32(t_u32 word, t_u32 mask)
 {
-	t_u32	diff;
-	t_u32	t;
+    t_u32 diff;
+    t_u32 t;
 
-	diff = word ^ mask;
-	t = (diff - 0x01010101U) & ~diff & 0x80808080U;
-	if (!t)
-		return (-1);
-	return (lv_memctz_u32(t) >> 3);
+	t = (t_u128)0;
+    diff = word ^ mask;
+    t = (diff - LONES_32) & ~diff & HIGHS_32;
+    if (!t)
+        return (-1);
+    return (lv_memctz_u32(t) >> 3);
 }
 
 __attribute__((always_inline))
 __attribute__((hot))
-inline int	_lookup_u64(t_u64 word, t_u64 mask)
+inline int _lookup_u64(t_u64 word, t_u64 mask)
 {
-	t_u64	diff;
-	t_u64	t;
+    t_u64 diff;
+    t_u64 t;
 
-	diff = word ^ mask;
-	t = (diff - 0x0101010101010101ULL)
-		& ~diff & 0x8080808080808080ULL;
-	if (!t)
-		return (-1);
-	return (lv_memctz_u64(t) >> 3);
+	t = (t_u128)0;
+    diff = word ^ mask;
+    t = (diff - LONES_64) & ~diff & HIGHS_64;
+    if (!t)
+        return (-1);
+    return (lv_memctz_u64(t) >> 3);
 }
 
 __attribute__((always_inline))
 __attribute__((hot))
 inline int _lookup_u128(t_u128 word, t_u128 mask)
 {
-	t_u128	diff;
-	t_u128	t;
+	int		lkup;
+	t_u64	low_word;
+	t_u64	high_word;
+	t_u64 	low_mask;
+	t_u64	high_mask;
 
-	diff = word ^ mask;
-	t = (diff - (t_u128)0x0101010101010101ULL)
-		& ~diff & (t_u128)0x8080808080808080ULL;
-	if (!t)
-		return (-1);
-	return lv_memctz_u128(t) >> 3;
+
+	high_mask = (t_u64)(mask >> 64);
+	low_mask = (t_u64)mask;
+	high_word = (t_u64)(word >> 64);
+	low_word = (t_u64)word;
+	lkup = _lookup_u64(low_word, low_mask);
+	if (lkup != -1)
+	{
+		return lkup;
+	}
+	lkup = _lookup_u64(high_word, high_mask);
+	if (lkup != -1)
+	{
+		return 64 + lkup;
+	}
+	return (-1);
 }
 
 __attribute__((always_inline))

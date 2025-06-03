@@ -1,5 +1,5 @@
 /**
- * lv_strlen.c
+ * __hasz.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,33 +18,24 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "cstr.h"
+#include "mem.h"
 
-size_t lv_strlen(const char *str)
+__attribute((hot))
+__attribute((always_inline))
+inline int	__hasz64(t_u64 x)
 {
-    const char	*a;
-	const t_u64	*w_64;
+    return (((x) -ONES_64) & (~x) & HIGHS_64);
+}
 
-	a = str;
-	w_64 = (const t_u64 *)str;
-	while ((t_uptr)str % sizeof(t_u128))
-	{
-		if (*str == '\0')
-			return str - a;
-		str++;
-	}
-	while (!__hasz64(w_64[0]) && !__hasz64(w_64[1]))
-	{
-		if (__hasz64(w_64[0]))
-			str = (const char *)&w_64[0];
-		else if (__hasz64(w_64[0]))
-			str = (const char *)&w_64[1];
-		if (str == (const char *)&w_64[1]
-			|| str == (const char *)&w_64[0])
-			break;
-		w_64 += 2;
-	}
-	while (*str != '\0')
-		str++;
-	return str - a;
+__attribute((always_inline))
+__attribute((hot))
+inline int	__hasz128(t_u128 x)
+{
+    t_u64 low_part;
+	t_u64 high_part;
+
+
+	high_part = (t_u64)(x >> 64);
+	low_part = (t_u64)x;
+    return (__hasz64(low_part) || __hasz64(high_part));
 }

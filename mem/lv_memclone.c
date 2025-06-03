@@ -1,5 +1,5 @@
 /**
- * lv_strlen.c
+ * lv_memclone.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,33 +18,17 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "cstr.h"
+#include "mem.h"
 
-size_t lv_strlen(const char *str)
+void	*lv_memclone(void *__restrict__ ptr, size_t size)
 {
-    const char	*a;
-	const t_u64	*w_64;
+	void	*new_reg;
 
-	a = str;
-	w_64 = (const t_u64 *)str;
-	while ((t_uptr)str % sizeof(t_u128))
-	{
-		if (*str == '\0')
-			return str - a;
-		str++;
-	}
-	while (!__hasz64(w_64[0]) && !__hasz64(w_64[1]))
-	{
-		if (__hasz64(w_64[0]))
-			str = (const char *)&w_64[0];
-		else if (__hasz64(w_64[0]))
-			str = (const char *)&w_64[1];
-		if (str == (const char *)&w_64[1]
-			|| str == (const char *)&w_64[0])
-			break;
-		w_64 += 2;
-	}
-	while (*str != '\0')
-		str++;
-	return str - a;
+	if (!ptr || size == 0)
+		return (NULL);
+	new_reg = lv_alloc(size);
+	if (!new_reg)
+		return (NULL);
+	lv_memmove(new_reg, ptr, size);
+	return (new_reg);
 }

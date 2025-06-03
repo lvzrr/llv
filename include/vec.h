@@ -38,4 +38,7 @@ void		lv_vec_insert(t_vec *v, size_t index, void *data,
 void		*lv_vec_peek_last(t_vec *__restrict__ v);
 t_u8		lv_vec_popmv(void *__restrict__ dst, t_vec *__restrict__ v);
 void		lv_vec_rev(t_vec *v);
+void		*lv_vec_get_mut(t_vec *vec, size_t idx);
+void		*lv_vec_get_clone(t_vec *vec, size_t idx);
+const void	*lv_vec_get(t_vec *vec, size_t idx);
 #endif

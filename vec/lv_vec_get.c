@@ -1,5 +1,5 @@
 /**
- * lv_strlen.c
+ * lv_vec_get.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,33 +18,37 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "cstr.h"
+#include "vec.h"
 
-size_t lv_strlen(const char *str)
+const void	*lv_vec_get(t_vec *vec, size_t idx)
 {
-    const char	*a;
-	const t_u64	*w_64;
+	t_u8	*raw;
 
-	a = str;
-	w_64 = (const t_u64 *)str;
-	while ((t_uptr)str % sizeof(t_u128))
-	{
-		if (*str == '\0')
-			return str - a;
-		str++;
-	}
-	while (!__hasz64(w_64[0]) && !__hasz64(w_64[1]))
-	{
-		if (__hasz64(w_64[0]))
-			str = (const char *)&w_64[0];
-		else if (__hasz64(w_64[0]))
-			str = (const char *)&w_64[1];
-		if (str == (const char *)&w_64[1]
-			|| str == (const char *)&w_64[0])
-			break;
-		w_64 += 2;
-	}
-	while (*str != '\0')
-		str++;
-	return str - a;
+	if (!vec || !vec->size || idx > vec->size)
+		return (NULL);
+	raw = (t_u8 *)vec->data;
+	return (raw + (vec->sizeof_type * idx));
+}
+
+
+void	*lv_vec_get_mut(t_vec *vec, size_t idx)
+{
+	t_u8	*raw;
+
+	if (!vec || !vec->size || idx > vec->size)
+		return (NULL);
+	raw = (t_u8 *)vec->data;
+	return (raw + (vec->sizeof_type * idx));
+}
+
+
+void	*lv_vec_get_clone(t_vec *vec, size_t idx)
+{
+	t_u8	*raw;
+
+	if (!vec || !vec->size || idx > vec->size)
+		return (NULL);
+	raw = (t_u8 *)vec->data;
+	return(lv_memclone(raw + (vec->sizeof_type * idx),
+		vec->sizeof_type));
 }
