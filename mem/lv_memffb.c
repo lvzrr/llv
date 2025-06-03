@@ -19,7 +19,6 @@
  */
 
 #include "mem.h"
-
 __attribute__((always_inline))
 static inline t_u128	populate(t_u8 y)
 {

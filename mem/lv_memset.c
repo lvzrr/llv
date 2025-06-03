@@ -59,8 +59,8 @@ void	*lv_memset(void *__restrict__ dest, int c, size_t n)
 
 	if ((!dest) && n != 0)
 		return (NULL);
-	r = _aligned((t_u8 *)dest, NULL, &x);
 	x = populate(c);
+	r = _aligned((t_u8 *)dest, NULL, &x);
 	i = _alinger(dest, (t_u8)x, &n, &r);
 	if (n >= sizeof(t_u128) * 2 && r == 128)
 		_write_u128_fwd((t_u8 *)dest, x, &n, &i);

@@ -71,7 +71,7 @@ inline void	*_look4_u8_fwd(void *__restrict__ ptr,
 {
 	t_u8	*d;
 
-	d = (t_u8 *) ptr;
+	d = (t_u8 *) ptr + *i;
 	while (*n >= 2)
 	{
 		if (*d++ == x)
@@ -98,7 +98,7 @@ inline void	*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
 {
 	t_u8	*d;
 
-	d = (t_u8 *) ptr;
+	d = (t_u8 *) ptr + *i;
 	while (*n >= 2)
 	{
 		if (*d++ == x)
@@ -108,13 +108,13 @@ inline void	*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
 		(*n) -= 2;
 		(*i) += 2;
 	}
-	while (*d != x)
+	while (true)
 	{
-		d++;
+		if (*d++ == x)
+			return ((t_u8 *)d - 1);
 		(*n)--;
 		(*i)++;
 	}
-	return (d - 1);
 }
 
 __attribute__((always_inline))
@@ -125,7 +125,7 @@ inline void	*_look4_u32_fwd(void *__restrict__ ptr,
 	t_u32	*d;
 	int		lk;
 
-	d = (t_u32 *) __builtin_assume_aligned(ptr, 4);
+	d = (t_u32 *) __builtin_assume_aligned(ptr, 4) + *i;
 	while (*n >= sizeof(t_u32) * 2)
 	{
 		lk = _lookup_u32(*d++, x);
@@ -148,7 +148,7 @@ inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 	t_u64	*d;
 	int		lk;
 
-	d = (t_u64 *) __builtin_assume_aligned(ptr, 8);
+	d = (t_u64 *) __builtin_assume_aligned(ptr, 8) + *i;
 	while (*n >= sizeof(t_u64) * 2)
 	{
 		lk = _lookup_u64(*d++, x);
@@ -170,8 +170,7 @@ inline void	*_look4_u128_fwd(void *__restrict__ ptr,
 {
 	t_u128	*d;
 	int		lk;
-
-	d = (t_u128 *) __builtin_assume_aligned(ptr, 8);
+	d = (t_u128 *) __builtin_assume_aligned(ptr, 8) + *i;
 	while (*n >= sizeof(t_u128) * 2)
 	{
 		lk = _lookup_u128(*d++, x);

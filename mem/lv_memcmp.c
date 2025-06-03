@@ -51,6 +51,7 @@ t_u8	lv_memcmp(void *__restrict__ dest,
 
 	if (n == 0)
 		return (0);
+	i = 0;
 	r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
 	r3 = 1;
 	r2 = _alinger(dest, src, &n, &r);
