@@ -20,9 +20,9 @@
 
 #include "cstr.h"
 
-size_t lv_strlen(const char *str)
+size_t	lv_strlen(const char *str)
 {
-    const char	*a;
+	const char	*a;
 	const t_u64	*w_64;
 
 	a = str;
@@ -30,7 +30,7 @@ size_t lv_strlen(const char *str)
 	while ((t_uptr)str % sizeof(t_u128))
 	{
 		if (*str == '\0')
-			return str - a;
+			return (str - a);
 		str++;
 	}
 	while (!__hasz64(w_64[0]) && !__hasz64(w_64[1]))
@@ -41,10 +41,10 @@ size_t lv_strlen(const char *str)
 			str = (const char *)&w_64[1];
 		if (str == (const char *)&w_64[1]
 			|| str == (const char *)&w_64[0])
-			break;
+			break ;
 		w_64 += 2;
 	}
 	while (*str != '\0')
 		str++;
-	return str - a;
+	return (str - a);
 }
