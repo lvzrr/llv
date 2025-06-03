@@ -42,7 +42,7 @@ t_u8			lv_memswap_extern(void *__restrict__ p1,
 void			*lv_memmove(void *__restrict__ dest,
 					const void *__restrict__ src, size_t n);
 void			*lv_memchr(const void *__restrict__ ptr, int c, size_t n);
-t_u8			lv_memcmp(void *__restrict__ dest,
+ssize_t			lv_memcmp(void *__restrict__ dest,
 					const void *__restrict__ src, size_t n);
 void			*lv_memffb(const void *__restrict__ ptr,
 					t_u8 x, size_t n);
@@ -117,16 +117,16 @@ void			*_look4_u128_fwd(void *__restrict__ ptr,
 
 // CMP
 
-t_u8			_cmp_u8(void *__restrict__ dest,
+ssize_t			_cmp_u8(void *__restrict__ dest,
 					const void *__restrict__ src,
 					size_t *__restrict__ n, size_t *__restrict__ i);
-t_u8			_cmp_u32(void *__restrict__ dest,
+ssize_t			_cmp_u32(void *__restrict__ dest,
 					const void *__restrict__ src,
 					size_t *__restrict__ n, size_t *__restrict__ i);
-t_u8			_cmp_u64(void *__restrict__ dest,
+ssize_t			_cmp_u64(void *__restrict__ dest,
 					const void *__restrict__ src,
 					size_t *__restrict__ n, size_t *__restrict__ i);
-t_u8			_cmp_u128(void *__restrict__ dest,
+ssize_t			_cmp_u128(void *__restrict__ dest,
 					const void *__restrict__ src,
 					size_t *__restrict__ n, size_t *__restrict__ i);
 

@@ -54,7 +54,10 @@ fclean: clean
 test-mem: install
 	@mkdir -p $(OBJDIR)/tests
 	@cc -O3 tests/mem.c -llv -Iinclude -o $(OBJDIR)/tests/mem.test
+	@echo "Testing Valgrind (mem module)..."
 	@valgrind --leak-check=full ./$(OBJDIR)/tests/mem.test
+	@echo "Testing Asan (mem module)..."
+	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -Iinclude -llv && ./$(OBJDIR)/tests/mem.test
 
 re: fclean full all
 

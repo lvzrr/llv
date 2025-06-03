@@ -14,6 +14,7 @@
 
 void	memcpy_tests()
 {
+	size_t i = 0;
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
 		LV_DEFER char *b = lv_alloc(L1_TEST);
@@ -21,6 +22,7 @@ void	memcpy_tests()
 		memset(a, 'a', L1_TEST);
 		lv_memcpy(b, a, L1_TEST);
 		assert(memcmp(a, b, L1_TEST) == 0);
+		printf("lv_memcpy passed tests: %lu\r", i++);
 	}
 
 	{
@@ -30,6 +32,7 @@ void	memcpy_tests()
 		memset(a, 'a', L2_TEST);
 		lv_memcpy(b, a, L2_TEST);
 		assert(memcmp(a, b, L2_TEST) == 0);
+		printf("lv_memcpy passed tests: %lu\r", i++);
 	}
 
 	{
@@ -39,6 +42,7 @@ void	memcpy_tests()
 		memset(a, 'a', L3_TEST);
 		lv_memcpy(b, a, L3_TEST);
 		assert(memcmp(a, b, L3_TEST) == 0);
+		printf("lv_memcpy passed tests: %lu\r", i++);
 	}
 
 	{
@@ -48,6 +52,7 @@ void	memcpy_tests()
 		memset(a, 'a', L4_TEST);
 		lv_memcpy(b, a, L4_TEST);
 		assert(memcmp(a, b, L4_TEST) == 0);
+		printf("lv_memcpy passed tests: %lu\r", i++);
 	}
 
 	{
@@ -57,6 +62,7 @@ void	memcpy_tests()
 		memset(a, 'a', L5_TEST);
 		lv_memcpy(b, a, L5_TEST);
 		assert(memcmp(a, b, L5_TEST) == 0);
+		printf("lv_memcpy passed tests: %lu\r", i++);
 	}
 
 	LV_DEFER char *a = lv_alloc(L5_TEST);
@@ -65,10 +71,12 @@ void	memcpy_tests()
 	assert(lv_memcpy(NULL, b, 1) == NULL);
 	assert(lv_memcpy(b, NULL, 1) == NULL);
 	assert(lv_memcpy(b, b, 1) == NULL);
+	printf("lv_memcpy passed tests: %lu\r", i++);
 }
 
 void	memmove_tests()
 {
+	size_t i = 0;
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
 		LV_DEFER char *b = lv_alloc(L1_TEST);
@@ -76,6 +84,7 @@ void	memmove_tests()
 		memset(a, 'a', L1_TEST);
 		lv_memmove(b, a, L1_TEST);
 		assert(memcmp(a, b, L1_TEST) == 0);
+		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
 	{
@@ -85,6 +94,7 @@ void	memmove_tests()
 		memset(a, 'a', L2_TEST);
 		lv_memmove(b, a, L2_TEST);
 		assert(memcmp(a, b, L2_TEST) == 0);
+		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
 	{
@@ -94,6 +104,7 @@ void	memmove_tests()
 		memset(a, 'a', L3_TEST);
 		lv_memmove(b, a, L3_TEST);
 		assert(memcmp(a, b, L3_TEST) == 0);
+		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
 	{
@@ -103,6 +114,7 @@ void	memmove_tests()
 		memset(a, 'a', L4_TEST);
 		lv_memmove(b, a, L4_TEST);
 		assert(memcmp(a, b, L4_TEST) == 0);
+		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
 	{
@@ -112,6 +124,7 @@ void	memmove_tests()
 		memset(a, 'a', L5_TEST);
 		lv_memmove(b, a, L5_TEST);
 		assert(memcmp(a, b, L5_TEST) == 0);
+		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
 	{
@@ -131,6 +144,7 @@ void	memmove_tests()
 		assert(a[2] == '2');
 		assert(a[3] == '4');
 		assert(a[4] == '5');
+		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
 	{
@@ -150,6 +164,7 @@ void	memmove_tests()
 		assert(a[2] == '3');
 		assert(a[3] == '4');
 		assert(a[4] == '5');
+		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
 	LV_DEFER char *b = lv_alloc(L5_TEST);
@@ -157,15 +172,18 @@ void	memmove_tests()
 	assert(lv_memmove(NULL, b, 1) == NULL);
 	assert(lv_memmove(b, NULL, 1) == NULL);
 	assert(lv_memmove(b, b, 1) == NULL);
+	printf("lv_memmove passed tests: %lu\r\n", i++);
 }
 
 void	memffb_tests() {
+	size_t i = 0;
 	{
 		LV_DEFER char *buf = lv_alloc(L1_TEST);
 		memset(buf, 'x', L1_TEST);
 		buf[0] = 'z';
 		void *res = lv_memffb(buf, 'z', L1_TEST);
 		assert(res == buf);
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
@@ -174,6 +192,7 @@ void	memffb_tests() {
 		buf[L1_TEST - 1] = 'y';
 		void *res = lv_memffb(buf, 'y', L1_TEST);
 		assert(res == buf + L1_TEST - 1);
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
@@ -182,6 +201,7 @@ void	memffb_tests() {
 		buf[5] = 'm';
 		void *res = lv_memffb(buf, 'm', L1_TEST);
 		assert(res == buf + 5);
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
@@ -189,6 +209,7 @@ void	memffb_tests() {
 		memset(buf, 'x', L1_TEST);
 		void *res = lv_memffb(buf, 'z', L1_TEST);
 		assert(res == NULL);
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
@@ -197,6 +218,7 @@ void	memffb_tests() {
 		buf[1234] = '!';
 		void *res = lv_memffb(buf, '!', L3_TEST);
 		assert(res == buf + 1234);
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
@@ -204,6 +226,7 @@ void	memffb_tests() {
 		memset(buf, 'x', L1_TEST);
 		void *res = lv_memffb(buf, 'x', 0);
 		assert(res == NULL);
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
@@ -213,16 +236,19 @@ void	memffb_tests() {
 		buf[250] = 'q';
 		void *res = lv_memffb(buf, 'q', L2_TEST);
 		assert(res == buf + 250);
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
 		void *res = lv_memffb(NULL, 'x', 0);
 		assert(res == NULL);
+		printf("lv_memffb passed tests: %lu\r\n", i++);
 	}
 }
 
 void memswap_tests()
 {
+	size_t i = 0;
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
 		LV_DEFER char *b = lv_alloc(L1_TEST);
@@ -234,6 +260,7 @@ void memswap_tests()
 			assert(a[i] == 'b');
 			assert(b[i] == 'a');
 		}
+		printf("lv_memffb passed tests: %lu\r", i++);
 	}
 
 	{
@@ -247,6 +274,7 @@ void memswap_tests()
 			assert(a[i] == 'd');
 			assert(b[i] == 'c');
 		}
+		printf("lv_memswap passed tests: %lu\r", i++);
 	}
 
 	{
@@ -260,6 +288,7 @@ void memswap_tests()
 			assert(a[i] == 'y');
 			assert(b[i] == 'x');
 		}
+		printf("lv_memswap passed tests: %lu\r", i++);
 	}
 
 	{
@@ -273,6 +302,7 @@ void memswap_tests()
 			assert(a[i] == 0x22);
 			assert(b[i] == 0x11);
 		}
+		printf("lv_memswap passed tests: %lu\r", i++);
 	}
 
 	{
@@ -286,6 +316,7 @@ void memswap_tests()
 			assert((unsigned char)a[i] == 0x5A);
 			assert((unsigned char)b[i] == 0xA5);
 		}
+		printf("lv_memswap passed tests: %lu\r", i++);
 	}
 
 	{
@@ -296,17 +327,20 @@ void memswap_tests()
 		lv_memswap(a, a, L1_TEST);
 		for (int i = 0; i < L1_TEST; i++)
 			assert(a[i] == i);
+		printf("lv_memswap passed tests: %lu\r\n", i++);
 	}
 }
 
 void	memset_tests()
 {
+	size_t i = 0;
 	{
 		LV_DEFER char *buf1 = lv_alloc(L1_TEST);
 		LV_DEFER char *buf2 = lv_alloc(L1_TEST);
 		lv_memset(buf1, 'x', L1_TEST);
 		memset(buf2, 'x', L1_TEST);
 		assert(!memcmp(buf1, buf2, L1_TEST));
+		printf("lv_memset passed tests: %lu\r", i++);
 	}
 	{
 		LV_DEFER char *buf1 = lv_alloc(L2_TEST);
@@ -314,6 +348,7 @@ void	memset_tests()
 		lv_memset(buf1, 'x', L2_TEST);
 		memset(buf2, 'x', L2_TEST);
 		assert(!memcmp(buf1, buf2, L2_TEST));
+		printf("lv_memset passed tests: %lu\r", i++);
 	}
 	{
 		LV_DEFER char *buf1 = lv_alloc(L3_TEST);
@@ -321,6 +356,7 @@ void	memset_tests()
 		lv_memset(buf1, 'x', L3_TEST);
 		memset(buf2, 'x', L3_TEST);
 		assert(!memcmp(buf1, buf2, L3_TEST));
+		printf("lv_memset passed tests: %lu\r", i++);
 	}
 	{
 		LV_DEFER char *buf1 = lv_alloc(L4_TEST);
@@ -328,6 +364,7 @@ void	memset_tests()
 		lv_memset(buf1, 'x', L4_TEST);
 		memset(buf2, 'x', L4_TEST);
 		assert(!memcmp(buf1, buf2, L4_TEST));
+		printf("lv_memset passed tests: %lu\r", i++);
 	}
 	{
 		LV_DEFER char *buf1 = lv_alloc(L5_TEST);
@@ -335,12 +372,87 @@ void	memset_tests()
 		lv_memset(buf1, 'x', L5_TEST);
 		memset(buf2, 'x', L5_TEST);
 		assert(!memcmp(buf1, buf2, L5_TEST));
+		printf("lv_memset passed tests: %lu\r", i++);
 	}
 
 	LV_DEFER char *buf1 = lv_alloc(L1_TEST);
 
 	assert(lv_memset(NULL, 'x', 1) == NULL);
 	assert(lv_memset(buf1, 0, 0) == buf1);
+	printf("lv_memset passed tests: %lu\r\n", i++);
+}
+
+void	memcmp_tests()
+{
+	size_t i = 0;
+	{
+		LV_DEFER char *a = lv_alloc(L1_TEST);
+		LV_DEFER char *b = lv_alloc(L1_TEST);
+
+		memset(a, 'a', L1_TEST);
+		memset(b, 'a', L1_TEST);
+		assert(lv_memcmp(a, b, L1_TEST) == 0);
+		printf("lv_memcmp passed tests: %lu\r", i++);
+	}
+
+	{
+		LV_DEFER char *a = lv_alloc(L2_TEST);
+		LV_DEFER char *b = lv_alloc(L2_TEST);
+
+		memset(a, 'x', L2_TEST);
+		memset(b, 'y', L2_TEST);
+		assert(lv_memcmp(a, b, L2_TEST) != 0);
+		printf("lv_memcmp passed tests: %lu\r", i++);
+	}
+
+	{
+		LV_DEFER char *a = lv_alloc(L3_TEST);
+		LV_DEFER char *b = lv_alloc(L3_TEST);
+
+		memset(a, 'x', L3_TEST);
+		memset(b, 'x', L3_TEST);
+		b[123] = 'z';
+		assert(lv_memcmp(a, b, L3_TEST) != 0);
+		printf("lv_memcmp passed tests: %lu\r", i++);
+	}
+
+	{
+		LV_DEFER char *a = lv_alloc(L4_TEST);
+		LV_DEFER char *b = lv_alloc(L4_TEST);
+
+		memset(a, 'm', L4_TEST);
+		memcpy(b, a, L4_TEST);
+		assert(lv_memcmp(a, b, L4_TEST) == 0);
+		printf("lv_memcmp passed tests: %lu\r", i++);
+	}
+
+	{
+		LV_DEFER char *a = lv_alloc(L5_TEST);
+		LV_DEFER char *b = lv_alloc(L5_TEST);
+
+		memset(a, 0xAA, L5_TEST);
+		memset(b, 0xAA, L5_TEST);
+		assert(lv_memcmp(a, b, L5_TEST) == 0);
+		printf("lv_memcmp passed tests: %lu\r", i++);
+	}
+
+	{
+		LV_DEFER char *a = lv_alloc(L1_TEST);
+		LV_DEFER char *b = lv_alloc(L1_TEST);
+		memset(a, 'x', L1_TEST);
+		memset(b, 'x', L1_TEST);
+		b[L1_TEST - 1] = 'z';
+		assert(lv_memcmp(a, b, L1_TEST) != 0);
+		printf("lv_memcmp passed tests: %lu\r", i++);
+	}
+
+	LV_DEFER char *a = lv_alloc(L1_TEST);
+
+	assert(lv_memcmp(NULL, a, 1) != 0);
+	assert(lv_memcmp(a, NULL, 1) != 0);
+	assert(lv_memcmp(a, a, 0) == 0);
+	assert(lv_memcmp(NULL, NULL, 0) == 0);
+	printf("lv_memcmp passed tests: %lu\r\n", i++);
 }
 
 int main()
@@ -350,6 +462,7 @@ int main()
 	memffb_tests();
 	memswap_tests();
 	memset_tests();
+	memcmp_tests();
 	printf("[TESTER] All mem test passed\n");
 	return (0);
 }
