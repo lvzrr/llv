@@ -31,8 +31,8 @@ static inline void	b(void *__restrict__ dest,
 	r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
 	while (n >= 2 && !r)
 	{
-		((t_u8 *)dest - 2)[i] = ((t_u8 *)src - 2)[i];
-		((t_u8 *)dest - 2)[i + 1] = ((t_u8 *)src - 2)[i + 1];
+		((t_u8 *)dest)[i] = ((t_u8 *)src)[i];
+		((t_u8 *)dest)[i + 1] = ((t_u8 *)src)[i + 1];
 		i += sizeof(t_u8) * 2;
 		n -= sizeof(t_u8) * 2;
 		r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
@@ -51,8 +51,8 @@ __attribute__((hot))
 void	*lv_memmove(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
-	if (!dest || !src || dest == src || n == 0)
-		return (dest);
+	if ((!dest || !src || dest == src) && n != 0)
+		return (NULL);
 	if ((t_uptr)src < (t_uptr)dest
 		&& (t_uptr)src + n >= (t_uptr)dest)
 		b(dest, src, n);

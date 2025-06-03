@@ -51,6 +51,11 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 
+test-mem: install
+	@mkdir -p $(OBJDIR)/tests
+	@cc -O3 tests/mem.c -llv -Iinclude -o $(OBJDIR)/tests/mem.test
+	@valgrind --leak-check=full ./$(OBJDIR)/tests/mem.test
+
 re: fclean full all
 
 .PHONY: all clean fclean re bonus install full
