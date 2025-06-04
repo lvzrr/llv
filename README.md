@@ -1,6 +1,6 @@
-# llv, A Low-Level C Utility Library
+# llv
 
-**llv** is a lightweight, fast, low-level utility library for C. It’s made for devs who want full control over memory and data without relying on the standard library. No runtime magic, no bloated abstractions. Just you, the stack, and some disciplined bytes.
+**llv**, or lib-lv is a lightweight, fast, low-level utility library for C. It’s made for full control over memory and data without relying on the standard library. No runtime magic, no bloated abstractions.
 
 ## 📦 Modules at a Glance
 
