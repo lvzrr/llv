@@ -43,8 +43,7 @@
  * - `lk` is uninitialized and likely a bug; it should be removed or properly initialized.
  */
 
-__attribute__((always_inline))
-static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
+LV_INLINE static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
 	t_u8 x,
 	size_t *__restrict__ n, size_t *__restrict__ i, t_u8 *__restrict__ r)
 {

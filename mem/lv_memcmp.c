@@ -45,8 +45,7 @@
  * - `*r` is set by calls to `_aligned` to indicate if alignment has been achieved.
  */
 
-__attribute__((always_inline))
-inline ssize_t    _alinger(void *__restrict__ dest,
+LV_INLINE inline ssize_t    _alinger(void *__restrict__ dest,
 	const void *__restrict__ src, size_t *n, t_u8 *r,
 	size_t *__restrict__ i)
 {

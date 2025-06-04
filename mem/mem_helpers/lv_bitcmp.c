@@ -153,8 +153,9 @@ inline int _lookup_u128(t_u128 word, t_u128 mask)
  * where possible, then single bytes.
  */
 
-__attribute__((always_inline))
-inline void	*_look4_u8_fwd(void *__restrict__ ptr,
+#include "mem.h"
+
+LV_INLINE inline void	*_look4_u8_fwd(void *__restrict__ ptr,
 	t_u8 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {

@@ -42,8 +42,7 @@
  * - `*r` is set by calls to `_aligned` to indicate if alignment has been achieved.
  */
 
-__attribute__((always_inline))
-inline size_t	_alinger(void *__restrict__ dest,
+LV_INLINE inline size_t	_alinger(void *__restrict__ dest,
 	const void *__restrict__ src, size_t *n, t_u8 *r)
 {
 	size_t	x;
@@ -84,8 +83,7 @@ inline size_t	_alinger(void *__restrict__ dest,
  * `_copy_u64_fwd`, and `_copy_u128_fwd` for efficient copying.
  */
 
-__attribute__((hot))
-void	*lv_memcpy(void *__restrict__ dest,
+LV_HOT void	*lv_memcpy(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	void	*ret;

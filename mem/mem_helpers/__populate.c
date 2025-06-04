@@ -39,8 +39,7 @@
  */
 
 
- __attribute__((always_inline))
- inline t_u128	__populate(t_u8 y)
+LV_INLINE inline t_u128	__populate(t_u8 y)
  {
      t_u128	x;
  

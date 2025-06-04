@@ -39,9 +39,7 @@
  * support `__builtin_ctz`, which counts bits in chunks of 4, 2, then 1.
  */
 
-__attribute__((always_inline))
-__attribute__((hot))
-inline t_u8 lv_memctz_u32(t_u32 x)
+LV_INLINE_HOT inline t_u8 lv_memctz_u32(t_u32 x)
 {
 #ifdef __GNUC__
 	if (x == 0)
@@ -77,9 +75,7 @@ inline t_u8 lv_memctz_u32(t_u32 x)
  * support `__builtin_ctzll`, which counts bits in chunks of 4, 2, then 1.
  */
 
-__attribute__((always_inline))
-__attribute__((hot))
-inline t_u8 lv_memctz_u64(t_u64 x)
+LV_INLINE_HOT inline t_u8 lv_memctz_u64(t_u64 x)
 {
 #ifdef __GNUC__
 	if (x == 0)
@@ -116,9 +112,7 @@ inline t_u8 lv_memctz_u64(t_u64 x)
  * bits in chunks of 4, 2, then 1.
  */
 
-__attribute__((always_inline))
-__attribute__((hot))
-inline t_u8 lv_memctz_u128(t_u128 x)
+LV_INLINE_HOT inline t_u8 lv_memctz_u128(t_u128 x)
 {
 #if defined(__GNUC__) && defined(__SIZEOF_INT128__)
 	if (x == 0)

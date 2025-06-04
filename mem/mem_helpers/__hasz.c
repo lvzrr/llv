@@ -61,9 +61,9 @@ inline int	__hasz64(t_u64 x)
  * on each part.
  */
 
-__attribute((always_inline))
-__attribute((hot))
-inline int	__hasz128(t_u128 x)
+#include "mem.h"
+
+LV_INLINE_HOT inline int	__hasz128(t_u128 x)
 {
     t_u64 low_part;
 	t_u64 high_part;

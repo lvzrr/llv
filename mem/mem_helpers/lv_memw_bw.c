@@ -44,8 +44,7 @@
  * to the end of the regions before calling this.
  */
 
-__attribute__((always_inline))
-inline void	_copy_u8_bw(void *__restrict__ dest,
+LV_INLINE inline void	_copy_u8_bw(void *__restrict__ dest,
 	const void *__restrict__ src, size_t *__restrict__ n,
 	size_t *__restrict__ i)
 {
@@ -88,8 +87,7 @@ inline void	_copy_u8_bw(void *__restrict__ dest,
  * - Assumes appropriate alignment for 32-bit access.
  */
 
-__attribute__((always_inline))
-inline void	_copy_u32_bw(void *__restrict__ dest,
+LV_INLINE inline void	_copy_u32_bw(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -133,8 +131,7 @@ inline void	_copy_u32_bw(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-__attribute__((always_inline))
-inline void	_copy_u64_bw(void *__restrict__ dest,
+LV_INLINE inline void	_copy_u64_bw(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -178,8 +175,7 @@ inline void	_copy_u64_bw(void *__restrict__ dest,
  * - Assumes appropriate alignment for 128-bit access.
  */
 
-__attribute__((always_inline))
-inline void	_copy_u128_bw(void *__restrict__ dest,
+LV_INLINE inline void	_copy_u128_bw(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {

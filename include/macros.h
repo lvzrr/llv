@@ -21,21 +21,50 @@
 #ifndef MACROS_H
 # define MACROS_H
 
-# ifndef LV_ALIGN
-#  define LV_ALIGN(x) __attribute__((aligned(x)))
-# endif
 
 # ifndef LV_STRUCT
 #define LV_STRUCT(name, align, body, tdef) \
 	typedef struct __attribute__((aligned(align))) name body tdef;
 # endif
 
-# ifndef LV_DEFER
-#  define LV_DEFER __attribute((cleanup(lv_defer)))
+# ifndef LV_ALIGN
+#  ifdef __GNUC__
+#    define LV_ALIGN(x) __attribute__((aligned(x)))
+#  else
+#    define LV_ALIGN(x)
+#  endif
 # endif
 
-# ifndef LV_DEFER_NOALIGN
-#  define LV_DEFER_NOALIGN __attribute((cleanup(lv_unal_defer)))
+# ifndef LV_DEFER
+#  ifdef __GNUC__
+#    define LV_DEFER __attribute__((cleanup(lv_defer)))
+#  else
+#    define LV_DEFER
+#  endif
+# endif
+
+# ifndef LV_INLINE
+#  ifdef __GNUC__
+#    define LV_INLINE __attribute__((always_inline))
+#  else
+#    define LV_INLINE
+#  endif
+# endif
+
+# ifndef LV_HOT
+#  ifdef __GNUC__
+#    define LV_HOT __attribute__((hot))
+#  else
+#    define LV_HOT
+#  endif
+# endif
+
+# ifndef LV_INLINE_HOT
+#  ifdef __GNUC__
+#    define LV_INLINE_HOT __attribute__((always_inline)) __attribute__((hot))
+#  else
+#    define LV_INLINE_HOT
+#  endif
 # endif
 
 # ifndef LV_FMT_INLINE

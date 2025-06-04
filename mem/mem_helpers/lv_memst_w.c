@@ -40,8 +40,7 @@
  * - It processes memory in chunks of 2 bytes where possible, then single bytes.
  */
 
-__attribute__((always_inline))
-inline void	_write_u8_fwd(void *__restrict__ dest,
+LV_INLINE inline void	_write_u8_fwd(void *__restrict__ dest,
 	t_u8 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -82,8 +81,7 @@ inline void	_write_u8_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 32-bit access.
  */
 
-__attribute__((always_inline))
-inline void	_write_u32_fwd(void *__restrict__ dest,
+LV_INLINE inline void	_write_u32_fwd(void *__restrict__ dest,
 	t_u32 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -123,7 +121,6 @@ inline void	_write_u32_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-__attribute__((always_inline))
 inline void	_write_u64_fwd(void *__restrict__ dest,
 	t_u64 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)

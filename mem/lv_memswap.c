@@ -46,8 +46,7 @@
  * - It performs the swap by copying `p1` to buffer, `p2` to `p1`, then buffer to `p2`.
  */
 
-__attribute__((always_inline))
-inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
+LV_INLINE inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
 	LV_DEFER t_u8	*buffer;
@@ -85,8 +84,7 @@ inline static t_u8	lv_memswap_dyn(void *__restrict__ p1,
  * - It performs the swap by copying `p1` to buffer, `p2` to `p1`, then buffer to `p2`.
  */
 
-__attribute__((always_inline))
-inline static t_u8	lv_memswap_bounded(void *__restrict__ p1,
+LV_INLINE inline static t_u8	lv_memswap_bounded(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len)
 {
 	LV_ALIGN(128) t_u8 buffer[BUFFER_SIZE];
@@ -152,8 +150,7 @@ t_u8	lv_memswap(void *__restrict__ p1,
  * - It performs the swap by copying `p1` to buffer, `p2` to `p1`, then buffer to `p2`.
  */
 
-__attribute__((always_inline))
-inline t_u8	lv_memswap_extern(void *__restrict__ p1,
+LV_INLINE inline t_u8	lv_memswap_extern(void *__restrict__ p1,
 	void *__restrict__ p2, size_t len,
 	void *__restrict__ buffer)
 {

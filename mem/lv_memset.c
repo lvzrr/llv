@@ -43,8 +43,7 @@
  * - `*r` is set by calls to `_aligned` to indicate if alignment has been achieved.
  */
 
-__attribute__((always_inline))
-inline size_t	_alinger(void *__restrict__ dest,
+LV_INLINE inline size_t	_alinger(void *__restrict__ dest,
 	t_u8 o, size_t *n, t_u8 *r)
 {
 	size_t	x;

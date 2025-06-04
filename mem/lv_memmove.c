@@ -46,8 +46,7 @@
  * the end of the respective regions for backward iteration.
  */
 
-__attribute__((always_inline))
-static inline void	b(void *__restrict__ dest,
+LV_INLINE static inline void	b(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	size_t	i;
@@ -96,8 +95,7 @@ static inline void	b(void *__restrict__ dest,
  * it immediately returns `dest`.
  */
 
-__attribute__((hot))
-void	*lv_memmove(void *__restrict__ dest,
+LV_INLINE_HOT inline void	*lv_memmove(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	if ((!dest || !src || dest == src) && n != 0)
