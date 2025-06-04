@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "format": "c",
+        "__locale": "c",
+        "ios": "c",
+        "vector": "c",
+        "ranges": "c"
+    }
+}

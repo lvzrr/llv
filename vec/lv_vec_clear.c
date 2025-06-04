@@ -20,6 +20,26 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_clear
+ * ----------------------
+ * Clears the contents of a vector, effectively making its `size` zero,
+ * without deallocating the underlying memory. The memory occupied by
+ * the current elements is zeroed out.
+ *
+ * Parameters:
+ * vec - A pointer to the `t_vec` structure to be cleared.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `vec` or `vec->data` is NULL, the function does nothing.
+ * - It uses `lv_memset` to set the existing data to zero.
+ * - The allocated memory (`vec->data` and `vec->alloc_size`) remains
+ * untouched, allowing for future additions without reallocating immediately.
+ */
+
 void	lv_vec_clear(t_vec *vec)
 {
 	if (!vec || !vec->data)

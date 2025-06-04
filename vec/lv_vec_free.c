@@ -20,6 +20,26 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_free
+ * ---------------------
+ * Deallocates the memory associated with a vector and resets its
+ * internal state to zero. This function should be called when a
+ * vector is no longer needed to prevent memory leaks.
+ *
+ * Parameters:
+ * v - A pointer to the `t_vec` structure to be freed.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `v` is NULL, the function does nothing.
+ * - It uses `lv_free` to deallocate the `data` pointer.
+ * - After freeing, all members of the `t_vec` structure (`data`, `size`,
+ * `alloc_size`, `sizeof_type`) are set to 0.
+ */
+
 void	lv_vec_free(t_vec *v)
 {
 	void	*tmp;

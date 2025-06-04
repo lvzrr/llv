@@ -20,6 +20,26 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_fit
+ * --------------------
+ * Resizes the vector's allocated memory to exactly fit its current number
+ * of elements (`v->size`). This effectively deallocates any unused capacity.
+ *
+ * Parameters:
+ * v - A pointer to the `t_vec` structure to be fitted.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `v` is NULL, or if the vector is empty (`v->size` is 0), or if
+ * `v->alloc_size` is 0, the function does nothing.
+ * - It uses `lv_realloc` to resize the memory block. If `lv_realloc` fails,
+ * the function returns without changing the vector's state.
+ * - After a successful fit, `v->alloc_size` will be equal to `v->size`.
+ */
+
 void	lv_vec_fit(t_vec *v)
 {
 	void	*data;

@@ -20,6 +20,26 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_popmv
+ * ----------------------
+ * Copies the last element from the vector into `dst`, then removes
+ * that element from the vector and zeroes out its memory. The vector's
+ * size is decremented. This is a "pop and move" operation.
+ *
+ * Parameters:
+ * dst - A pointer to the destination memory area where the popped element will be copied.
+ * v   - A pointer to the `t_vec` structure from which to pop an element.
+ *
+ * Returns:
+ * 1 on success, 0 if `dst`, `v` is NULL, the vector is not allocated, or the vector is empty.
+ *
+ * Notes:
+ * - This function is `inline` for performance.
+ * - It uses `lv_vec_peek_last` to get the last element's address and
+ * `lv_memtake` to copy it to `dst` and then zero out the source.
+ */
+
 inline t_u8	lv_vec_popmv(void *__restrict__ dst,
 	t_vec *__restrict__ v)
 {

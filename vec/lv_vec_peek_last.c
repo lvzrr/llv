@@ -20,6 +20,25 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_peek_last
+ * --------------------------
+ * Returns a pointer to the last element in the vector without removing it.
+ *
+ * Parameters:
+ * v - A pointer to the `t_vec` structure.
+ *
+ * Returns:
+ * A mutable `void` pointer to the last element if the vector is not empty,
+ * or NULL if `v` is NULL. If the vector is empty, it returns `v->data`
+ * (which might be NULL if the vector was never initialized or was freed).
+ *
+ * Notes:
+ * - This function is `inline` for performance.
+ * - It does not perform any bounds checking beyond `v` being NULL and `v->size` being 0.
+ * - The returned pointer allows direct modification of the element.
+ */
+
 inline void	*lv_vec_peek_last(t_vec *__restrict__ v)
 {
 	if (!v)

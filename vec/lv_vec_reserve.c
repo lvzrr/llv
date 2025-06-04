@@ -20,6 +20,29 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_reserve
+ * ------------------------
+ * Ensures that the vector has enough capacity to hold at least `n` more
+ * elements without requiring reallocation. If the current allocated size
+ * is already sufficient, it does nothing. Otherwise, it extends the capacity.
+ *
+ * Parameters:
+ * v - A pointer to the `t_vec` structure for which to reserve space.
+ * n - The number of additional elements to reserve space for.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `v` is NULL, `n` is 0, or `n` is less than or equal to the current
+ * `v->alloc_size`, the function does nothing.
+ * - It uses `lv_extend_zero` to reallocate the underlying buffer and
+ * zero out any newly added space.
+ * - The `alloc_size` of the vector is increased by `n` after successful reservation.
+ * The `size` (number of actual elements) remains unchanged.
+ */
+
 void	lv_vec_reserve(t_vec *v, size_t n)
 {
 	void	*new;

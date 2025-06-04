@@ -20,6 +20,32 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_push
+ * ---------------------
+ * Appends `len` new elements from `data` to the end of the vector `vec`.
+ * If the vector's current capacity is insufficient, it reallocates
+ * the underlying buffer to accommodate the new elements.
+ *
+ * Parameters:
+ * vec  - A pointer to the `t_vec` structure to which elements will be pushed.
+ * data - A pointer to the data containing the elements to append.
+ * len  - The number of elements to append.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `vec` or `data` is NULL, the function does nothing.
+ * - If `vec->size + len` exceeds `vec->alloc_size`, the vector's capacity
+ * is expanded by doubling its current `alloc_size` or making it just large
+ * enough to hold the new elements, whichever is greater. New allocated
+ * memory is zeroed out.
+ * - It uses `lv_extend_zero` for reallocation and `lv_memcpy` to copy
+ * the new data.
+ * - The `size` of the vector is incremented by `len` after successful push.
+ */
+
 void	lv_vec_push(t_vec *vec, void *data, size_t len)
 {
 	void	*tmp;

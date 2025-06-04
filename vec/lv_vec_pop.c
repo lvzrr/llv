@@ -20,6 +20,26 @@
 
 #include "vec.h"
 
+/*
+ * Function: lv_vec_pop
+ * --------------------
+ * Removes the last element from the vector and zeros out the memory
+ * that it occupied. The vector's size is decremented.
+ *
+ * Parameters:
+ * v - A pointer to the `t_vec` structure from which to pop an element.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This function is `inline` for performance.
+ * - If `v` is NULL, `v->data` is NULL, or the vector is empty (`v->size == 0`),
+ * the function does nothing.
+ * - It uses `lv_bzero` to clear the memory of the popped element.
+ * - The allocated capacity of the vector remains unchanged.
+ */
+
 inline void	lv_vec_pop(t_vec *__restrict__ v)
 {
 	void	*ptr;
