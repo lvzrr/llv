@@ -1,4 +1,4 @@
-# liblv
+# llv
 
 `liblv` is a C utility library that provides fundamental building blocks for low-level programming. It contains custom implementations for various common programming tasks, designed for use in C projects where precise control over memory, data structures, and fundamental operations is beneficial.
 
