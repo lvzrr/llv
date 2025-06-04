@@ -61,8 +61,8 @@
 * Built like a mix of:
 
 * Rust (RAII, cleanup, deterministic memory)
-* Go (boring and predictable)
-* C++ (only the good parts — performance and inlining)
+* Go (predictability)
+* C++ (performance and inlining)
 
 ## 📄 License
 
