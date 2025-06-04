@@ -20,6 +20,27 @@
 
 #include "llv.h"
 
+/*
+ * Function: lv_tstr_free
+ * ----------------------
+ * Deallocates the memory associated with a `t_string` object's data
+ * and resets its internal state (`len`, `alloc_size`, `data`) to zero.
+ * This function should be called when a `t_string` is no longer needed
+ * to prevent memory leaks.
+ *
+ * Parameters:
+ * str - A pointer to the `t_string` object to be freed.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - It handles cases where `str->data` might already be NULL.
+ * - It uses `lv_free` to deallocate the `data` pointer.
+ * - After freeing, `str->data` is set to NULL, and `str->len` and
+ * `str->alloc_size` are set to 0.
+ */
+
 void	lv_tstr_free(t_string *str)
 {
 	void	*tmp;

@@ -20,6 +20,23 @@
 
 #include "tstr.h"
 
+/*
+ * Function: in_set
+ * ----------------
+ * A static helper function to check if a given character `c` is present
+ * within a null-terminated set of characters `set`.
+ *
+ * Parameters:
+ * c   - The character to check.
+ * set - A constant pointer to a null-terminated string representing the set of characters.
+ *
+ * Returns:
+ * 1 if `c` is found in `set`, 0 otherwise.
+ *
+ * Notes:
+ * - This function is designed to be used internally by `lv_tstr_trim`.
+ */
+
 static int	in_set(const char c, const char *set)
 {
 	size_t	i;
@@ -33,6 +50,31 @@ static int	in_set(const char c, const char *set)
 	}
 	return (0);
 }
+
+/*
+ * Function: lv_tstr_trim
+ * ----------------------
+ * Removes leading and trailing characters from a `t_string` object (`str`)
+ * that are present in a specified `set` of characters. This modifies the
+ * string in-place.
+ *
+ * Parameters:
+ * str - A pointer to the `t_string` object to be trimmed.
+ * set - A constant pointer to a null-terminated string containing the
+ * characters to trim (e.g., " \t\n" for whitespace).
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `str`, `str->data`, `str->len` is 0, or `set` is NULL, the function does nothing.
+ * - It first identifies the `start` and `end` indices of the non-trimmed content.
+ * - `lv_memmove` is used to shift the trimmed content to the beginning of the buffer.
+ * - Any remaining space in the buffer after trimming is zeroed out using `lv_memset`.
+ * - The `len` of the `t_string` is updated to reflect the new length.
+ * - The `alloc_size` remains unchanged, but the string's content is effectively
+ * shortened and its data shifted.
+ */
 
 void	lv_tstr_trim(t_string *str, const char *set)
 {

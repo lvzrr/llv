@@ -20,6 +20,28 @@
 
 #include "tstr.h"
 
+/*
+ * Function: _append
+ * -----------------
+ * A static helper function to append a null-terminated source string (`src`)
+ * to a destination character array (`dest`) starting at a given `start` index.
+ * It ensures the `dest` string remains null-terminated.
+ *
+ * Parameters:
+ * dest  - A pointer to the destination character array.
+ * src   - A constant pointer to the null-terminated source string to append.
+ * start - The starting index in `dest` where `src` should be appended.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - This function assumes that `dest` has sufficient allocated space
+ * to accommodate the appended string and its null terminator.
+ * - It iterates through `src` and copies characters one by one.
+ */
+
+
 static void	_append(char *dest, const char *src, size_t start)
 {
 	size_t	i;
@@ -32,6 +54,29 @@ static void	_append(char *dest, const char *src, size_t start)
 	}
 	dest[start + i] = '\0';
 }
+
+/*
+ * Function: lv_tstr_pushstr
+ * -------------------------
+ * Appends a null-terminated C-style string (`s`) to the end of a `t_string` object (`str`).
+ * If the current capacity is insufficient, it reallocates the underlying buffer.
+ *
+ * Parameters:
+ * str - A pointer to the `t_string` object to which the string will be appended.
+ * s   - A constant pointer to the null-terminated C-style string to append.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `str` or `s` is NULL, the function does nothing.
+ * - It calculates the total length needed for the appended string plus null terminator.
+ * - If `needed` length exceeds `str->alloc_size`, the capacity is expanded.
+ * The new allocation size is `needed` itself, ensuring just enough space for the current content.
+ * - It uses `lv_extend_zero` for reallocation and the internal `_append` helper
+ * for copying the string data.
+ * - The `len` of the `t_string` is updated after successful append.
+ */
 
 void	lv_tstr_pushstr(t_string *str, const char *s)
 {

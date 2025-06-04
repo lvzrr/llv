@@ -20,6 +20,30 @@
 
 #include "llv.h"
 
+/*
+ * Function: lv_tstr_push
+ * ----------------------
+ * Appends a single character (`c`) to the end of a `t_string` object.
+ * If the string's current capacity is insufficient, it reallocates
+ * the underlying buffer to accommodate the new character.
+ *
+ * Parameters:
+ * str - A pointer to the `t_string` object to which the character will be pushed.
+ * c   - The character to append.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `str` is NULL, the function does nothing.
+ * - If the current `alloc_size` is not enough to hold the new character
+ * and the null terminator (`str->len + 1 < str->alloc_size`), the data
+ * is directly appended.
+ * - Otherwise, the capacity is doubled using `lv_extend_zero` to make space.
+ * - The new character is placed at `str->data[str->len]`, `str->len` is
+ * incremented, and a null terminator is placed at the new end.
+ */
+
 void	lv_tstr_push(t_string *str, char c)
 {
 	if (!str)

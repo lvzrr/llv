@@ -20,9 +20,34 @@
 
 #include "llv.h"
 
+/*
+ * Function: lv_tstr_dup_cstr
+ * --------------------------
+ * Creates a new, dynamically allocated C-style string (null-terminated `char*`)
+ * by duplicating the entire allocated memory of a `t_string` object,
+ * including any unused capacity and the null terminator.
+ *
+ * Parameters:
+ * str - A pointer to the `t_string` object whose allocated memory will be duplicated.
+ *
+ * Returns:
+ * A newly allocated `char` pointer containing a copy of the `t_string`'s
+ * internal buffer (including its null terminator and potentially unused capacity),
+ * or NULL if `str` or `str->data` is NULL, or if memory allocation fails.
+ *
+ * Notes:
+ * - This function duplicates the entire allocated block (`str->alloc_size` bytes),
+ * not just the active string length (`str->len`). This means it will copy
+ * any null terminators or zeroed-out memory that exists beyond the
+ * current string content up to the `alloc_size`.
+ * - The caller is responsible for freeing the returned C-style string
+ * using `lv_free` (or equivalent) when it's no longer needed to prevent memory leaks.
+ * - It relies on `lv_memclone` for the actual memory duplication.
+ */
+
 char	*lv_tstr_dup_cstr(t_string *str)
 {
 	if (!str || !str->data)
 		return (NULL);
-	return (lv_strdup(str->data));
+	return (lv_memclone(str->data, str->alloc_size));
 }

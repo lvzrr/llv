@@ -20,6 +20,27 @@
 
 #include "tstr.h"
 
+/*
+ * Function: lv_tstr_fit
+ * ---------------------
+ * Resizes the underlying memory buffer of a `t_string` object to
+ * exactly fit its current content (`str->len`) plus one byte for the null terminator.
+ * This can reduce memory usage by deallocating unused capacity.
+ *
+ * Parameters:
+ * str - A pointer to the `t_string` object to be fitted.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `str` is NULL, or if the string's `alloc_size` already perfectly matches
+ * `str->len + 1`, the function does nothing.
+ * - It uses `lv_realloc` to adjust the memory size. If `lv_realloc` fails,
+ * the function returns without modifying the string's state.
+ * - After a successful fit, `str->alloc_size` will be `str->len + 1`.
+ */
+
 void	lv_tstr_fit(t_string *str)
 {
 	char	*new;

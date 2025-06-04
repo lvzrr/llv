@@ -4,6 +4,25 @@
         "__locale": "c",
         "ios": "c",
         "vector": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "array": "c",
+        "chrono": "c",
+        "deque": "c",
+        "forward_list": "c",
+        "list": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "unordered_set": "c",
+        "iterator": "c",
+        "string_view": "c",
+        "span": "c",
+        "stacktrace": "c",
+        "regex": "c",
+        "__bit_reference": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "__tree": "c",
+        "map": "c",
+        "set": "c"
     }
 }

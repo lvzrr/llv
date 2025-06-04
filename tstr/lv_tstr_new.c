@@ -20,6 +20,27 @@
 
 #include "llv.h"
 
+/*
+ * Function: lv_tstr_new
+ * ---------------------
+ * Creates and initializes a new `t_string` object with a specified initial
+ * allocation size. The string's content length (`len`) is initially zero.
+ *
+ * Parameters:
+ * len - The desired initial capacity (allocation size) for the string's data,
+ * excluding the null terminator. The actual allocated size will be `len + 1`.
+ *
+ * Returns:
+ * A new `t_string` object with allocated memory and `len` set to 0.
+ * If `len` is negative or memory allocation fails, it returns an empty `t_string`
+ * with `data` set to NULL and all other members set to 0.
+ *
+ * Notes:
+ * - It allocates `len + 1` bytes and initializes them to zero using `lv_calloc`,
+ * ensuring the string is null-terminated even when empty.
+ * - The `alloc_size` will be `len + 1`.
+ */
+
 t_string	lv_tstr_new(ssize_t len)
 {
 	t_string	out;

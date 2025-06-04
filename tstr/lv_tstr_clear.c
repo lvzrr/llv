@@ -20,10 +20,32 @@
 
 #include "tstr.h"
 
+/*
+ * Function: lv_tstr_clear
+ * -----------------------
+ * Clears the contents of a `t_string` object.
+ * This sets the string's length to zero and fills the currently
+ * used portion of its internal data buffer with null bytes.
+ * The allocated memory capacity remains unchanged.
+ *
+ * Parameters:
+ * s - A pointer to the `t_string` object to be cleared.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `s` is NULL or `s->data` is NULL (meaning the string is not initialized
+ * or has no allocated memory), the function performs no action.
+ * - It uses `lv_memset` to efficiently zero out the characters.
+ * - The `alloc_size` of the string is preserved, allowing for new content
+ * to be added without immediate reallocation.
+ */
+
 void	lv_tstr_clear(t_string *s)
 {
 	if (!s || !s->data)
 		return ;
-	lv_bzero(s->data, s->len);
+	lv_memset(s->data, 0, s->len);
 	s->len = 0;
 }

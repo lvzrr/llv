@@ -20,6 +20,30 @@
 
 #include "tstr.h"
 
+/*
+ * Function: lv_tstr_repeat
+ * ------------------------
+ * Appends a `chunk` string to a `t_string` object `times` number of repetitions.
+ * This effectively repeats the `chunk` string multiple times at the end of `str`.
+ *
+ * Parameters:
+ * str   - A pointer to the `t_string` object to which the repeated chunk will be appended.
+ * chunk - A constant pointer to the null-terminated C-style string to repeat.
+ * times - The number of times to repeat the `chunk`.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - If `str`, `chunk` is NULL, or `times` is 0, the function does nothing.
+ * - It includes a check for integer overflow when calculating `total_len`.
+ * - If the current `alloc_size` is insufficient, it reallocates the `t_string`'s
+ * data to accommodate the total length of repetitions plus the null terminator.
+ * - It uses `lv_memcpy` to efficiently copy the `chunk` multiple times.
+ * - The `len` of the `t_string` is updated, and a null terminator is placed
+ * at the new end of the string.
+ */
+
 void	lv_tstr_repeat(t_string *str, const char *chunk, size_t times)
 {
 	size_t	chunk_len;

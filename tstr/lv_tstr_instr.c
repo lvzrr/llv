@@ -21,6 +21,29 @@
 #include "cstr.h"
 #include "tstr.h"
 
+/*
+ * Function: lv_find
+ * -----------------
+ * A static helper function to find the first occurrence of a `needle` string
+ * within a `haystack` string, considering a maximum search length `n`.
+ *
+ * Parameters:
+ * haystack - The string to search within.
+ * needle   - The string to search for.
+ * n        - The maximum number of bytes to search in `haystack`.
+ * l        - The length of the `needle` string (passed as `l` for efficiency).
+ *
+ * Returns:
+ * The zero-based index of the first occurrence of `needle` in `haystack`,
+ * or -1 if `needle` is not found within `n` bytes.
+ * Returns 0 if `needle` is an empty string.
+ * Returns -1 if `haystack` is an empty string and `needle` is not empty.
+ *
+ * Notes:
+ * - This function is designed to be used internally by `lv_tstr_instr`.
+ * - It checks for initial characters and then uses `lv_strncmp` for full substring comparison.
+ */
+
 static ssize_t	lv_find(const char *haystack, const char *needle, size_t n,
 							size_t l)
 {
@@ -40,6 +63,25 @@ static ssize_t	lv_find(const char *haystack, const char *needle, size_t n,
 	}
 	return (-1);
 }
+
+/*
+ * Function: lv_tstr_instr
+ * -----------------------
+ * Searches for the first occurrence of a null-terminated C-style string (`n`)
+ * within a `t_string` object (`h`).
+ *
+ * Parameters:
+ * h - A constant pointer to the `t_string` object to search within.
+ * n - A constant pointer to the null-terminated C-style string to search for.
+ *
+ * Returns:
+ * The zero-based index of the first occurrence of `n` in `h`,
+ * or -1 if `h`, `h->data`, or `n` is NULL, or if `n` is not found.
+ *
+ * Notes:
+ * - It calculates the length of the `needle` string (`n`) once for efficiency.
+ * - It delegates the actual search logic to the internal `lv_find` helper function.
+ */
 
 ssize_t	lv_tstr_instr(const t_string *h, const char *n)
 {

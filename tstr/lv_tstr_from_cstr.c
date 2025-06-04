@@ -20,6 +20,28 @@
 
 #include "llv.h"
 
+/*
+ * Function: lv_tstr_from_cstr
+ * ---------------------------
+ * Creates and initializes a new `t_string` object from a null-terminated
+ * C-style string (`const char *`). It allocates memory and copies the
+ * content of the input C-string.
+ *
+ * Parameters:
+ * str - A constant pointer to the null-terminated C-style string to convert.
+ *
+ * Returns:
+ * A new `t_string` object containing the copied string data.
+ * If `str` is NULL, it returns an empty `t_string` with a single null byte allocated.
+ * If memory allocation fails, it returns an empty `t_string` with `data` set to NULL.
+ *
+ * Notes:
+ * - It calculates the length of the input string using `lv_strlen`.
+ * - It allocates `len + 1` bytes to accommodate the string content plus the null terminator.
+ * - The allocated memory is zeroed out using `lv_memset` before copying the string.
+ * - It uses `lv_alloc` for initial allocation and `lv_memcpy` for copying the data.
+ */
+
 t_string	lv_tstr_from_cstr(const char *str)
 {
 	t_string	out;
