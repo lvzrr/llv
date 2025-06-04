@@ -27,10 +27,13 @@
 # include <stdarg.h>
 # include "mem.h"
 # include "macros.h"
+# include "structs.h"
 
 void			*lv_alloc(size_t size);
 void			lv_free(void **ptr);
+void			lv_free_array(void ***arr);
 void			lv_defer(void *ptr);
+void			lv_defer_arr(void ***ptr);
 void			*lv_calloc(size_t n, size_t size);
 void			*lv_extend(void *ptr, size_t n, size_t size);
 void			*lv_extend_zero(void *ptr, size_t n, size_t size);

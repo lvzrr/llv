@@ -45,5 +45,5 @@ char	*lv_strdup(const char *str)
 	if (!str)
 		return (NULL);
 	n = lv_strlen(str);
-	return (lv_memclone((void *)str, n));
+	return (lv_memclone((void *)str, n + 1));
 }

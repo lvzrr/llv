@@ -51,3 +51,37 @@ void	lv_free(void **ptr)
 	free(((void **)pp)[-1]);
 	*ptr = NULL;
 }
+
+/*
+ * Function: lv_free_array
+ * -----------------------
+ * Frees an array of dynamically allocated pointers, and then frees
+ * the array itself. It uses lv_free for each element and for the array.
+ *
+ * Parameters:
+ * arr_ptr_addr - The address of the pointer to the array of pointers.
+ * (e.g., &my_array_of_strings).
+ * This means it's a void***.
+ * size       - The number of elements (pointers) in the array.
+ *
+ * Returns:
+ * None.
+ *
+ * Notes:
+ * - Safe to call on NULL array pointers.
+ * - Each element in the array is expected to be a pointer to memory
+ * allocated by lv_alloc/lv_alloc_align.
+ * - The array itself is expected to be allocated by lv_alloc/lv_alloc_align.
+ */
+
+void	lv_free_array(void ***arr)
+{
+	size_t	i;
+
+	if (!arr || !*arr)
+		return ;
+	i = 0;
+	while ((*arr)[i])
+		lv_free(&((*arr)[i++]));
+	lv_free((void **)arr); 
+}

@@ -40,31 +40,33 @@
  * within a 64-bit word.
  */
 
+#include <stdio.h>
+
 size_t	lv_strlen(const char *str)
 {
 	const char	*a;
+	ssize_t		lk;
 	const t_u64	*w_64;
 
+	if (!str)
+		return (0);
 	a = str;
-	w_64 = (const t_u64 *)str;
-	while ((t_uptr)str % sizeof(t_u128))
+	while ((t_uptr)str % sizeof(t_u64))
 	{
 		if (*str == '\0')
 			return (str - a);
 		str++;
 	}
+	w_64 = (const t_u64 *)str;
 	while (true)
 	{
-		if (__hasz64(w_64[0]))
-			str = (const char *)&w_64[0];
-		else if (__hasz64(w_64[1]))
-			str = (const char *)&w_64[1];
-		if (str == (const char *)&w_64[1]
-			|| str == (const char *)&w_64[0])
+		lk = _lookup_u64(w_64[0], __populate(0));
+		if (lk != -1)
+		{
+			str = (const char *)w_64 + lk;
 			break ;
-		w_64 += 2;
+		}
+		w_64++;
 	}
-	while (*str != '\0')
-		str++;
 	return (str - a);
 }

@@ -41,7 +41,7 @@ __attribute((hot))
 __attribute((always_inline))
 inline int	__hasz64(t_u64 x)
 {
-    return (((x) -ONES_64) & (~x) & HIGHS_64);
+    return (((x) -LONES_64) & (~x) & HIGHS_64);
 }
 
 /*

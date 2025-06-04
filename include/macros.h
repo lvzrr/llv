@@ -35,6 +35,14 @@
 #  endif
 # endif
 
+# ifndef LV_DEFER_ARR
+#  ifdef __GNUC__
+#    define LV_DEFER_ARR __attribute__((cleanup(lv_defer_arr)))
+#  else
+#    define LV_DEFER_ARR
+#  endif
+# endif
+
 # ifndef LV_DEFER
 #  ifdef __GNUC__
 #    define LV_DEFER __attribute__((cleanup(lv_defer)))

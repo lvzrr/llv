@@ -67,7 +67,6 @@ void	*lv_alloc_align(size_t size, size_t align)
 	return (((void **)ac)[-1] = tab, ac);
 }
 
-
 /*
  * Function: lv_alloc
  * ------------------
