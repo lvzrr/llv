@@ -168,6 +168,7 @@ int				_lookup_u64(t_u64 word, t_u64 mask);
 int				_lookup_u128(t_u128 word, t_u128 mask);
 int				__hasz128(t_u128 x);
 int				__hasz64(t_u64 x);
+t_u128			__populate(t_u8 y);
 
 // ALIGNMIENT & CHECKZ
 t_u8			lv_memctz_u32(t_u32 x);

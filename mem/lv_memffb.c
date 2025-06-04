@@ -18,37 +18,7 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-/*
- * Function: populate
- * ------------------
- * Populates a 128-bit unsigned integer with a repeating byte value `y`.
- * This creates a mask where every byte is `y`, useful for fast byte searches
- * in word-sized operations.
- *
- * Parameters:
- * y - The 8-bit value (byte) to repeat.
- *
- * Returns:
- * A 128-bit unsigned integer with `y` replicated across all its bytes.
- *
- * Notes:
- * - This function is `always_inline` for performance.
- * - It works by successive left shifts and OR operations to fill the `t_u128`.
- */
-
-#include "mem.h"
-__attribute__((always_inline))
-static inline t_u128	populate(t_u8 y)
-{
-	t_u128	x;
-
-	x = (t_u128)y;
-	x |= x << 8;
-	x |= x << 16;
-	x |= x << 32;
-	x |= x << 64;
-	return (x);
-}
+ #include "mem.h"
 
 /*
  * Function: _look4_u8_tmp
@@ -117,7 +87,8 @@ static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
  * - This function is designed for performance, starting with an unaligned
  * byte search, then progressing to 128-bit, 64-bit, 32-bit word searches
  * if alignment is achieved, and finally a byte-wise fallback.
- * - It utilizes `populate` to create a mask for word-sized comparisons.
+ * - It utilizes `__populate
+ * to create a mask for word-sized comparisons.
  * - It uses `_look4_u8_tmp`, `_look4_u128_fwd`, `_look4_u64_fwd`,
  * `_look4_u32_fwd`, and `_look4_u8_fwd` for efficient searching.
  */
@@ -132,7 +103,7 @@ void	*lv_memffb(const void *__restrict__ ptr,
 
 	if (!ptr || n == 0)
 		return (NULL);
-	mask = populate(x);
+	mask = __populate(x);
 	i = 0;
 	r = _aligned((t_u8 *)ptr, NULL, &i);
 	if (r == 0)

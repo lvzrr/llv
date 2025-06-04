@@ -21,37 +21,6 @@
 #include "mem.h"
 
 /*
- * Function: populate
- * ------------------
- * Populates a 128-bit unsigned integer with a repeating byte value `y`.
- * This creates a mask where every byte is `y`, useful for fast byte searches
- * in word-sized operations.
- *
- * Parameters:
- * y - The 8-bit value (byte) to repeat.
- *
- * Returns:
- * A 128-bit unsigned integer with `y` replicated across all its bytes.
- *
- * Notes:
- * - This function is `always_inline` for performance.
- * - It works by successive left shifts and OR operations to fill the `t_u128`.
- */
-
-__attribute__((always_inline))
-static inline t_u128	populate(t_u8 y)
-{
-	t_u128	x;
-
-	x = (t_u128)y;
-	x |= x << 8;
-	x |= x << 16;
-	x |= x << 32;
-	x |= x << 64;
-	return (x);
-}
-
-/*
  * Function: _look4_u8_tmp
  * -----------------------
  * Helper function for `lv_memffb` to handle initial unaligned bytes
@@ -180,7 +149,7 @@ void	*lv_memffb_unchecked(const void *__restrict__ ptr,
 
 	if (!ptr)
 		return (NULL);
-	mask = populate(x);
+	mask = __populate(x);
 	i = 0;
 	p = 0;
 	r = _aligned((t_u8 *)ptr, NULL, &i);
@@ -234,7 +203,7 @@ void	*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 
 	if (!ptr || n == 0)
 		return (NULL);
-	mask = populate(x);
+	mask = __populate(x);
 	i = 0;
 	r = _aligned((t_u8 *)ptr, NULL, &i);
 	if (r == 0)

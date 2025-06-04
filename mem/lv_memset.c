@@ -20,36 +20,6 @@
 
 #include "mem.h"
 
-/*
- * Function: populate
- * ------------------
- * Populates a 128-bit unsigned integer with a repeating byte value `y`.
- * This creates a mask where every byte is `y`, useful for fast memory
- * setting in word-sized operations.
- *
- * Parameters:
- * y - The integer value (character) to repeat, cast to `t_u128`.
- *
- * Returns:
- * A 128-bit unsigned integer with `y` replicated across all its bytes.
- *
- * Notes:
- * - This function is `always_inline` for performance.
- * - It works by successive left shifts and OR operations to fill the `t_u128`.
- */
-
-__attribute__((always_inline))
-static inline t_u128	populate(int y)
-{
-	t_u128	x;
-
-	x = (t_u128)y;
-	x |= x << 8;
-	x |= x << 16;
-	x |= x << 32;
-	x |= x << 64;
-	return (x);
-}
 
 /*
  * Function: _alinger
@@ -122,7 +92,7 @@ void	*lv_memset(void *__restrict__ dest, int c, size_t n)
 
 	if ((!dest) && n != 0)
 		return (NULL);
-	x = populate(c);
+	x = __populate(c);
 	r = _aligned((t_u8 *)dest, NULL, &x);
 	i = _alinger(dest, (t_u8)x, &n, &r);
 	if (n >= sizeof(t_u128) * 2 && r == 128)
