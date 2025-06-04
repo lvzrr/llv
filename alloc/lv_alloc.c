@@ -19,7 +19,30 @@
  */
 
 #include "alloc.h"
-#include "printf.h"
+
+__attribute__((malloc))
+void	*lv_alloc_align(size_t size, size_t align)
+{
+	void	*tab;
+	size_t	alloc_size;
+	t_uptr	cc;
+	void	*ac;
+
+	if ((align == 0) || ((align & (align - 1)) != 0))
+		return (NULL);
+	if (align < sizeof(void *))
+		align = sizeof(void *);
+	if (size > SIZE_MAX - (align - 1) - sizeof(void *))
+		return (NULL);
+	alloc_size = sizeof(void *) + (align - 1) + size;
+	tab = malloc(alloc_size);
+	if (!tab)
+		return (NULL);
+	cc = (t_uptr)tab + sizeof(void *);
+	ac = (void *)((cc + (align - 1)) & ~(align - 1));
+	return (((void **)ac)[-1] = tab, ac);
+}
+
 
 /*
  * Function: lv_alloc
@@ -34,15 +57,17 @@
  *   NULL on failure.
  *
  * Notes:
- *   - Uses posix_memalign to ensure alignment.
+ *   - Uses lv_alloc_align to ensure alignment.
  *   - Intended for optimized use with lv_mem* operations.
  */
 
+__attribute__((malloc))
 void	*lv_alloc(size_t size)
 {
 	void	*new_alloc;
 
-	if (posix_memalign(&new_alloc, 128, size) != 0)
+	new_alloc = lv_alloc_align(size, 128);
+	if (!new_alloc)
 		return (NULL);
 	return (new_alloc);
 }

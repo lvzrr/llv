@@ -38,7 +38,7 @@
  * - It calculates the total length needed for the appended string plus null terminator.
  * - If `needed` length exceeds `str->alloc_size`, the capacity is expanded.
  * The new allocation size is `needed` itself, ensuring just enough space for the current content.
- * - It uses `lv_extend_zero` for reallocation and the internal `_append` helper
+ * - It uses `lv_extend_zero` for reallocation and `lv_memmove` as a helper
  * for copying the string data.
  * - The `len` of the `t_string` is updated after successful append.
  */

@@ -36,10 +36,13 @@
  *   - Helps prevent use-after-free bugs.
  */
 
-void	lv_free(void	**ptr)
+void	lv_free(void **ptr)
 {
+	void	*pp;
+
 	if (!ptr || !*ptr)
 		return ;
-	free(*ptr);
+	pp = *ptr;
+	free(((void **)pp)[-1]);
 	*ptr = NULL;
 }

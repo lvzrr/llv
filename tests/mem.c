@@ -13,14 +13,14 @@
 #define	L5_TEST 500000
 
 // lv_alloc -> force aligned 128
-// malloc	-> whatever works lmao
+// lv_alloc	-> whatever works lmao
 
 void	memcpy_tests()
 {
 	size_t i = 0;
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
-		LV_DEFER char *b = malloc(L1_TEST);
+		LV_DEFER char *b = lv_alloc(L1_TEST);
 
 		memset(a, 'a', L1_TEST);
 		lv_memcpy(b, a, L1_TEST);
@@ -30,7 +30,7 @@ void	memcpy_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L2_TEST);
-		LV_DEFER char *b = malloc(L2_TEST);
+		LV_DEFER char *b = lv_alloc(L2_TEST);
 
 		memset(a, 'a', L2_TEST);
 		lv_memcpy(b, a, L2_TEST);
@@ -40,7 +40,7 @@ void	memcpy_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L3_TEST);
-		LV_DEFER char *b = malloc(L3_TEST);
+		LV_DEFER char *b = lv_alloc(L3_TEST);
 
 		memset(a, 'a', L3_TEST);
 		lv_memcpy(b, a, L3_TEST);
@@ -50,7 +50,7 @@ void	memcpy_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L4_TEST);
-		LV_DEFER char *b = malloc(L4_TEST);
+		LV_DEFER char *b = lv_alloc(L4_TEST);
 
 		memset(a, 'a', L4_TEST);
 		lv_memcpy(b, a, L4_TEST);
@@ -60,7 +60,7 @@ void	memcpy_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L5_TEST);
-		LV_DEFER char *b = malloc(L5_TEST);
+		LV_DEFER char *b = lv_alloc(L5_TEST);
 
 		memset(a, 'a', L5_TEST);
 		lv_memcpy(b, a, L5_TEST);
@@ -69,7 +69,7 @@ void	memcpy_tests()
 	}
 
 	LV_DEFER char *a = lv_alloc(L5_TEST);
-	LV_DEFER char *b = malloc(L5_TEST);
+	LV_DEFER char *b = lv_alloc(L5_TEST);
 
 	assert(lv_memcpy(NULL, b, 1) == NULL);
 	assert(lv_memcpy(b, NULL, 1) == NULL);
@@ -82,7 +82,7 @@ void	memmove_tests()
 	size_t i = 0;
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
-		LV_DEFER char *b = malloc(L1_TEST);
+		LV_DEFER char *b = lv_alloc(L1_TEST);
 
 		memset(a, 'a', L1_TEST);
 		lv_memmove(b, a, L1_TEST);
@@ -92,7 +92,7 @@ void	memmove_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L2_TEST);
-		LV_DEFER char *b = malloc(L2_TEST);
+		LV_DEFER char *b = lv_alloc(L2_TEST);
 
 		memset(a, 'a', L2_TEST);
 		lv_memmove(b, a, L2_TEST);
@@ -102,7 +102,7 @@ void	memmove_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L3_TEST);
-		LV_DEFER char *b = malloc(L3_TEST);
+		LV_DEFER char *b = lv_alloc(L3_TEST);
 
 		memset(a, 'a', L3_TEST);
 		lv_memmove(b, a, L3_TEST);
@@ -112,7 +112,7 @@ void	memmove_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L4_TEST);
-		LV_DEFER char *b = malloc(L4_TEST);
+		LV_DEFER char *b = lv_alloc(L4_TEST);
 
 		memset(a, 'a', L4_TEST);
 		lv_memmove(b, a, L4_TEST);
@@ -122,7 +122,7 @@ void	memmove_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L5_TEST);
-		LV_DEFER char *b = malloc(L5_TEST);
+		LV_DEFER char *b = lv_alloc(L5_TEST);
 
 		memset(a, 'a', L5_TEST);
 		lv_memmove(b, a, L5_TEST);
@@ -170,7 +170,7 @@ void	memmove_tests()
 		printf("lv_memmove passed tests: %lu\r", i++);
 	}
 
-	LV_DEFER char *b = malloc(L5_TEST);
+	LV_DEFER char *b = lv_alloc(L5_TEST);
 
 	assert(lv_memmove(NULL, b, 1) == NULL);
 	assert(lv_memmove(b, NULL, 1) == NULL);
@@ -254,7 +254,7 @@ void memswap_tests()
 	size_t i = 0;
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
-		LV_DEFER char *b = malloc(L1_TEST);
+		LV_DEFER char *b = lv_alloc(L1_TEST);
 
 		memset(a, 'a', L1_TEST);
 		memset(b, 'b', L1_TEST);
@@ -268,7 +268,7 @@ void memswap_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L2_TEST);
-		LV_DEFER char *b = malloc(L2_TEST);
+		LV_DEFER char *b = lv_alloc(L2_TEST);
 
 		memset(a, 'c', L2_TEST);
 		memset(b, 'd', L2_TEST);
@@ -282,7 +282,7 @@ void memswap_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L3_TEST);
-		LV_DEFER char *b = malloc(L3_TEST);
+		LV_DEFER char *b = lv_alloc(L3_TEST);
 
 		memset(a, 'x', L3_TEST);
 		memset(b, 'y', L3_TEST);
@@ -296,7 +296,7 @@ void memswap_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L4_TEST);
-		LV_DEFER char *b = malloc(L4_TEST);
+		LV_DEFER char *b = lv_alloc(L4_TEST);
 
 		memset(a, 0x11, L4_TEST);
 		memset(b, 0x22, L4_TEST);
@@ -310,7 +310,7 @@ void memswap_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L5_TEST);
-		LV_DEFER char *b = malloc(L5_TEST);
+		LV_DEFER char *b = lv_alloc(L5_TEST);
 
 		memset(a, 0xA5, L5_TEST);
 		memset(b, 0x5A, L5_TEST);
@@ -390,7 +390,7 @@ void	memcmp_tests()
 	size_t i = 0;
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
-		LV_DEFER char *b = malloc(L1_TEST);
+		LV_DEFER char *b = lv_alloc(L1_TEST);
 
 		memset(a, 'a', L1_TEST);
 		memset(b, 'a', L1_TEST);
@@ -400,7 +400,7 @@ void	memcmp_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L2_TEST);
-		LV_DEFER char *b = malloc(L2_TEST);
+		LV_DEFER char *b = lv_alloc(L2_TEST);
 
 		memset(a, 'x', L2_TEST);
 		memset(b, 'y', L2_TEST);
@@ -410,7 +410,7 @@ void	memcmp_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L3_TEST);
-		LV_DEFER char *b = malloc(L3_TEST);
+		LV_DEFER char *b = lv_alloc(L3_TEST);
 
 		memset(a, 'x', L3_TEST);
 		memset(b, 'x', L3_TEST);
@@ -421,7 +421,7 @@ void	memcmp_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L4_TEST);
-		LV_DEFER char *b = malloc(L4_TEST);
+		LV_DEFER char *b = lv_alloc(L4_TEST);
 
 		memset(a, 'm', L4_TEST);
 		memcpy(b, a, L4_TEST);
@@ -431,7 +431,7 @@ void	memcmp_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L5_TEST);
-		LV_DEFER char *b = malloc(L5_TEST);
+		LV_DEFER char *b = lv_alloc(L5_TEST);
 
 		memset(a, 0xAA, L5_TEST);
 		memset(b, 0xAA, L5_TEST);
@@ -441,7 +441,7 @@ void	memcmp_tests()
 
 	{
 		LV_DEFER char *a = lv_alloc(L1_TEST);
-		LV_DEFER char *b = malloc(L1_TEST);
+		LV_DEFER char *b = lv_alloc(L1_TEST);
 		memset(a, 'x', L1_TEST);
 		memset(b, 'x', L1_TEST);
 		b[L1_TEST - 1] = 'z';

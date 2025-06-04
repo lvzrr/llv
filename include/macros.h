@@ -34,6 +34,10 @@
 #  define LV_DEFER __attribute((cleanup(lv_defer)))
 # endif
 
+# ifndef LV_DEFER_NOALIGN
+#  define LV_DEFER_NOALIGN __attribute((cleanup(lv_unal_defer)))
+# endif
+
 # ifndef LV_FMT_INLINE
 #  define LV_FMT_INLINE(fmt, ...) ({ LV_DEFER char *_s = lv_fmt(fmt, __VA_ARGS__); _s; })
 # endif
