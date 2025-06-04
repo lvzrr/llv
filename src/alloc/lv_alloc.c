@@ -89,7 +89,7 @@ void	*lv_alloc(size_t size)
 {
 	void	*new_alloc;
 
-	new_alloc = lv_alloc_align(size, 128);
+	new_alloc = lv_alloc_align(size, DEF_ALIGN);
 	if (!new_alloc)
 		return (NULL);
 	return (new_alloc);

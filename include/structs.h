@@ -45,4 +45,13 @@ LV_STRUCT(s_vec, 32,
 	size_t	alloc_size;
 	size_t	sizeof_type;
 }, t_vec)
+
+LV_STRUCT(s_arena, 32,
+{
+	size_t			size;
+	size_t			offset;
+	struct s_arena	*next;
+	void			*pool;
+}, t_arena)
+
 #endif

@@ -471,6 +471,58 @@ void	memformat_tests()
 	printf("lv_memformat (malloc source to lv_alloc) passed tests: 1\r\n");
 }
 
+void	arena_allocation_tests()
+{
+	size_t i = 0;
+	{
+		char *a = lv_arena(L1_TEST);
+		assert(a != NULL);
+		assert(((uintptr_t)a % DEF_ALIGN) == 0);
+		memset(a, 'A', L1_TEST);
+		printf("lv_arena small alloc passed tests: %lu\r", i++);
+	}
+
+	{
+		char *a = lv_arena(L2_TEST);
+		assert(a != NULL);
+		assert(((uintptr_t)a % DEF_ALIGN) == 0);
+		memset(a, 'B', L2_TEST);
+		printf("lv_arena medium alloc passed tests: %lu\r", i++);
+	}
+	{
+		char *a = lv_arena(L3_TEST);
+		assert(a != NULL);
+		assert(((uintptr_t)a % DEF_ALIGN) == 0);
+		memset(a, 'C', L3_TEST);
+		printf("lv_arena large alloc passed tests: %lu\r", i++);
+	}
+	{
+		for (int j = 0; j < 500; j++) {
+			char *block = lv_arena(128);
+			assert(block != NULL);
+			assert(((uintptr_t)block % DEF_ALIGN) == 0);
+			block[0] = 'Z';
+		}
+		printf("lv_arena chain growth test passed: %lu\r", i++);
+	}
+
+	{
+		char *a = lv_arena(64);
+		char *b = lv_arena(64);
+		assert(a != NULL && b != NULL);
+		assert(((uintptr_t)a % DEF_ALIGN) == 0);
+		assert(((uintptr_t)b % DEF_ALIGN) == 0);
+		assert(a != b);
+		printf("lv_arena multiple alloc test passed: %lu\r\n", i++);
+	}
+
+	{
+		char *zero = lv_arena(0);
+		assert(zero == NULL);
+		printf("lv_arena zero alloc test passed: %lu\r\n", i++);
+	}
+}
+
 int main()
 {
 	memcpy_tests();
@@ -480,6 +532,7 @@ int main()
 	memset_tests();
 	memcmp_tests();
 	memformat_tests();
+	arena_allocation_tests();
 	printf("[TESTER] All mem test passed\n");
 	return (0);
 }

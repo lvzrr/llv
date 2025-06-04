@@ -51,6 +51,14 @@
 #  endif
 # endif
 
+# ifndef LV_GC
+#  ifdef __GNUC__
+#    define LV_GC __attribute__((destructor(lv_defer)))
+#  else
+#    define LV_GC
+#  endif
+# endif
+
 # ifndef LV_INLINE
 #  ifdef __GNUC__
 #    define LV_INLINE __attribute__((always_inline))
@@ -75,13 +83,14 @@
 #  endif
 # endif
 
-# ifndef LV_FMT_INLINE
-#  define LV_FMT_INLINE(fmt, ...) ({ LV_DEFER char *_s = lv_fmt(fmt, __VA_ARGS__); _s; })
-# endif
-
-# ifndef LV_FMT
-#  define LV_FMT(fmt, ...) (lv_fmt(fmt, __VA_ARGS__))
-# endif
+// TODO:
+// # ifndef LV_FMT_INLINE
+// #  define LV_FMT_INLINE(fmt, ...) ({ LV_DEFER char *_s = lv_fmt(fmt, __VA_ARGS__); _s; })
+// # endif
+//
+// # ifndef LV_FMT
+// #  define LV_FMT(fmt, ...) (lv_fmt(fmt, __VA_ARGS__))
+// # endif
 
 # ifndef LV_UNUSED
 #  define LV_UNUSED(x) (void)(x)
