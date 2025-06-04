@@ -23,17 +23,22 @@
 /*
  * Function: lv_free
  * -----------------
- * Frees a memory block and nullifies the pointer.
+ * Frees a memory block allocated by `lv_alloc_align` (or `lv_alloc`)
+ * and nullifies the user's pointer to prevent use-after-free bugs.
  *
  * Parameters:
- *   ptr - address of the pointer to free
+ * ptr - The address of the pointer to the memory block to free.
+ * This must be a pointer to the variable holding the address
+ * returned by `lv_alloc_align` (e.g., `&my_ptr`).
  *
  * Returns:
- *   None.
+ * None.
  *
  * Notes:
- *   - Safe to call on NULL or already-freed pointers.
- *   - Helps prevent use-after-free bugs.
+ * - Safe to call on `NULL` or already-freed pointers (if the pointer
+ * has been correctly set to `NULL` by a previous call).
+ * - It retrieves the original `malloc`'d address, which was stored
+ * just before the aligned pointer, and then calls the underlying `free`.
  */
 
 void	lv_free(void **ptr)

@@ -22,7 +22,7 @@ NAME		:=	liblv.a
 CC			:=	cc
 FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-promotion \
 				-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=2 \
-				-Wno-array-bounds -Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
+				-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
 AR			:=	ar rcs
 OBJDIR		:=	build
 DIRS		:=	arena map vec tstr cstr alloc in is mem num out lst mem/mem_helpers

@@ -20,6 +20,30 @@
 
 #include "alloc.h"
 
+/*
+ * Function: lv_alloc_align
+ * ------------------------
+ * Allocates a memory block of a specified size with a guaranteed alignment.
+ * It ensures that the returned pointer is a multiple of 'align'.
+ *
+ * Parameters:
+ * size  - The desired size of the memory block in bytes.
+ * align - The required alignment boundary (must be a power of 2).
+ *
+ * Returns:
+ * A pointer to the aligned memory block on success.
+ * NULL on failure (e.g., invalid alignment, insufficient memory, or size overflow).
+ *
+ * Notes:
+ * - The actual memory requested from 'malloc' (`tab`) is larger than 'size' to
+ * accommodate padding for alignment and a hidden pointer.
+ * - The original pointer returned by 'malloc' (`tab`) is stored `sizeof(void*)` bytes
+ * *before* the aligned address (`ac`) that is returned to the user. This is crucial
+ * for the corresponding `lv_free` function to correctly deallocate the entire block.
+ * - Uses standard pointer arithmetic and bitwise operations for alignment,
+ * making it portable and compatible with various 'malloc' implementations.
+ */
+
 __attribute__((malloc))
 void	*lv_alloc_align(size_t size, size_t align)
 {
@@ -50,15 +74,15 @@ void	*lv_alloc_align(size_t size, size_t align)
  * Allocates a memory block with 128-byte alignment.
  *
  * Parameters:
- *   size - size of memory to allocate in bytes
+ * size - size of memory to allocate in bytes
  *
  * Returns:
- *   A pointer to the allocated memory on success.
- *   NULL on failure.
+ * A pointer to the allocated memory on success.
+ * NULL on failure.
  *
  * Notes:
- *   - Uses lv_alloc_align to ensure alignment.
- *   - Intended for optimized use with lv_mem* operations.
+ * - Uses lv_alloc_align to ensure alignment.
+ * - Intended for optimized use with lv_mem* operations.
  */
 
 __attribute__((malloc))
