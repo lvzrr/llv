@@ -20,6 +20,23 @@
 
 #include "llv.h"
 
+/*
+ * Function: lv_atoi
+ * -----------------
+ * Converts a string 'str' to an integer (base 10).
+ * This function handles leading whitespace and optional signs ('+' or '-').
+ *
+ * Parameters:
+ * str - The input string to convert.
+ *
+ * Returns:
+ * The integer representation of the string.
+ *
+ * Notes:
+ * - Similar to the standard library's `atoi` function.
+ * - It stops parsing at the first non-digit character after an optional sign.
+ */
+
 int	lv_atoi(const char *str)
 {
 	int		out;

@@ -40,22 +40,10 @@
 
 char	*lv_strdup(const char *str)
 {
-	unsigned int	i;
-	unsigned int	n;
-	char			*newstr;
+	size_t	n;
 
 	if (!str)
 		return (NULL);
-	i = 0;
 	n = lv_strlen(str);
-	newstr = (char *)lv_alloc(n + 1);
-	if (!newstr)
-		return ((void *) 0);
-	while (i < n)
-	{
-		newstr[i] = str[i];
-		i++;
-	}
-	newstr[i] = 0;
-	return (newstr);
+	return (lv_memclone((void *)str, n));
 }

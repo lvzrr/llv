@@ -20,6 +20,19 @@
 
 #include "llv.h"
 
+/*
+ * Function: count
+ * ---------------
+ * Counts the number of digits required to represent an integer 'n' in base 10.
+ * This includes a potential sign character for negative numbers.
+ *
+ * Parameters:
+ * n - The integer number.
+ *
+ * Returns:
+ * The number of characters needed to represent 'n' as a string.
+ */
+
 static unsigned int	count(int n)
 {
 	unsigned int	i;
@@ -35,12 +48,43 @@ static unsigned int	count(int n)
 	return (i);
 }
 
+/*
+ * Function: _abs
+ * --------------
+ * Calculates the absolute value of an integer.
+ * This is a helper function typically used internally.
+ *
+ * Parameters:
+ * x - The integer number.
+ *
+ * Returns:
+ * The absolute value of 'x'.
+ */
+
 static int	_abs(int x)
 {
 	if (x < 0)
 		return (-x);
 	return (x);
 }
+
+/*
+ * Function: lv_itoa
+ * -----------------
+ * Converts an integer 'n' to its string representation in base 10.
+ * The function allocates memory for the resulting string, which must be freed by the caller.
+ *
+ * Parameters:
+ * n - The integer to convert.
+ *
+ * Returns:
+ * A newly allocated string containing the decimal representation of the number on success.
+ * NULL if memory allocation fails.
+ *
+ * Notes:
+ * - This function handles negative numbers by prepending a '-' sign.
+ * - The `lv_alloc` function is assumed to be provided elsewhere.
+ */
 
 char	*lv_itoa(int n)
 {
