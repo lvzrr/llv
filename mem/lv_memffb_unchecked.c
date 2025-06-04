@@ -49,18 +49,17 @@ static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
 	size_t *__restrict__ n, size_t *__restrict__ i, t_u8 *__restrict__ r)
 {
 	t_u8	*d;
-	int		lk;
 
 	d = (t_u8 *) __builtin_assume_aligned(ptr, 8);
 	while (*n >= sizeof(t_u8) * 2 && !*r)
 	{
 		if (*d++ == x)
-			return ((t_u8 *)d - sizeof(t_u8) + lk);
+			return ((t_u8 *)d - sizeof(t_u8));
 		*r = _aligned((t_u8 *)ptr, NULL, i);
 		if (r)
 			return (NULL);
 		if (*d++ == x)
-			return ((t_u8 *)d - sizeof(t_u8) + lk);
+			return ((t_u8 *)d - sizeof(t_u8));
 		*n -= sizeof(t_u8) * 2;
 		*i += sizeof(t_u8) * 2;
 		*r = _aligned((t_u8 *)ptr, NULL, i);
@@ -205,6 +204,7 @@ void	*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 		return (NULL);
 	mask = __populate(x);
 	i = 0;
+	p = 0;
 	r = _aligned((t_u8 *)ptr, NULL, &i);
 	if (r == 0)
 		p = _look4_u8_tmp((t_u8 *)ptr, mask, &n, &i, &r);

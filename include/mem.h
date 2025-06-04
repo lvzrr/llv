@@ -27,25 +27,16 @@
 # include "structs.h"
 # include "macros.h"
 
-# ifndef LONES_64
-#  define LONES_64 0x0101010101010101ULL
-# endif
-
-# ifndef HIGHS_64
-#  define HIGHS_64 0x8080808080808080ULL
-# endif
-
-# ifndef ZEROS_64
-#  define ZEROS_64 0x0000000000000000ULL
-# endif
-
+# define LONES_64 0x0101010101010101ULL
+# define HIGHS_64 0x8080808080808080ULL
+# define ZEROS_64 0x0000000000000000ULL
 # define LONES_32  0x01010101U
 # define HIGHS_32  0x80808080U
-
 # define LONES_128_CONST (((t_u128)LONES_64 << 64) | LONES_64)
 # define HIGHS_128_CONST (((t_u128)HIGHS_64 << 64) | HIGHS_64)
 # define ZEROS_128_CONST (((t_u128)ZEROS_64 << 64) | ZEROS_64)
 # define ONES_64 ((uint64_t)-1 / UCHAR_MAX)
+
 // Actual api
 
 void			lv_bzero(void *__restrict__ ptr, size_t n);
