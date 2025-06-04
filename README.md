@@ -68,3 +68,9 @@
 
 [GNU GPLv3](https://www.gnu.org/licenses/)
 Free to use, modify, or turn into a cursed fork.
+
+## TODO:
+
+- [ ] Improve vector API (iterators, etc ...)
+- [ ] Review tstr and test it
+- [ ] String formatting macros
