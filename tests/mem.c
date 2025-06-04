@@ -458,6 +458,19 @@ void	memcmp_tests()
 	printf("lv_memcmp passed tests: %lu\r\n", i++);
 }
 
+void	memformat_tests()
+{
+	char *malloc_ptr = (char *)malloc(L2_TEST);
+	assert(malloc_ptr != NULL);
+	memset(malloc_ptr, 'M', L2_TEST);
+	char temp_content[L2_TEST];
+	memcpy(temp_content, malloc_ptr, L2_TEST);
+	LV_DEFER char *formatted_from_malloc = lv_memformat(malloc_ptr, L2_TEST);
+	assert(formatted_from_malloc != NULL);
+	assert(memcmp(formatted_from_malloc, temp_content, L2_TEST) == 0);
+	printf("lv_memformat (malloc source to lv_alloc) passed tests: 1\r\n");
+}
+
 int main()
 {
 	memcpy_tests();
@@ -466,6 +479,7 @@ int main()
 	memswap_tests();
 	memset_tests();
 	memcmp_tests();
+	memformat_tests();
 	printf("[TESTER] All mem test passed\n");
 	return (0);
 }

@@ -60,6 +60,7 @@ void			*lv_memffb(const void *__restrict__ ptr,
 void			*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 					t_u8 x, size_t n);
 void			*lv_memclone(void *__restrict__ ptr, size_t size);
+void			*lv_memformat(void *ptr, size_t size);
 
 /*
  *
