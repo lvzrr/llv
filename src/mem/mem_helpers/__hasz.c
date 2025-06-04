@@ -37,9 +37,7 @@
  * - It leverages bitwise operations for efficient null byte detection.
  */
 
-__attribute((hot))
-__attribute((always_inline))
-inline int	__hasz64(t_u64 x)
+LV_INLINE_HOT inline int	__hasz64(t_u64 x)
 {
     return (((x) -LONES_64) & (~x) & HIGHS_64);
 }
