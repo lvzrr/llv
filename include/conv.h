@@ -28,4 +28,5 @@ char			*lv_itoa(int n);
 int				lv_atoi_base(char *str, char *base, int base_len);
 char			*lv_itoa_base(int n, char *base);
 char			*lv_utoa_base(size_t n, char *base);
+ssize_t			lv_atol(const char *str);
 #endif

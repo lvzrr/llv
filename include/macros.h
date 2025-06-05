@@ -43,6 +43,14 @@
 #  endif
 # endif
 
+# ifndef LV_DEFER_VEC
+#  ifdef __GNUC__
+#    define LV_DEFER_VEC __attribute__((cleanup(lv_vec_free)))
+#  else
+#    define LV_DEFER_VEC
+#  endif
+# endif
+
 # ifndef LV_DEFER
 #  ifdef __GNUC__
 #    define LV_DEFER __attribute__((cleanup(lv_defer)))
