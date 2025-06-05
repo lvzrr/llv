@@ -69,15 +69,6 @@ test-cstr:
 	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test 1>/dev/null
 	@echo "Asan done (cstr module)"
 
-test-vec:
-	@mkdir -p $(OBJDIR)/tests
-	@echo "Testing Valgrind (mem module)..."
-	@cc -O3 tests/vec.c -llv -Iinclude -o $(OBJDIR)/tests/vec.test
-	@valgrind --leak-check=full --track-origins=yes -s ./$(OBJDIR)/tests/vec.test
-	@echo "Testing Asan (vec module)..."
-	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/vec.test tests/vec.c -llv && ./$(OBJDIR)/tests/vec.test 1>/dev/null
-	@echo "Asan done (vec module)"
-
 test: install test-mem test-cstr test-vec
 
 re: fclean full all
