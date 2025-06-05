@@ -53,9 +53,9 @@ void	lv_vec_push(t_vec *vec, void *data, size_t len)
 
 	if (!vec || !data)
 		return ;
-	if (vec->size + len > vec->alloc_size)
+	if ((vec->size + len) * vec->sizeof_type > vec->alloc_size)
 	{
-		new_alloc = LV_MAX(vec->alloc_size * 2, vec->size + len);
+		new_alloc = LV_MAX(vec->alloc_size * 2, (vec->size + len) * vec->sizeof_type);
 		tmp = lv_extend_zero(vec->data,
 				vec->alloc_size * vec->sizeof_type,
 				(new_alloc - vec->alloc_size) * vec->sizeof_type);
