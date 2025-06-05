@@ -47,8 +47,11 @@ char	*lv_strchr(const char *s, int c)
 	int		idx;
 	char	*s2;
 
+	if (!s)
+		return (NULL);
 	s2 = (char *)s;
-	while (s2 && ((t_uptr)s2) % sizeof(t_u64) && *s != c)
+	while (((t_uptr)s2) % sizeof(t_u64) != 0
+		&& *s2 != (char)c && *s2 != '\0')
 		s2++;
 	if (*s2 == c)
 		return (s2);
