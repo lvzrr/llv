@@ -32,10 +32,6 @@
 # define ZEROS_64 0x0000000000000000ULL
 # define LONES_32  0x01010101U
 # define HIGHS_32  0x80808080U
-# define LONES_128_CONST (((t_u128)LONES_64 << 64) | LONES_64)
-# define HIGHS_128_CONST (((t_u128)HIGHS_64 << 64) | HIGHS_64)
-# define ZEROS_128_CONST (((t_u128)ZEROS_64 << 64) | ZEROS_64)
-# define ONES_64 ((uint64_t)-1 / UCHAR_MAX)
 
 // Actual api
 
@@ -56,8 +52,6 @@ void			*lv_memchr(const void *__restrict__ ptr, int c, size_t n);
 ssize_t			lv_memcmp(void *__restrict__ dest,
 					const void *__restrict__ src, size_t n);
 void			*lv_memffb(const void *__restrict__ ptr,
-					t_u8 x, size_t n);
-void			*lv_memffb_b2n_unchecked(const void *__restrict__ ptr,
 					t_u8 x, size_t n);
 void			*lv_memclone(void *__restrict__ ptr, size_t size);
 void			*lv_memformat(void *ptr, size_t size);
