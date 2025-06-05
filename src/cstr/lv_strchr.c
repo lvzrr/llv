@@ -21,23 +21,44 @@
 #include "cstr.h"
 
 /*
- * Function: lv_strchr
- * -------------------
+ * Function: ft_strchr
+ * --------------------
  * Locates the first occurrence of a character in a string.
  *
  * Parameters:
- * haystack - The string to be searched.
- * needle   - The character to search for (an int, but treated as char).
+ * s - The string to be searched.
+ * c - The character to search for (an int, but treated as char).
  *
  * Returns:
- * A pointer to the first occurrence of `needle` in `haystack`.
+ * A pointer to the first occurrence of `c` in `s`.
  * NULL if the character is not found.
  *
  * Notes:
- * - Internally uses `lv_memffb` and `lv_strlen`.
+ * - This function is optimized to search for the character `c` in blocks of `t_u64` (unsigned 64-bit integers)
+ * after handling the initial bytes to align the string pointer.
+ * - It uses `__hasz64` to check for a null byte within a 64-bit word and `_lookup_u64`
+ * to find the character `c` within a 64-bit word.
+ * - The `cstr.h` header is presumed to define `t_u64`, `t_uptr`, `__hasz64`, and `_populate`.
  */
 
-char	*lv_strchr(const char *haystack, int needle)
+char	*ft_strchr(const char *s, int c)
 {
-	return (lv_memffb(haystack, needle, lv_strlen(haystack) + 1));
+	t_u64	*w;
+	int		idx;
+	char	*s2;
+
+	s2 = (char *)s;
+	while (s2 && ((t_uptr)s2) % sizeof(t_u64) && *s != c)
+		s2++;
+	if (*s2 == c)
+		return (s2);
+	w = (t_u64 *)s2;
+	while (!__hasz64(w[0]))
+	{
+		idx = _lookup_u64(w[0], __populate((t_u8)c));
+		if (idx != -1)
+			return (((char *)w) + idx);
+		w++;
+	}
+	return (NULL);
 }
