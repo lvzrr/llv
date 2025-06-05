@@ -21,7 +21,7 @@
 #include "cstr.h"
 
 /*
- * Function: ft_strchr
+ * Function: lv_strchr
  * --------------------
  * Locates the first occurrence of a character in a string.
  *
@@ -41,7 +41,7 @@
  * - The `cstr.h` header is presumed to define `t_u64`, `t_uptr`, `__hasz64`, and `_populate`.
  */
 
-char	*ft_strchr(const char *s, int c)
+char	*lv_strchr(const char *s, int c)
 {
 	t_u64	*w;
 	int		idx;
