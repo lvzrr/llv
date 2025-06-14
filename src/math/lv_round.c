@@ -21,7 +21,7 @@
 #include "math.h"
 
 /*
- * Function: __floorf
+ * Function: lv_floorf
  * -------------------
  * Computes the floor of a single-precision floating-point number. The floor
  * of a number is the largest integer less than or equal to that number.
