@@ -21,30 +21,22 @@
 #include "math.h"
 
 /*
- * Function: lv_q_sqrt
+ * Function: __floorf
  * -------------------
- * Computes the inverse square root of a single-precision floating-point number
- * using the "Fast Inverse Square Root" algorithm, famously known from Quake III Arena.
- * This algorithm provides a very fast approximation of 1/sqrt(number), which is
- * then used to calculate sqrt(number).
+ * Computes the floor of a single-precision floating-point number. The floor
+ * of a number is the largest integer less than or equal to that number.
  *
  * Parameters:
- * number - The input floating-point number for which to calculate the square root.
- * Must be non-negative.
+ * x - The input floating-point number.
  *
  * Returns:
- * The square root of 'number' if 'number' is non-negative.
- * -1 if 'number' is negative, indicating an invalid input for real square root.
+ * The floor of 'x' as a float.
  *
  * Notes:
- * - This function relies on specific floating-point representation (IEEE 754)
- * and integer bitwise operations to achieve its speed.
- * - The magic number 0x5f3759df is central to the algorithm's effectiveness,
- * providing an initial approximation of the inverse square root.
- * - It performs two iterations of Newton's method to refine the approximation,
- * balancing accuracy with performance.
- * - The final result is obtained by multiplying the input 'number' by its
- * approximated inverse square root.
+ * - This implementation casts the float to an integer and then checks if the
+ * integer value is greater than the original float. If it is, it means
+ * the original float was negative and had a fractional part, so it
+ * subtracts 1 from the integer to get the correct floor.
  */
 
 float	lv_floorf(float x)
