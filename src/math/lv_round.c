@@ -41,12 +41,12 @@
 
 float	lv_floorf(float x)
 {
-	int	i;
+	long long i;
 
-	i = (int)x;
+	i = (long long)x;
 	if ((float)i > x)
-		return ((float)(i - 1));
-	return ((float)i);
+		return (i - 1);
+	return (i);
 }
 
 /*
@@ -70,12 +70,12 @@ float	lv_floorf(float x)
 
 float	lv_ceilf(float x)
 {
-	int	i;
+	long long i;
 
-	i = (int)x;
+	i = (long long)x;
 	if ((float)i < x)
-		return ((float)(i + 1));
-	return ((float)i);
+		return (i + 1);
+	return (i);
 }
 
 /*
