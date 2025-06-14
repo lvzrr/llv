@@ -101,3 +101,33 @@ float	lv_q_sqrt_round(float number, t_u8 n)
 {
 	return (lv_roundf(lv_q_sqrt(number), n));
 }
+
+/*
+ * Function: lv_q_sqrt_fround
+ * ---------------------------
+ * Computes the square root of a single-precision floating-point number using the
+ * "Fast Inverse Square Root" algorithm and then rounds the result to the
+ * nearest whole number.
+ *
+ * Parameters:
+ * number - The input floating-point number for which to calculate the square root.
+ * Must be non-negative.
+ *
+ * Returns:
+ * The rounded square root of 'number' if 'number' is non-negative.
+ * -1 if 'number' is negative, indicating an invalid input for a real square root.
+ *
+ * Notes:
+ * - This function internally calls `lv_q_sqrt` to get the approximate square root
+ * and then `lv_roundff` to round it to the nearest whole number.
+ * - Be aware that `lv_roundff` implements a basic rounding logic (rounding half up
+ * for positive numbers and effectively truncating for negative fractional parts
+ * that are not exactly .5). For a more comprehensive rounding, consider using
+ * `lv_roundf` if rounding to a specific number of decimal places or standard
+ * rounding behavior is required.
+ */
+
+float	lv_q_sqrt_fround(float number)
+{
+	return (lv_roundff(lv_q_sqrt(number)));
+}

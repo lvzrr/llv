@@ -119,3 +119,35 @@ float	lv_roundf(float x, t_u8 n)
 	else
 		return (lv_ceilf(x * p10 - 0.5f) / p10);
 }
+
+/*
+ * Function: lv_roundff
+ * --------------------
+ * Rounds a single-precision floating-point number to the nearest whole number.
+ * This implementation adheres to the common "round half away from zero" rule.
+ *
+ * Parameters:
+ * x - The input floating-point number to be rounded.
+ *
+ * Returns:
+ * The rounded value of 'x' as a float (representing a whole number).
+ *
+ * Notes:
+ * - For positive numbers, 0.5 is added before casting to an integer. This effectively
+ * rounds values like 2.5 up to 3.0 (2.5 + 0.5 = 3.0, then cast to int is 3).
+ * - For negative numbers, 0.5 is subtracted before casting to an integer. This ensures
+ * that values like -2.5 are rounded down to -3.0 (-2.5 - 0.5 = -3.0, then cast to int is -3).
+ * This behavior aligns with "round half away from zero," where both 2.5 and -2.5
+ * are rounded to 3 and -3 respectively.
+ * - This method is generally more robust and predictable for both positive and negative
+ * inputs compared to approaches that rely on the modulo operator or simple truncation
+ * for negative numbers.
+ */
+
+float lv_roundff(float x)
+{
+	if (x >= 0.0f)
+		return (float)((int)(x + 0.5f));
+	else
+		return (float)((int)(x - 0.5f));
+}

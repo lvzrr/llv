@@ -25,6 +25,7 @@
 
 float			lv_q_sqrt(float x);
 float			lv_q_sqrt_round(float number, t_u8 n);
+float			lv_q_sqrt_fround(float number);
 float			lv_roundf(float x, t_u8 n);
 float			lv_floorf(float x);
 float			lv_ceilf(float x);
@@ -36,4 +37,5 @@ int				lv_ipow(int x, t_u64 n);
 long long		lv_lpow(long long x, t_u64 n);
 float			lv_fpow(float x, t_u64 n);
 double			lv_dpow(double x, t_u64 n);
+float			lv_roundff(float x);
 #endif
