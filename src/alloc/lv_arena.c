@@ -159,7 +159,7 @@ void    lv_free_arena(t_arena *arena)
 	t_arena			*next_arena;
 	void			*t;
 
-	if (arena)
+	if (arena && !store)
 	{
 		store = arena;
 		atexit((void (*)(void))lv_free_arena);

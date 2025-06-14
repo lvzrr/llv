@@ -1,5 +1,5 @@
 /**
- * nums.h
+ * conv.h
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,12 +18,14 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NUMS_H
-# define NUMS_H
+#ifndef CONV_H
+# define CONV_H
 # include <unistd.h>
 # include <stdlib.h>
+# include "mem.h"
 
 int				lv_atoi(const char *str);
+float			lv_atof(const char *str);
 char			*lv_itoa(int n);
 int				lv_atoi_base(char *str, char *base, int base_len);
 char			*lv_itoa_base(int n, char *base);
