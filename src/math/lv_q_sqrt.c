@@ -67,6 +67,36 @@ float	lv_q_sqrt(float number)
 	return (number * y);
 }
 
+/*
+ * Function: lv_q_sqrt_round
+ * --------------------------
+ * Computes the square root of a single-precision floating-point number and
+ * then rounds the result to a specified number of decimal places. This function
+ * uses the "Fast Inverse Square Root" algorithm for an efficient initial
+ * approximation of the square root.
+ *
+ * Parameters:
+ * number - The input floating-point number for which to calculate and round
+ * the square root. Must be non-negative.
+ * n      - The number of decimal places to round the final square root to.
+ *
+ * Returns:
+ * The rounded square root of 'number' if 'number' is non-negative.
+ * -1 if 'number' is negative, indicating an invalid input for a real
+ * square root.
+ *
+ * Notes:
+ * - This function combines the fast inverse square root approximation with
+ * subsequent rounding.
+ * - It first checks for negative input, returning -1 as a square root of a
+ * negative number is not a real number.
+ * - The core of the square root calculation uses bitwise manipulation and a
+ * magic number (0x5f3759df) to quickly estimate the inverse square root.
+ * - Two iterations of Newton's method are applied to refine this approximation.
+ * - Finally, the calculated square root (number * y) is passed to the
+ * `__roundf` function to round it to `n` decimal places.
+ */
+
 float	lv_q_sqrt_round(float number, t_u8 n)
 {
 	long		i;
