@@ -99,20 +99,5 @@ float	lv_q_sqrt(float number)
 
 float	lv_q_sqrt_round(float number, t_u8 n)
 {
-	long		i;
-	float		x2;
-	float		y;
-	float		threehalfs;
-
-	if (number < 0)
-		return (-1);
-	threehalfs = 1.5F;
-	x2 = number * 0.5F;
-	y  = number;
-	lv_memcpy(&i, &y, sizeof(float));
-	i  = 0x5f3759df - (i >> 1);
-	lv_memcpy(&y, &i, sizeof(float));
-	y  = y * (threehalfs - (x2 * y * y));
-	y  = y * (threehalfs - (x2 * y * y));
-	return (lv_roundf(number * y, n));
+	return (lv_roundf(lv_q_sqrt(number), n));
 }
