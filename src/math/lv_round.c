@@ -1,5 +1,5 @@
 /**
- * __round.c
+ * lv_round.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -47,7 +47,7 @@
  * approximated inverse square root.
  */
 
-float	__floorf(float x)
+float	lv_floorf(float x)
 {
 	int	i;
 
@@ -58,7 +58,7 @@ float	__floorf(float x)
 }
 
 /*
- * Function: __ceilf
+ * Function: lv_ceilf
  * ------------------
  * Computes the ceiling of a single-precision floating-point number. The ceiling
  * of a number is the smallest integer greater than or equal to that number.
@@ -76,7 +76,7 @@ float	__floorf(float x)
  * adds 1 to the integer to get the correct ceiling.
  */
 
-float	__ceilf(float x)
+float	lv_ceilf(float x)
 {
 	int	i;
 
@@ -87,7 +87,7 @@ float	__ceilf(float x)
 }
 
 /*
- * Function: __roundf
+ * Function: lv_roundf
  * -------------------
  * Rounds a single-precision floating-point number to a specified number of
  * decimal places.
@@ -113,7 +113,7 @@ float	__ceilf(float x)
  * floats to maintain reasonable accuracy due to their limited precision.
  */
 
-float	__roundf(float x, t_u8 n)
+float	lv_roundf(float x, t_u8 n)
 {
 	float	p10;
 
@@ -123,7 +123,7 @@ float	__roundf(float x, t_u8 n)
 	while (n--)
 		p10 *= 10.0f;
 	if (x >= 0)
-		return (__floorf(x * p10 + 0.5f) / p10);
+		return (lv_floorf(x * p10 + 0.5f) / p10);
 	else
-		return (__ceilf(x * p10 - 0.5f) / p10);
+		return (lv_ceilf(x * p10 - 0.5f) / p10);
 }

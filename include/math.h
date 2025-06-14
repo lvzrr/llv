@@ -25,7 +25,7 @@
 
 float	lv_q_sqrt(float x);
 float	lv_q_sqrt_round(float number, t_u8 n);
-float	__roundf(float x, t_u8 n);
-float	__floorf(float x);
-float	__ceilf(float x);
+float	lv_roundf(float x, t_u8 n);
+float	lv_floorf(float x);
+float	lv_ceilf(float x);
 #endif
