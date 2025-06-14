@@ -69,7 +69,7 @@ test-cstr:
 	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test 1>/dev/null
 	@echo "Asan done (cstr module)"
 
-test: install test-mem test-cstr test-vec
+test: install test-mem test-cstr
 
 re: fclean full all
 

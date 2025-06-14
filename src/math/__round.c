@@ -1,5 +1,5 @@
 /**
- * math.h
+ * __round.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,14 +18,39 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#ifndef MATH_H
-# define MATH_H
+#include "math.h"
 
-# include "mem.h"
+float	__floorf(float x)
+{
+	int	i;
 
-float	lv_q_sqrt(float x);
-float	lv_q_sqrt_round(float number, t_u8 n);
-float	__roundf(float x, t_u8 n);
-float	__floorf(float x);
-float	__ceilf(float x);
-#endif
+	i = (int)x;
+	if ((float)i > x)
+		return (float)(i - 1);
+	return ((float)i);
+}
+
+float	__ceilf(float x)
+{
+	int	i;
+
+	i = (int)x;
+	if ((float)i < x)
+		return (float)(i + 1);
+	return ((float)i);
+}
+
+float	__roundf(float x, t_u8 n)
+{
+	float	p10;
+
+	if (n > 7)
+		n = 7;
+	p10 = 0.1f;
+	while (n--)
+		p10 *= 10.0f;
+	if (x >= 0)
+		return (__floorf(x * p10 + 0.5f) / p10);
+	else
+		return (__ceilf(x * p10 - 0.5f) / p10);
+}
