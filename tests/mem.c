@@ -13,7 +13,7 @@
 #define	L5_TEST 500000
 
 // lv_alloc -> force aligned 128
-// lv_alloc	-> whatever works lmao
+// malloc	-> whatever works lmao
 
 void	memcpy_tests()
 {

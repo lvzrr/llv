@@ -45,7 +45,7 @@ static t_arena	*lv_init_arena(size_t size)
 	total_size = LV_MAX(size * 2, DEFAULT_ARENA_SIZE);
 	arena->pool = lv_alloc(total_size);
 	if (!arena->pool)
-		return (NULL);
+		return (lv_free(&(arena->pool)), NULL);
 	arena->size = total_size;
 	arena->offset = 0;
 	arena->next = NULL;
