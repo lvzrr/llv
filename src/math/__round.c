@@ -53,7 +53,7 @@ float	__floorf(float x)
 
 	i = (int)x;
 	if ((float)i > x)
-		return (float)(i - 1);
+		return ((float)(i - 1));
 	return ((float)i);
 }
 
@@ -82,7 +82,7 @@ float	__ceilf(float x)
 
 	i = (int)x;
 	if ((float)i < x)
-		return (float)(i + 1);
+		return ((float)(i + 1));
 	return ((float)i);
 }
 
