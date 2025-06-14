@@ -1,0 +1,41 @@
+/**
+ * lv_sqrt.c
+ *
+ * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version
+ * 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General
+ * Public License along with this program. If not, see
+ * <https://www.gnu.org/licenses/>.
+ */
+
+#include "math.h"
+
+float	lv_q_sqrt( float number )
+{
+	long		i;
+	float		x2;
+	float		y;
+	float		threehalfs;
+
+	if (number < 0)
+		return (-1);
+	threehalfs = 1.5F;
+	x2 = number * 0.5F;
+	y  = number;
+	lv_memcpy(&i, &y, sizeof(float));
+	i  = 0x5f3759df - ( i >> 1 );
+	lv_memcpy(&y, &i, sizeof(float));
+	y  = y * (threehalfs - (x2 * y * y));
+	y  = y * (threehalfs - (x2 * y * y));
+	return (number * y);
+}
