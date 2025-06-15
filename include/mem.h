@@ -23,6 +23,7 @@
 # include <sys/types.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdbool.h>
 # include "alloc.h"
 # include "structs.h"
 # include "macros.h"

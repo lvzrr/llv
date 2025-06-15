@@ -38,16 +38,13 @@ static inline float	__eat_decimal(const char *s)
 {
 	float	c;
 	float	out;
-	size_t	n;
 
 	c = 0.1f;
 	out = 0;
-	n = 0;
 	while (*s && (*s >= '0' && *s <= '9'))
 	{
 		out += c * (*s++ - '0');
 		c *= 0.1f;
-		n++;
 	}
 	return (out);
 }

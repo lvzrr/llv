@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/types.h>
+# include <stdbool.h>
 # include <stdint.h>
 # include "structs.h"
 # include "alloc.h"

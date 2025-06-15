@@ -46,7 +46,7 @@
  * the end of the respective regions for backward iteration.
  */
 
-LV_INLINE static inline void	b(void *__restrict__ dest,
+LV_INLINE inline void	b(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	size_t	i;

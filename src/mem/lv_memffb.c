@@ -50,6 +50,7 @@ LV_INLINE static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
 	t_u8	*d;
 	int		lk;
 
+	lk = 0;
 	d = (t_u8 *) __builtin_assume_aligned(ptr, 8);
 	while (*n >= sizeof(t_u8) * 2 && !*r)
 	{

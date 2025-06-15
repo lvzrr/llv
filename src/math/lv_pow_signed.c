@@ -151,7 +151,7 @@ double	lv_dpow(double x, t_u64 n)
 {
 	double	res;
 
-	res = 1.0f;
+	res = 1.0;
 	while (n)
 	{
 		if ((n & 1) == 1)
