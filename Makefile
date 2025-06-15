@@ -22,7 +22,7 @@ NAME		:=	liblv.a
 CC			:=	clang
 FLAGS		:=  -Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 \
 				-Wdouble-promotion -Wstrict-aliasing=2 -Wpedantic -Wundef \
-				-Wno-disabled-macro-expansion -Wno-padded \
+				-Wno-disabled-macro-expansion -Wno-padded  \
 				-Wwrite-strings -Wredundant-decls -Winline -Wno-reserved-identifier -Wno-implicit-int-float-conversion -O3
 AR			:=	ar rcs
 OBJDIR		:=	build
