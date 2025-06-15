@@ -19,11 +19,10 @@
 #
 
 NAME		:=	liblv.a
-CC			:=	clang
-FLAGS		:=  -Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 \
-				-Wdouble-promotion -Wstrict-aliasing=2 -Wpedantic -Wundef \
-				-Wno-disabled-macro-expansion -Wno-padded  \
-				-Wwrite-strings -Wredundant-decls -Winline -Wno-reserved-identifier -Wno-implicit-int-float-conversion -O3
+CC			:=	cc
+FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-promotion \
+				-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=2 \
+				-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
 AR			:=	ar rcs
 OBJDIR		:=	build
 DIRS		:=	math map vec tstr cstr alloc in is mem conv out lst mem/mem_helpers
