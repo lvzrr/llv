@@ -58,12 +58,12 @@ float	lv_q_sqrt(float number)
 		return (-1);
 	threehalfs = 1.5F;
 	x2 = number * 0.5F;
-	y  = number;
+	y = number;
 	lv_memcpy(&i, &y, sizeof(float));
-	i  = 0x5f3759df - (i >> 1);
+	i = 0x5f3759df - (i >> 1);
 	lv_memcpy(&y, &i, sizeof(float));
-	y  = y * (threehalfs - (x2 * y * y));
-	y  = y * (threehalfs - (x2 * y * y));
+	y = y * (threehalfs - (x2 * y * y));
+	y = y * (threehalfs - (x2 * y * y));
 	return (number * y);
 }
 
