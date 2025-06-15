@@ -137,7 +137,7 @@ LV_INLINE inline void	*_look4_u32_fwd(void *__restrict__ ptr,
  * using `_lookup_u64` to find specific byte matches within those words.
  */
 
-LV_INLINE inline void	*_look4_u64_fwd(void *__restrict__ ptr,
+LV_INLINE_HOT inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 	t_u64 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -191,7 +191,7 @@ LV_INLINE inline void	*_look4_u64_fwd(void *__restrict__ ptr,
  * byte matches within those words.
  */
 
-LV_INLINE inline void	*_look4_u128_fwd(void *__restrict__ ptr,
+LV_INLINE_HOT inline void	*_look4_u128_fwd(void *__restrict__ ptr,
 	t_u128 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
