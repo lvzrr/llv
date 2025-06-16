@@ -206,7 +206,7 @@ LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
  * - `s == *i` is likely a check for `src` being `NULL` or very early in buffer.
  */
 
-LV_INLINE inline t_u8	_aligned(const void *__restrict__ dest,
+LV_INLINE LV_CONST inline t_u8	_aligned(const void *__restrict__ dest,
 	const void *__restrict__ src, size_t *i)
 {
 	t_uptr	d;

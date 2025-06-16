@@ -83,6 +83,14 @@
 #  endif
 # endif
 
+# ifndef LV_CONST
+#  ifdef __GNUC__
+#    define LV_CONST __attribute__((const))
+#  else
+#    define LV_CONST
+#  endif
+# endif
+
 # ifndef LV_INLINE_HOT
 #  ifdef __GNUC__
 #    define LV_INLINE_HOT __attribute__((always_inline)) __attribute__((hot))
