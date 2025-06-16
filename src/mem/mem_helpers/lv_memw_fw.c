@@ -224,6 +224,5 @@ LV_INLINE LV_CONST inline t_u8	_aligned(const void *__restrict__ dest,
 	if (((d & (sizeof(t_u32) - 1)) == 0)
 		&& ((s & (sizeof(t_u32) - 1)) == 0))
 		return (32);
-    return (0);
 	return (0);
 }
