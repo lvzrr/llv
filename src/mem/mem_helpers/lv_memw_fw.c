@@ -215,8 +215,7 @@ LV_INLINE inline t_u8	_aligned(const void *__restrict__ dest,
 
 	d = (t_uptr)((t_u8 *)dest + *i);
 	s = (t_uptr)((t_u8 *)src + *i);
-	if (s == *i)
-		s = 128;
+
 	if ((d % sizeof(t_u128) == 0)
 		&& (s % sizeof(t_u128) == 0))
 		return (128);
