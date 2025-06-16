@@ -40,8 +40,8 @@
  * - It processes memory in chunks of 2 bytes where possible, then single bytes,
  * working from the beginning of the specified range forwards.
  */
-__attribute__((always_inline))
-inline void	_copy_u8_fwd(void *__restrict__ dest,
+
+LV_INLINE inline void	_copy_u8_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -83,8 +83,7 @@ inline void	_copy_u8_fwd(void *__restrict__ dest,
  */
 
 
-__attribute__((always_inline))
-inline void	_copy_u32_fwd(void *__restrict__ dest,
+LV_INLINE inline void	_copy_u32_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
