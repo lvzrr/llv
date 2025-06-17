@@ -22,7 +22,7 @@ NAME		:=	liblv.a
 CC			:=	cc
 FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-promotion \
 				-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=3 \
-				-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
+				-Wstrict-overflow=5 -Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
 AR			:=	ar rcs
 OBJDIR		:=	build
 DIRS		:=	math map vec tstr cstr alloc in is mem conv out lst mem/mem_helpers
@@ -57,7 +57,7 @@ test-mem:
 	@cc -O3 tests/mem.c -llv -Iinclude -o $(OBJDIR)/tests/mem.test
 	@valgrind --leak-check=full --track-origins=yes -s ./$(OBJDIR)/tests/mem.test
 	@echo "Testing Asan (mem module)..."
-	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test 1>/dev/null
+	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test 1>/dev/null
 	@echo "Asan done (mem module)"
 
 test-cstr:
@@ -66,7 +66,7 @@ test-cstr:
 	@cc -O3 tests/cstr.c -llv -Iinclude -o $(OBJDIR)/tests/cstr.test
 	@valgrind --leak-check=full --track-origins=yes -s ./$(OBJDIR)/tests/cstr.test
 	@echo "Testing Asan (cstr module)..."
-	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test 1>/dev/null
+	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test 1>/dev/null
 	@echo "Asan done (cstr module)"
 
 test: install test-mem test-cstr
