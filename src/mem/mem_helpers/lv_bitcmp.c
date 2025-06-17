@@ -39,9 +39,7 @@
  * difference. The result is then right-shifted by 3 to get the byte offset.
  */
 
-__attribute__((always_inline))
-__attribute__((hot))
-inline int _lookup_u32(t_u32 word, t_u32 mask)
+LV_INLINE inline int _lookup_u32(t_u32 word, t_u32 mask)
 {
     t_u32 diff;
     t_u32 t;
@@ -71,9 +69,7 @@ inline int _lookup_u32(t_u32 word, t_u32 mask)
  * - Similar to `_lookup_u32` but for 64-bit words.
  */
 
-__attribute__((always_inline))
-__attribute__((hot))
-inline int _lookup_u64(t_u64 word, t_u64 mask)
+LV_INLINE inline int _lookup_u64(t_u64 word, t_u64 mask)
 {
     t_u64 diff;
     t_u64 t;
@@ -104,9 +100,7 @@ inline int _lookup_u64(t_u64 word, t_u64 mask)
  * on each part, adjusting the offset for the high part.
  */
 
-__attribute__((always_inline))
-__attribute__((hot))
-inline int _lookup_u128(t_u128 word, t_u128 mask)
+LV_INLINE inline int _lookup_u128(t_u128 word, t_u128 mask)
 {
 	int		lkup;
 	t_u64	low_word;
@@ -121,14 +115,10 @@ inline int _lookup_u128(t_u128 word, t_u128 mask)
 	low_word = (t_u64)word;
 	lkup = _lookup_u64(low_word, low_mask);
 	if (lkup != -1)
-	{
 		return lkup;
-	}
 	lkup = _lookup_u64(high_word, high_mask);
 	if (lkup != -1)
-	{
 		return 64 + lkup;
-	}
 	return (-1);
 }
 

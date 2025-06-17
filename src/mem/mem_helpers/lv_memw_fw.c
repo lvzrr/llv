@@ -28,9 +28,9 @@
  *
  * Parameters:
  * dest - A pointer to the destination memory region.
- * src  - A pointer to the source memory region.
- * n    - A pointer to the remaining number of bytes to copy.
- * i    - A pointer to the current index within the buffers.
+ * src - A pointer to the source memory region.
+ * n  - A pointer to the remaining number of bytes to copy.
+ * i  - A pointer to the current index within the buffers.
  *
  * Returns:
  * None.
@@ -69,9 +69,9 @@ LV_INLINE inline void	_copy_u8_fwd(void *__restrict__ dest,
  *
  * Parameters:
  * dest - A pointer to the destination memory region.
- * src  - A pointer to the source memory region.
- * n    - A pointer to the remaining number of bytes to copy.
- * i    - A pointer to the current index within the buffers.
+ * src - A pointer to the source memory region.
+ * n  - A pointer to the remaining number of bytes to copy.
+ * i  - A pointer to the current index within the buffers.
  *
  * Returns:
  * None.
@@ -110,9 +110,9 @@ LV_INLINE inline void	_copy_u32_fwd(void *__restrict__ dest,
  *
  * Parameters:
  * dest - A pointer to the destination memory region.
- * src  - A pointer to the source memory region.
- * n    - A pointer to the remaining number of bytes to copy.
- * i    - A pointer to the current index within the buffers.
+ * src - A pointer to the source memory region.
+ * n  - A pointer to the remaining number of bytes to copy.
+ * i  - A pointer to the current index within the buffers.
  *
  * Returns:
  * None.
@@ -123,7 +123,7 @@ LV_INLINE inline void	_copy_u32_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -150,9 +150,9 @@ LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
  *
  * Parameters:
  * dest - A pointer to the destination memory region.
- * src  - A pointer to the source memory region.
- * n    - A pointer to the remaining number of bytes to copy.
- * i    - A pointer to the current index within the buffers.
+ * src - A pointer to the source memory region.
+ * n  - A pointer to the remaining number of bytes to copy.
+ * i  - A pointer to the current index within the buffers.
  *
  * Returns:
  * None.
@@ -163,7 +163,7 @@ LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 128-bit access.
  */
 
-LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -192,8 +192,8 @@ LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
  *
  * Parameters:
  * dest - A pointer to the first memory region.
- * src  - A pointer to the second memory region.
- * i    - A pointer to the current offset (index) within the buffers.
+ * src - A pointer to the second memory region.
+ * i  - A pointer to the current offset (index) within the buffers.
  *
  * Returns:
  * The largest power of 2 (in bits: 128, 64, 32, or 0 for byte-wise)
@@ -206,7 +206,7 @@ LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
  * - `s == *i` is likely a check for `src` being `NULL` or very early in buffer.
  */
 
-LV_INLINE LV_CONST inline t_u8	_aligned(const void *__restrict__ dest,
+LV_INLINE_HOT LV_CONST inline t_u8	_aligned(const void *__restrict__ dest,
 	const void *__restrict__ src, size_t *i)
 {
 	t_uptr	d;

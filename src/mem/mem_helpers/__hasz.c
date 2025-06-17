@@ -37,7 +37,7 @@
  * - It leverages bitwise operations for efficient null byte detection.
  */
 
-LV_INLINE_HOT inline int	__hasz64(t_u64 x)
+LV_INLINE inline int	__hasz64(t_u64 x)
 {
     return (((x) -LONES_64) & (~x) & HIGHS_64);
 }
@@ -61,7 +61,7 @@ LV_INLINE_HOT inline int	__hasz64(t_u64 x)
 
 #include "mem.h"
 
-LV_INLINE_HOT inline int	__hasz128(t_u128 x)
+LV_INLINE inline int	__hasz128(t_u128 x)
 {
     t_u64 low_part;
 	t_u64 high_part;

@@ -91,6 +91,14 @@
 #  endif
 # endif
 
+# ifndef LV_SIMD_AVX2
+#  ifdef __GNUC__
+#    define LV_SIMD_AVX2 __attribute__((target("avx2")))
+#  else
+#    define LV_SIMD_AVX2
+#  endif
+# endif
+
 # ifndef LV_INLINE_HOT
 #  ifdef __GNUC__
 #    define LV_INLINE_HOT __attribute__((always_inline)) __attribute__((hot))
