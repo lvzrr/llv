@@ -83,7 +83,7 @@ LV_INLINE inline size_t	_alinger(void *__restrict__ dest,
  * `_write_u64_fwd`, and `_write_u128_fwd` for efficient filling.
  */
 
-void	*lv_memset(void *__restrict__ dest, int c, size_t n)
+LV_SIMD_AVX2 LV_INLINE_HOT inline void	*lv_memset(void *__restrict__ dest, int c, size_t n)
 {
 	size_t	i;
 	t_u8	r;
