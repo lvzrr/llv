@@ -121,7 +121,7 @@ LV_INLINE  inline void	_write_u32_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-LV_SIMD_AVX2 LV_INLINE  inline void	_write_u64_fwd(void *__restrict__ dest,
+LV_INLINE  inline void	_write_u64_fwd(void *__restrict__ dest,
 	t_u64 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -161,7 +161,7 @@ LV_SIMD_AVX2 LV_INLINE  inline void	_write_u64_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 128-bit access.
  */
 
-LV_SIMD_AVX2  LV_INLINE  inline void	_write_u128_fwd(void *__restrict__ dest,
+ LV_INLINE  inline void	_write_u128_fwd(void *__restrict__ dest,
 	t_u128 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {

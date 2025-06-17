@@ -95,7 +95,7 @@ LV_INLINE inline void	b(void *__restrict__ dest,
  * it immediately returns `dest`.
  */
 
-LV_INLINE_HOT inline void	*lv_memmove(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE_HOT inline void	*lv_memmove(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	if ((!dest || !src || dest == src) && n != 0)

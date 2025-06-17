@@ -123,7 +123,7 @@ LV_INLINE inline void	_copy_u32_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-LV_SIMD_AVX2 LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
+LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
@@ -163,7 +163,7 @@ LV_SIMD_AVX2 LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 128-bit access.
  */
 
-LV_SIMD_AVX2 LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
+LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
