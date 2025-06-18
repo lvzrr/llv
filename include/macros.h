@@ -120,6 +120,19 @@
 #  define LV_UNUSED(x) (void)(x)
 # endif
 
+# ifndef LV_PANIC
+#  define LV_PANIC(fncall, experr, rettype, msg)              \
+	({                                                        \
+		rettype _r = (fncall);                                \
+		if (_r == (experr)) {                                 \
+			lv_printf("FATAL: %s at %s:%d\n", msg,            \
+			          __FILE__, __LINE__);                    \
+			exit(EXIT_FAILURE);                               \
+		}                                                     \
+		_r;                                                   \
+	})
+# endif
+
 # ifndef LV_MAX
 #  define LV_MAX(x, y) ((x) > (y) ? (x) : (y))
 # endif
