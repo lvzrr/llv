@@ -1,5 +1,5 @@
 /**
- * lv_isalpha.c
+ * lv_isascii.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -20,8 +20,7 @@
 
 #include "llv.h"
 
-int	lv_isalpha(int c)
+LV_INLINE_HOT inline int	lv_isascii(int c)
 {
-	return ((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z'));
+	return (c >= 0 && c <= 127);
 }

@@ -1,5 +1,5 @@
 /**
- * llv.h
+ * lv_tstr_from_slice.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,20 +18,27 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBLV_H
-# define LIBLV_H
+#include "tstr.h"
 
-# include "structs.h"
-# include "cstr.h"
-# include "tstr.h"
-# include "mem.h"
-# include "ctype.h"
-# include "put.h"
-# include "printf.h"
-# include "gnl.h"
-# include "lst.h"
-# include "conv.h"
-# include "vec.h"
-# include "macros.h"
+t_string lv_tstr_from_slice(char *s, size_t n)
+{
+	t_string	out;
 
-#endif
+	if (!s)
+	{
+		out.len = 0;
+		out.alloc_size = 1;
+		out.data = lv_alloc(1);
+		lv_memset(out.data, 0, 1);
+	}
+	else
+	{
+		out.len = n;
+		out.alloc_size = out.len + 1;
+		out.data = lv_memclone(s, out.len);
+		lv_memset(out.data, 0, out.alloc_size);
+		if (out.data)
+			lv_memcpy(out.data, s, out.len);
+	}
+	return (out);
+}

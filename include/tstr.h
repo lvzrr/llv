@@ -28,6 +28,7 @@
 # include "cstr.h"
 
 t_string		lv_tstr_from_cstr(const char *str);
+t_string		 lv_tstr_from_slice(char *s, size_t n);
 char			*lv_tstr_dup_cstr(t_string *str);
 t_string		lv_tstr_new(ssize_t len);
 void			lv_tstr_pushstr(t_string *str, const char *s);
@@ -44,4 +45,5 @@ void			lv_tstr_repeat(t_string *str, const char *chunk,
 					size_t times);
 void			lv_tstr_insert(t_string *str, const char *insert,
 					size_t position);
+void			lv_tstr_pushslice(t_string *str, const char *s, size_t n);
 #endif

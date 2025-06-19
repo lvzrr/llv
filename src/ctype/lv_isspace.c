@@ -1,5 +1,5 @@
 /**
- * lv_isalnum.c
+ * lv_isspace.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -20,9 +20,7 @@
 
 #include "llv.h"
 
-int	lv_isalnum(int c)
+LV_INLINE_HOT inline t_u8	lv_isspace(int c)
 {
-	return (((c >= 'a' && c <= 'z')
-			|| (c >= 'A' && c <= 'Z')
-			|| (c >= '0' && c <= '9')));
+	return (c == 0x20 || (c >= 0x07 && c <= 0x0D));
 }

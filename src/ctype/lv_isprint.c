@@ -1,5 +1,5 @@
 /**
- * lv_isdigit.c
+ * lv_isprLV_INLINE_HOT inline int.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -20,7 +20,7 @@
 
 #include "llv.h"
 
-int	lv_isdigit(int c)
+LV_INLINE_HOT inline int	lv_isprint(int c)
 {
-	return (c >= '0' && c <= '9');
+	return (c >= 32 && c <= 126);
 }

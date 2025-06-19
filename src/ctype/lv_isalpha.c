@@ -1,5 +1,5 @@
 /**
- * lv_isprint.c
+ * lv_isalpha.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -20,7 +20,8 @@
 
 #include "llv.h"
 
-int	lv_isprint(int c)
+LV_INLINE_HOT inline int	lv_isalpha(int c)
 {
-	return (c >= 32 && c <= 126);
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z'));
 }

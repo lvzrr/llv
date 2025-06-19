@@ -1,5 +1,5 @@
 /**
- * chars.h
+ * lv_isalnum.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,12 +18,11 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CHARS_H
-# define CHARS_H
+#include "llv.h"
 
-int				lv_isalpha(int c);
-int				lv_isdigit(int c);
-int				lv_isalnum(int c);
-int				lv_isascii(int c);
-int				lv_isprint(int c);
-#endif
+LV_INLINE_HOT inline int	lv_isalnum(int c)
+{
+	return (((c >= 'a' && c <= 'z')
+			|| (c >= 'A' && c <= 'Z')
+			|| (c >= '0' && c <= '9')));
+}

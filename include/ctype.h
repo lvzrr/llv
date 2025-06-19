@@ -1,5 +1,5 @@
 /**
- * lv_isascii.c
+ * ctype.h
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,9 +18,13 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#include "llv.h"
+#ifndef CTYPE_H
+# define CTYPE_H
 
-int	lv_isascii(int c)
-{
-	return (c >= 0 && c <= 127);
-}
+int				lv_isalpha(int c);
+int				lv_isdigit(int c);
+int				lv_isalnum(int c);
+int				lv_isascii(int c);
+int				lv_isprint(int c);
+t_u8			lv_isspace(int c);
+#endif

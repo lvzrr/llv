@@ -25,7 +25,7 @@ FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-
 				-Wstrict-overflow=5 -Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
 AR			:=	ar rcs
 OBJDIR		:=	build
-DIRS		:=	math map vec tstr cstr alloc in is mem conv out lst mem/mem_helpers
+DIRS		:=	math map vec tstr cstr alloc in ctype mem conv out lst mem/mem_helpers
 
 SRCS		:=	$(foreach dir, $(DIRS), $(wildcard src/$(dir)/*.c))
 OBJS		:=	$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))

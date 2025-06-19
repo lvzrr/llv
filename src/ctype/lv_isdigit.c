@@ -1,5 +1,5 @@
 /**
- * llv.h
+ * lv_isdigit.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,20 +18,9 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBLV_H
-# define LIBLV_H
+#include "llv.h"
 
-# include "structs.h"
-# include "cstr.h"
-# include "tstr.h"
-# include "mem.h"
-# include "ctype.h"
-# include "put.h"
-# include "printf.h"
-# include "gnl.h"
-# include "lst.h"
-# include "conv.h"
-# include "vec.h"
-# include "macros.h"
-
-#endif
+LV_INLINE_HOT inline int	lv_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
