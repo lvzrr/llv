@@ -29,4 +29,5 @@ void			lv_printunbr_fd(unsigned int n, int fd, int *c);
 void			lv_printptr_fd(unsigned long p, int *c, int fd);
 int				lv_printf(const char *fmt, ...);
 void			lv_printhex_fd(unsigned int x, const char *set, int *l, int fd);
+int				lv_fprintf(int fd, const char *fmt, ...);
 #endif
