@@ -1,5 +1,6 @@
+
 /**
- * conv.h
+ * lv_atoul.c
  *
  * Copyright (C) 2025 lvzrr <lvzrr@proton.me>
  *
@@ -18,18 +19,40 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CONV_H
-# define CONV_H
-# include <unistd.h>
-# include <stdlib.h>
-# include "mem.h"
+#include "conv.h"
 
-int				lv_atoi(const char *str);
-float			lv_atof(const char *str);
-char			*lv_itoa(int n);
-int				lv_atoi_base(char *str, char *base, int base_len);
-char			*lv_itoa_base(int n, char *base);
-char			*lv_utoa_base(size_t n, char *base);
-ssize_t			lv_atol(const char *str);
-size_t			lv_atoul(const char *str);
-#endif
+/*
+ * Function: lv_atoul
+ * -----------------
+ * Converts a string to a long integer (size_t)
+ * It handles leading whitespace, an optional sign ('+' or '-'), and digits.
+ *
+ * Parameters:
+ * str - The input string to convert.
+ *
+ * Returns:
+ * The long integer value represented by the string.
+ */
+
+size_t	lv_atoul(const char *str)
+{
+	size_t		out;
+	int			neg;
+	size_t		i;
+
+	out = 0;
+	i = 0;
+	neg = 1;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
+	{
+		neg *= -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+		out = out * 10 + (str[i++] - '0');
+	return (out * neg);
+}
