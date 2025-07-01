@@ -47,5 +47,4 @@ char			*lv_strjoin(const char *s1, const char *s2);
 char			*lv_substr(const char *s, unsigned int start, size_t len);
 char			**lv_split(const char *str, char set);
 int				lv_strcmp(const char *a, const char *b);
-t_u8			lv_isnumeric(const char *__restrict__ s);
 #endif

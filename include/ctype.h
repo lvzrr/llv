@@ -27,4 +27,5 @@ int				lv_isalnum(int c);
 int				lv_isascii(int c);
 int				lv_isprint(int c);
 t_u8			lv_isspace(int c);
+t_u8			lv_isnumeric(const char *__restrict__ s);
 #endif
