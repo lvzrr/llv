@@ -35,7 +35,6 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@echo -e -n "\033[34m==> Compiling...\r\033[0m"
 	$(CC) $(FLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
@@ -59,7 +58,6 @@ test-mem:
 test-cstr:
 	@mkdir -p $(OBJDIR)/tests
 	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test
-	@echo "Asan done (cstr module)"
 
 test: install test-mem test-cstr
 
