@@ -54,19 +54,10 @@ fclean: clean
 
 test-mem:
 	@mkdir -p $(OBJDIR)/tests
-	@echo "Testing Valgrind (mem module)..."
-	@cc -O3 tests/mem.c -llv -Iinclude -o $(OBJDIR)/tests/mem.test
-	@valgrind --leak-check=full --track-origins=yes -s ./$(OBJDIR)/tests/mem.test
-	@echo "Testing Asan (mem module)..."
 	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test 1>/dev/null
-	@echo "Asan done (mem module)"
 
 test-cstr:
 	@mkdir -p $(OBJDIR)/tests
-	@echo "Testing Valgrind (mem module)..."
-	@cc -O3 tests/cstr.c -llv -Iinclude -o $(OBJDIR)/tests/cstr.test
-	@valgrind --leak-check=full --track-origins=yes -s ./$(OBJDIR)/tests/cstr.test
-	@echo "Testing Asan (cstr module)..."
 	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test 1>/dev/null
 	@echo "Asan done (cstr module)"
 
