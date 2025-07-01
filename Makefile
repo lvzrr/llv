@@ -54,11 +54,11 @@ fclean: clean
 
 test-mem:
 	@mkdir -p $(OBJDIR)/tests
-	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test 1>/dev/null
+	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test
 
 test-cstr:
 	@mkdir -p $(OBJDIR)/tests
-	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test 1>/dev/null
+	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test
 	@echo "Asan done (cstr module)"
 
 test: install test-mem test-cstr
