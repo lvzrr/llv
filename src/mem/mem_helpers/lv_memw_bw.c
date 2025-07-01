@@ -118,15 +118,15 @@ size_t *__restrict__ n, size_t *__restrict__ i)
 	const size_t u32_step = sizeof(t_u32);
 	while (*n >= u32_step * 2)
 	{
-		*i -= u32_step; // Move *i backward by one t_u32
+		*i -= u32_step;
 		((t_u32 *)((t_u8 *)dest + *i))[0] = ((t_u32 *)((t_u8 *)src + *i))[0];
-		*i -= u32_step; // Move *i backward by another t_u32
+		*i -= u32_step;
 		((t_u32 *)((t_u8 *)dest + *i))[0] = ((t_u32 *)((t_u8 *)src + *i))[0];
 		*n -= u32_step * 2;
 	}
 	while (*n >= u32_step)
 	{
-		*i -= u32_step; // Move *i backward by one t_u32
+		*i -= u32_step;
 		((t_u32 *)((t_u8 *)dest + *i))[0] = ((t_u32 *)((t_u8 *)src + *i))[0];
 		*n -= u32_step;
 	}
@@ -202,7 +202,7 @@ LV_SIMD_AVX2 LV_INLINE inline void	_copy_u64_bw(void *__restrict__ dest,
 	}
 	while (*n >= u64_step)
 	{
-		*i -= u64_step; // Move *i backward by one t_u64
+		*i -= u64_step;
 		((t_u64 *)((t_u8 *)dest + *i))[0] = ((t_u64 *)((t_u8 *)src + *i))[0];
 		*n -= u64_step;
 	}
