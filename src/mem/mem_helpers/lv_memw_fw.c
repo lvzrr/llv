@@ -41,10 +41,12 @@
  * working from the beginning of the specified range forwards.
  */
 
-LV_INLINE inline void	_copy_u8_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u8_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
+	_mm_prefetch(dest, _MM_HINT_T0);
+	_mm_prefetch(src, _MM_HINT_T0);
 	while (*n >= sizeof(t_u8) * 2)
 	{
 		((t_u8 *)dest + *i)[0] = ((t_u8 *)src + *i)[0];
@@ -83,10 +85,32 @@ LV_INLINE inline void	_copy_u8_fwd(void *__restrict__ dest,
  */
 
 
-LV_INLINE inline void	_copy_u32_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u32_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
+	dest = __builtin_assume_aligned(dest, 32);
+	src = __builtin_assume_aligned(src, 32);
+	_mm_prefetch(dest, _MM_HINT_T0);
+	_mm_prefetch(src, _MM_HINT_T0);
+#ifdef __AVX2__
+	while (*n >= sizeof(t_u32) * 8)
+	{
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i),
+					_mm256_load_si256((const __m256i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u32) * 8;
+		*n -= sizeof(t_u32) * 8;
+	}
+#endif
+#ifdef __SSE2__
+	while (*n >= sizeof(t_u32) * 4)
+	{
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i),
+					_mm_load_si128((const __m128i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u32) * 4;
+		*n -= sizeof(t_u32) * 4;
+	}
+#endif
 	while (*n >= sizeof(t_u32) * 2)
 	{
 		((t_u32 *)((t_u8 *)dest + *i))[0] = ((t_u32 *)((t_u8 *)src + *i))[0];
@@ -123,10 +147,41 @@ LV_INLINE inline void	_copy_u32_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
+	dest = __builtin_assume_aligned(dest, 64);
+	src = __builtin_assume_aligned(src, 64);
+	_mm_prefetch(dest, _MM_HINT_T0);
+	_mm_prefetch(src, _MM_HINT_T0);
+#ifdef __AVX512F__
+	while (*n >= sizeof(t_u64) * 8)
+	{
+		_mm512_store_si512((__m512i *)((t_u8 *)dest + *i),
+					_mm512_load_si512((const __m512i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u64) * 8;
+		*n -= sizeof(t_u64) * 8;
+	}
+#endif
+#ifdef __AVX2__
+	while (*n >= sizeof(t_u64) * 4)
+	{
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i),
+					_mm256_load_si256((const __m256i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u64) * 4;
+		*n -= sizeof(t_u64) * 4;
+	}
+#endif
+#ifdef __SSE2__
+	while (*n >= sizeof(t_u64) * 2)
+	{
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i),
+					_mm_load_si128((const __m128i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u64) * 2;
+		*n -= sizeof(t_u64) * 2;
+	}
+#endif
 	while (*n >= sizeof(t_u64) * 2)
 	{
 		((t_u64 *)((t_u8 *)dest + *i))[0] = ((t_u64 *)((t_u8 *)src + *i))[0];
@@ -163,24 +218,48 @@ LV_INLINE inline void	_copy_u64_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 128-bit access.
  */
 
-LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u128_fwd(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
+	dest = __builtin_assume_aligned(dest, 64);
+	src = __builtin_assume_aligned(src, 64);
+	_mm_prefetch(dest, _MM_HINT_T0);
+	_mm_prefetch(src, _MM_HINT_T0);
+#ifdef __AVX512F__
+	while (*n >= sizeof(t_u128) * 4)
+	{
+		_mm512_store_si512((__m512i *)((t_u8 *)dest + *i),
+					_mm512_load_si512((const __m512i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u128) * 4;
+		*n -= sizeof(t_u128) * 4;
+	}
+#endif
+#ifdef __AVX2__
 	while (*n >= sizeof(t_u128) * 2)
 	{
-		((t_u128 *)((t_u8 *)dest + *i))[0] = ((t_u128 *)((t_u8 *)src + *i))[0];
-		*i += sizeof(t_u128);
-		((t_u128 *)((t_u8 *)dest + *i))[0] = ((t_u128 *)((t_u8 *)src + *i))[0];
-		*i += sizeof(t_u128);
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i),
+					_mm256_load_si256((const __m256i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u128) * 2;
 		*n -= sizeof(t_u128) * 2;
 	}
+#endif
+#ifdef __SSE2__
+	while (*n >= sizeof(t_u128))
+	{
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i),
+					_mm_load_si128((const __m128i *)((const t_u8 *)src + *i)));
+		*i += sizeof(t_u128);
+		*n -= sizeof(t_u128);
+	}
+#else
 	while (*n >= sizeof(t_u128))
 	{
 		((t_u128 *)((t_u8 *)dest + *i))[0] = ((t_u128 *)((t_u8 *)src + *i))[0];
 		*i += sizeof(t_u128);
 		*n -= sizeof(t_u128);
 	}
+#endif
 }
 
 /*
@@ -215,14 +294,14 @@ LV_INLINE_HOT LV_CONST inline t_u8	_aligned(const void *__restrict__ dest,
 	d = (t_uptr)((t_u8 *)dest + *i);
 	s = (t_uptr)((t_u8 *)src + *i);
 
-	if (((d & (sizeof(t_u128) - 1)) == 0)
-		&& ((s & (sizeof(t_u128) - 1)) == 0))
+	if (!(d & 127)
+		&& !(s & 127))
 		return (128);
-	if (((d & (sizeof(t_u64) - 1)) == 0)
-		&& ((s & (sizeof(t_u64) - 1)) == 0))
+	if (!(d & 63)
+		&& !(s & 63))
 		return (64);
-	if (((d & (sizeof(t_u32) - 1)) == 0)
-		&& ((s & (sizeof(t_u32) - 1)) == 0))
+	if (!(d & 31)
+		&& !(s & 31))
 		return (32);
 	return (0);
 }

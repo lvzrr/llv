@@ -21,19 +21,25 @@
 #include "cstr.h"
 
 /*
- * Function: lv_strdup
- * -------------------
+ * $FUNC: lv_strdup
+ *
  * Duplicates a null-terminated string. A new memory block is allocated
  * and the content of the source string is copied into it.
  *
- * Parameters:
- * str - The null-terminated string to duplicate.
+ * $ARGS:
+ * $(&ptr:str)
+ * {
+ * 		The null-terminated string to duplicate.
+ * }
  *
- * Returns:
- * A pointer to the newly allocated and duplicated string on success.
- * NULL if the input string is NULL or if memory allocation fails.
+ * $RET:
+ * $(&ptr:p)
+ * {
+ *		A pointer to the newly allocated and duplicated string on success.
+ * 		NULL if the input string is NULL or if memory allocation fails.
+ * }
  *
- * Notes:
+ * $CMTS:
  * - The caller is responsible for freeing the allocated memory.
  * - Uses `lv_strlen` to determine the length and `lv_alloc` for memory.
  */

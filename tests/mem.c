@@ -74,7 +74,7 @@ void	memcpy_tests()
 	assert(lv_memcpy(NULL, b, 1) == NULL);
 	assert(lv_memcpy(b, NULL, 1) == NULL);
 	assert(lv_memcpy(b, b, 1) == NULL);
-	printf("lv_memcpy passed tests: %lu\r", i++);
+	printf("lv_memcpy passed tests: %lu\n", i++);
 }
 
 void	memmove_tests()

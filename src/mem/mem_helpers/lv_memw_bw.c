@@ -87,26 +87,48 @@ LV_INLINE  inline void	_copy_u8_bw(void *__restrict__ dest,
  * - Assumes appropriate alignment for 32-bit access.
  */
 
-LV_INLINE  inline void	_copy_u32_bw(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u32_bw(void *__restrict__ dest,
 	const void *__restrict__ src,
-	size_t *__restrict__ n, size_t *__restrict__ i)
+size_t *__restrict__ n, size_t *__restrict__ i)
 {
-	while (*n >= sizeof(t_u32) * 2)
+	_mm_prefetch((char *)dest + *i, _MM_HINT_T0);
+	_mm_prefetch((char *)src + *i, _MM_HINT_T0);
+	dest = __builtin_assume_aligned(dest, 32);
+	src = __builtin_assume_aligned(src, 32);
+#ifdef __AVX2__
+	const size_t avx2_step = sizeof(t_u32) * 8;
+	while (*n >= avx2_step)
 	{
-		((t_u32 *)((t_u8 *)dest + *i) - 2)[1]
-			= ((t_u32 *)((t_u8 *)src + *i) - 2)[1];
-		*i += sizeof(t_u32);
-		((t_u32 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u32 *)((t_u8 *)src + *i)- 2)[0];
-		*i += sizeof(t_u32);
-		*n -= sizeof(t_u32) * 2;
+		*i -= avx2_step;
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i),
+							_mm256_load_si256((const __m256i *)((const t_u8 *)src + *i)));
+		*n -= avx2_step;
 	}
-	while (*n >= sizeof(t_u32))
+#endif
+#ifdef __SSE2__
+	const size_t sse2_step = sizeof(t_u32) * 4;
+	while (*n >= sse2_step)
 	{
-		((t_u32 *)((t_u8 *)dest + *i) - 2)[1]
-			= ((t_u32 *)((t_u8 *)src + *i) - 2)[1];
-		*i += sizeof(t_u32);
-		*n -= sizeof(t_u32);
+		*i -= sse2_step;
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i),
+						_mm_load_si128((const __m128i *)((const t_u8 *)src + *i)));
+		*n -= sse2_step;
+	}
+#endif
+	const size_t u32_step = sizeof(t_u32);
+	while (*n >= u32_step * 2)
+	{
+		*i -= u32_step; // Move *i backward by one t_u32
+		((t_u32 *)((t_u8 *)dest + *i))[0] = ((t_u32 *)((t_u8 *)src + *i))[0];
+		*i -= u32_step; // Move *i backward by another t_u32
+		((t_u32 *)((t_u8 *)dest + *i))[0] = ((t_u32 *)((t_u8 *)src + *i))[0];
+		*n -= u32_step * 2;
+	}
+	while (*n >= u32_step)
+	{
+		*i -= u32_step; // Move *i backward by one t_u32
+		((t_u32 *)((t_u8 *)dest + *i))[0] = ((t_u32 *)((t_u8 *)src + *i))[0];
+		*n -= u32_step;
 	}
 }
 
@@ -131,26 +153,58 @@ LV_INLINE  inline void	_copy_u32_bw(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-LV_INLINE  inline void	_copy_u64_bw(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u64_bw(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
-	while (*n >= sizeof(t_u64) * 2)
+	_mm_prefetch((char *)dest + *i, _MM_HINT_T0);
+	_mm_prefetch((char *)src + *i, _MM_HINT_T0);
+	dest = __builtin_assume_aligned(dest, 64);
+	src = __builtin_assume_aligned(src, 64);
+#ifdef __AVX512F__
+	const size_t avx512_step = sizeof(t_u64) * 8;
+	while (*n >= avx512_step)
 	{
-		((t_u64 *)((t_u8 *)dest + *i - 2))[1]
-			= ((t_u64 *)((t_u8 *)src + *i - 2))[1];
-		*i += sizeof(t_u64);
-		((t_u64 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u64 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u64);
-		*n -= sizeof(t_u64) * 2;
+		*i -= avx512_step;
+		_mm512_store_si512((__m512i *)((t_u8 *)dest + *i),
+						_mm512_load_si512((const __m512i *)((const t_u8 *)src + *i)));
+		*n -= avx512_step;
 	}
-	while (*n >= sizeof(t_u64))
+#endif
+#ifdef __AVX2__
+	const size_t avx2_step = sizeof(t_u64) * 4;
+	while (*n >= avx2_step)
 	{
-		((t_u64 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u64 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u64);
-		*n -= sizeof(t_u64);
+		*i -= avx2_step;
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i),
+						_mm256_load_si256((const __m256i *)((const t_u8 *)src + *i)));
+		*n -= avx2_step;
+	}
+#endif
+#ifdef __SSE2__
+	const size_t sse2_step = sizeof(t_u64) * 2;
+	while (*n >= sse2_step)
+	{
+		*i -= sse2_step;
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i),
+						_mm_load_si128((const __m128i *)((const t_u8 *)src + *i)));
+		*n -= sse2_step;
+	}
+#endif
+	const size_t u64_step = sizeof(t_u64);
+	while (*n >= u64_step * 2)
+	{
+		*i -= u64_step;
+		((t_u64 *)((t_u8 *)dest + *i))[0] = ((t_u64 *)((t_u8 *)src + *i))[0];
+		*i -= u64_step;
+		((t_u64 *)((t_u8 *)dest + *i))[0] = ((t_u64 *)((t_u8 *)src + *i))[0];
+		*n -= u64_step * 2;
+	}
+	while (*n >= u64_step)
+	{
+		*i -= u64_step; // Move *i backward by one t_u64
+		((t_u64 *)((t_u8 *)dest + *i))[0] = ((t_u64 *)((t_u8 *)src + *i))[0];
+		*n -= u64_step;
 	}
 }
 
@@ -175,25 +229,58 @@ LV_INLINE  inline void	_copy_u64_bw(void *__restrict__ dest,
  * - Assumes appropriate alignment for 128-bit access.
  */
 
-LV_INLINE  inline void	_copy_u128_bw(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_copy_u128_bw(void *__restrict__ dest,
 	const void *__restrict__ src,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
-	while (*n >= sizeof(t_u128) * 2)
+	_mm_prefetch((char *)dest + *i, _MM_HINT_T0);
+	_mm_prefetch((char *)src + *i, _MM_HINT_T0);
+	dest = __builtin_assume_aligned(dest, 64);
+	src = __builtin_assume_aligned(src, 64);
+#ifdef __AVX512F__
+	const size_t avx512_step = sizeof(t_u128) * 4;
+	while (*n >= avx512_step)
 	{
-		((t_u128 *)((t_u8 *)dest + *i) - 2)[1]
-			= ((t_u128 *)((t_u8 *)src + *i) - 2)[1];
-		*i += sizeof(t_u128);
-		((t_u128 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u128 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u128);
-		*n -= sizeof(t_u128) * 2;
+		*i -= avx512_step;
+		_mm512_store_si512((__m512i *)((t_u8 *)dest + *i),
+						_mm512_load_si512((const __m512i *)((const t_u8 *)src + *i)));
+		*n -= avx512_step;
 	}
-	while (*n >= sizeof(t_u128))
+#endif
+#ifdef __AVX2__
+	const size_t avx2_step = sizeof(t_u128) * 2;
+	while (*n >= avx2_step)
 	{
-		((t_u128 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u128 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u128);
-		*n -= sizeof(t_u128);
+		*i -= avx2_step;
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i),
+						_mm256_load_si256((const __m256i *)((const t_u8 *)src + *i)));
+		*n -= avx2_step;
 	}
+#endif
+#ifdef __SSE2__
+	const size_t sse2_step = sizeof(t_u128);
+	while (*n >= sse2_step)
+	{
+		*i -= sse2_step;
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i),
+						_mm_load_si128((const __m128i *)((const t_u8 *)src + *i)));
+		*n -= sse2_step;
+	}
+#else
+	const size_t u128_step = sizeof(t_u128);
+	while (*n >= u128_step * 2)
+	{
+		*i -= u128_step;
+		((t_u128 *)((t_u8 *)dest + *i))[0] = ((t_u128 *)((t_u8 *)src + *i))[0];
+		*i -= u128_step;
+		((t_u128 *)((t_u8 *)dest + *i))[0] = ((t_u128 *)((t_u8 *)src + *i))[0];
+		*n -= u128_step * 2;
+	}
+	while (*n >= u128_step)
+	{
+		*i -= u128_step;
+		((t_u128 *)((t_u8 *)dest + *i))[0] = ((t_u128 *)((t_u8 *)src + *i))[0];
+		*n -= u128_step;
+	}
+#endif
 }

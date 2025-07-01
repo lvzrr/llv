@@ -49,12 +49,11 @@ LV_INLINE inline size_t	_alinger(void *__restrict__ dest,
 
 	x = 0;
 	*r = _aligned((t_u8 *)dest, (t_u8 *)src, &x);
-	while (*n >= 2 && !*r)
+	while (*n && !*r)
 	{
 		((t_u8 *)dest)[x] = ((t_u8 *)src)[x];
-		((t_u8 *)dest)[x + 1] = ((t_u8 *)src)[x + 1];
-		x += sizeof(t_u8) * 2;
-		*n -= sizeof(t_u8) * 2;
+		++x;
+		--(*n);
 		*r = _aligned((t_u8 *)dest, (t_u8 *)src, &x);
 	}
 	return (x);

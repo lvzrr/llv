@@ -20,6 +20,7 @@
 
 #ifndef MEM_H
 # define MEM_H
+# include <xmmintrin.h>
 # include <sys/types.h>
 # include <stdlib.h>
 # include <limits.h>
@@ -27,6 +28,13 @@
 # include "alloc.h"
 # include "structs.h"
 # include "macros.h"
+# ifdef __SSE2__
+#  include <emmintrin.h>
+# endif
+
+# ifdef __AVX2__
+#  include <immintrin.h>
+# endif
 
 # define LONES_64 0x0101010101010101ULL
 # define HIGHS_64 0x8080808080808080ULL

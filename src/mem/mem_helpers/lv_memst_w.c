@@ -81,10 +81,30 @@ LV_INLINE  inline void	_write_u8_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 32-bit access.
  */
 
-LV_INLINE  inline void	_write_u32_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_write_u32_fwd(void *__restrict__ dest,
 	t_u32 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
+	dest = __builtin_assume_aligned(dest, 32);
+	_mm_prefetch(dest, _MM_HINT_T0);
+#ifdef __AVX2__
+	const __m256i val256 = _mm256_set1_epi32((int)x);
+	while (*n >= sizeof(t_u32) * 8)
+	{
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i), val256);
+		*i += sizeof(t_u32) * 8;
+		*n -= sizeof(t_u32) * 8;
+	}
+#endif
+#ifdef __SSE2__
+	const __m128i val128 = _mm_set1_epi32((int)x);
+	while (*n >= sizeof(t_u32) * 4)
+	{
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i), val128);
+		*i += sizeof(t_u32) * 4;
+		*n -= sizeof(t_u32) * 4;
+	}
+#endif
 	while (*n >= sizeof(t_u32) * 2)
 	{
 		((t_u32 *)((t_u8 *)dest + *i))[0] = x;
@@ -121,24 +141,46 @@ LV_INLINE  inline void	_write_u32_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 64-bit access.
  */
 
-LV_INLINE  inline void	_write_u64_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_write_u64_fwd(void *__restrict__ dest,
 	t_u64 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
+	dest = __builtin_assume_aligned(dest, 64);
+	_mm_prefetch(dest, _MM_HINT_T0);
+#ifdef __AVX512F__
+	const __m512i val512 = _mm512_set1_epi64((long long)x);
+	while (*n >= sizeof(t_u64) * 4)
+	{
+		_mm512_store_si512((__m512i *)((t_u8 *)dest + *i), val512);
+		*i += sizeof(t_u64) * 4;
+		*n -= sizeof(t_u64) * 4;
+	}
+#endif
+#ifdef __AVX2__
+	const __m256i val256 = _mm256_set1_epi64x((long long)x);
 	while (*n >= sizeof(t_u64) * 2)
 	{
-		((t_u64 *)((t_u8 *)dest + *i))[0] = x;
-		*i += sizeof(t_u64);
-		((t_u64 *)((t_u8 *)dest + *i))[0] = x;
-		*i += sizeof(t_u64);
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i), val256);
+		*i += sizeof(t_u64) * 2;
 		*n -= sizeof(t_u64) * 2;
 	}
+#endif
+#ifdef __SSE2__
+	const __m128i val128 = _mm_set1_epi64x((long long)x);
+	while (*n >= sizeof(t_u64))
+	{
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i), val128);
+		*i += sizeof(t_u64);
+		*n -= sizeof(t_u64);
+	}
+#else
 	while (*n >= sizeof(t_u64))
 	{
 		((t_u64 *)((t_u8 *)dest + *i))[0] = x;
 		*i += sizeof(t_u64);
 		*n -= sizeof(t_u64);
 	}
+#endif
 }
 
 /*
@@ -161,22 +203,35 @@ LV_INLINE  inline void	_write_u64_fwd(void *__restrict__ dest,
  * - Assumes appropriate alignment for 128-bit access.
  */
 
- LV_INLINE  inline void	_write_u128_fwd(void *__restrict__ dest,
+LV_SIMD_AVX2 LV_INLINE inline void	_write_u128_fwd(void *__restrict__ dest,
 	t_u128 x,
 	size_t *__restrict__ n, size_t *__restrict__ i)
 {
+	dest = __builtin_assume_aligned(dest, 128);
+	_mm_prefetch(dest, _MM_HINT_T0);
+#ifdef __AVX512F__
+	const __m512i val512 = _mm512_set1_epi64((long long)x);
 	while (*n >= sizeof(t_u128) * 2)
 	{
-		((t_u128 *)((t_u8 *)dest + *i))[0] = x;
-		*i += sizeof(t_u128);
-		((t_u128 *)((t_u8 *)dest + *i))[0] = x;
-		*i += sizeof(t_u128);
+		_mm512_store_si512((__m512i *)((t_u8 *)dest + *i), val512);
+		*i += sizeof(t_u128) * 2;
 		*n -= sizeof(t_u128) * 2;
 	}
+#endif
+#ifdef __AVX2__
+	const __m256i val256 = _mm256_set1_epi64x((long long)x);
+	while (*n >= sizeof(t_u128))
+	{
+		_mm256_store_si256((__m256i *)((t_u8 *)dest + *i), val256);
+		*i += sizeof(t_u128);
+		*n -= sizeof(t_u128);
+	}
+#else
 	while (*n >= sizeof(t_u128))
 	{
 		((t_u128 *)((t_u8 *)dest + *i))[0] = x;
 		*i += sizeof(t_u128);
 		*n -= sizeof(t_u128);
 	}
+#endif
 }
