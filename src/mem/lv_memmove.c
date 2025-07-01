@@ -54,12 +54,11 @@ LV_INLINE inline void	b(void *__restrict__ dest,
 
 	i = 0;
 	r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
-	while (n >= 2 && !r)
+	while (n && !r)
 	{
 		((t_u8 *)dest)[i] = ((t_u8 *)src)[i];
-		((t_u8 *)dest)[i + 1] = ((t_u8 *)src)[i + 1];
-		i += sizeof(t_u8) * 2;
-		n -= sizeof(t_u8) * 2;
+		++i;
+		--n;
 		r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
 	}
 	if (n > sizeof(t_u128) * 2 && r == 128)

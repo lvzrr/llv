@@ -49,12 +49,11 @@ LV_INLINE inline size_t	_alinger(void *__restrict__ dest,
 	size_t	x;
 
 	x = 0;
-	while (*n >= 2 && !*r)
+	while (*n && !*r)
 	{
 		((t_u8 *)dest)[x] = o;
-		((t_u8 *)dest)[x + 1] = o;
-		x += sizeof(t_u8) * 2;
-		*n -= sizeof(t_u8) * 2;
+		++x;
+		--(*n);
 		*r = _aligned((t_u8 *)dest, NULL, &x);
 	}
 	return (x);

@@ -58,10 +58,8 @@ LV_INLINE static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
 		*r = _aligned((t_u8 *)ptr, NULL, i);
 		if (r)
 			return (NULL);
-		if (*d++ == x)
-			return ((t_u8 *)d - sizeof(t_u8) + lk);
-		*n -= sizeof(t_u8) * 2;
-		*i += sizeof(t_u8) * 2;
+		--(*n);
+		++(*i);
 		*r = _aligned((t_u8 *)ptr, NULL, i);
 	}
 	return (NULL);
