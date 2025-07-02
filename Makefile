@@ -53,11 +53,11 @@ fclean: clean
 
 test-mem:
 	@mkdir -p $(OBJDIR)/tests
-	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test
+	@$(CC) -g -O3 -fsanitize=address,undefined,leak -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test
 
 test-cstr:
 	@mkdir -p $(OBJDIR)/tests
-	@$(CC) -g -O3 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test
+	@$(CC) -g -O3 -fsanitize=address,undefined,leak -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test
 
 test: install test-mem test-cstr
 

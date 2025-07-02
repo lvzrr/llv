@@ -1,6 +1,7 @@
 #include <llv/alloc.h>
 #include <llv/macros.h>
 #include <llv/cstr.h>
+#include <llv/ctype.h>
 #include <string.h>
 #include <assert.h>
 #include <stdio.h>

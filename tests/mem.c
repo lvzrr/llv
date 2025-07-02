@@ -503,7 +503,7 @@ void	arena_allocation_tests()
 			assert(((uintptr_t)block % DEF_ALIGN) == 0);
 			block[0] = 'Z';
 		}
-		printf("lv_arena chain growth test passed: %lu\r", i++);
+		printf("lv_arena chain growth test passed: %lu\n", i++);
 	}
 
 	{
@@ -513,13 +513,13 @@ void	arena_allocation_tests()
 		assert(((uintptr_t)a % DEF_ALIGN) == 0);
 		assert(((uintptr_t)b % DEF_ALIGN) == 0);
 		assert(a != b);
-		printf("lv_arena multiple alloc test passed: %lu\r\n", i++);
+		printf("lv_arena multiple alloc test passed: %lu\n", i++);
 	}
 
 	{
 		char *zero = lv_arena(0);
 		assert(zero == NULL);
-		printf("lv_arena zero alloc test passed: %lu\r\n", i++);
+		printf("lv_arena zero alloc test passed: %lu\n", i++);
 	}
 }
 
