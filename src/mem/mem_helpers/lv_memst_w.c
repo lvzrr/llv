@@ -224,10 +224,20 @@ LV_SIMD_AVX2 LV_INLINE inline void	_write_u128_fwd(void *__restrict__ dest,
 		*n -= sizeof(t_u128) * 2;
 	}
 #endif
+#ifdef __SSE2__
+	const __m128i val128 = _mm_set1_epi64x(x);
+	while (*n >= sizeof(t_u128))
+	{
+		_mm_store_si128((__m128i *)((t_u8 *)dest + *i), val128);
+		*i += sizeof(t_u128);
+		*n -= sizeof(t_u128);
+	}
+#else
 	while (*n >= sizeof(t_u128))
 	{
 		((t_u128 *)((t_u8 *)dest + *i))[0] = x;
 		*i += sizeof(t_u128);
 		*n -= sizeof(t_u128);
 	}
+#endif
 }
