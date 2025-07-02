@@ -171,14 +171,13 @@ LV_SIMD_AVX2 LV_INLINE inline void	_write_u64_fwd(void *__restrict__ dest,
 		*i += sizeof(t_u64) * 2;
 		*n -= sizeof(t_u64) * 2;
 	}
-#else
+#endif
 	while (*n >= sizeof(t_u64))
 	{
 		((t_u64 *)((t_u8 *)dest + *i))[0] = x;
 		*i += sizeof(t_u64);
 		*n -= sizeof(t_u64);
 	}
-#endif
 }
 
 /*
@@ -224,12 +223,11 @@ LV_SIMD_AVX2 LV_INLINE inline void	_write_u128_fwd(void *__restrict__ dest,
 		*i += sizeof(t_u128) * 2;
 		*n -= sizeof(t_u128) * 2;
 	}
-#else
+#endif
 	while (*n >= sizeof(t_u128))
 	{
 		((t_u128 *)((t_u8 *)dest + *i))[0] = x;
 		*i += sizeof(t_u128);
 		*n -= sizeof(t_u128);
 	}
-#endif
 }
