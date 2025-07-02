@@ -82,7 +82,7 @@ LV_INLINE inline size_t	_alinger(void *__restrict__ dest,
  * `_copy_u64_fwd`, and `_copy_u128_fwd` for efficient copying.
  */
 
-LV_SIMD_AVX2 LV_INLINE_HOT inline void	*lv_memcpy(void *__restrict__ dest,
+LV_SIMD LV_INLINE_HOT inline void	*lv_memcpy(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	void	*ret;

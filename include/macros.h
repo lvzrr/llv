@@ -91,11 +91,23 @@
 #  endif
 # endif
 
-# ifndef LV_SIMD_AVX2
-#  ifdef __GNUC__
-#    define LV_SIMD_AVX2 __attribute__((target("avx2")))
+# ifndef LV_SIMD
+#  if defined(__AVX512F__) && defined(__AVX512BW__) && defined(__AVX512VL__)
+#   define LV_SIMD __attribute__((target("avx512f,avx512bw,avx512vl")))
+#  elif defined(__AVX2__) && defined(__FMA__) && defined(__BMI2__)
+#   define LV_SIMD __attribute__((target("avx2,fma,bmi2")))
+#  elif defined(__AVX2__)
+#   define LV_SIMD __attribute__((target("avx2")))
+#  elif defined(__SSE4_2__)
+#   define LV_SIMD __attribute__((target("sse4.2")))
+#  elif defined(__SSE4_1__)
+#   define LV_SIMD __attribute__((target("sse4.1")))
+#  elif defined(__SSSE3__)
+#   define LV_SIMD __attribute__((target("ssse3")))
+#  elif defined(__SSE2__)
+#   define LV_SIMD __attribute__((target("sse2")))
 #  else
-#    define LV_SIMD_AVX2
+#   define LV_SIMD
 #  endif
 # endif
 
